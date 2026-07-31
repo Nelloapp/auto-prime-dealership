@@ -22,12 +22,12 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-primary/25 bg-primary-deep/95 text-primary-foreground backdrop-blur">
-      <div className="mx-auto flex h-20 max-w-6xl items-center justify-between gap-3 px-4">
+      <div className="mx-auto flex h-32 max-w-6xl items-center justify-between gap-3 px-4">
         <Link to="/" className="flex items-center gap-3">
           <img
             src={logo.url}
             alt="Auto Prime logo"
-            className="h-12 w-auto rounded-md md:h-14"
+            className="h-24 w-auto rounded-md md:h-28"
           />
           <span className="sr-only">Auto Prime</span>
         </Link>
