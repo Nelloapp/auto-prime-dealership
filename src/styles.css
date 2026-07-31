@@ -167,3 +167,13 @@
     display: none;
   }
 }
+
+@utility bg-gradient-silver {
+  background-image: var(--gradient-silver);
+}
+
+@utility text-silver {
+  background-image: var(--gradient-silver);
+  background-clip: text;
+  color: transparent;
+}
