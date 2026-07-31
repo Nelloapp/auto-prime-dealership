@@ -18,6 +18,7 @@ import { Route as ContattiRouteImport } from './routes/contatti'
 import { Route as PermutaRouteImport } from './routes/permuta'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminAppuntamentiRouteImport } from './routes/admin.appuntamenti'
+import { Route as AdminImpostazioniRouteImport } from './routes/admin.impostazioni'
 import { Route as AdminMessaggiRouteImport } from './routes/admin.messaggi'
 import { Route as AdminPermuteRouteImport } from './routes/admin.permute'
 import { Route as AutoSlugRouteImport } from './routes/auto.$slug'
@@ -70,6 +71,11 @@ const AdminAppuntamentiRoute = AdminAppuntamentiRouteImport.update({
   path: '/appuntamenti',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminImpostazioniRoute = AdminImpostazioniRouteImport.update({
+  id: '/impostazioni',
+  path: '/impostazioni',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminMessaggiRoute = AdminMessaggiRouteImport.update({
   id: '/messaggi',
   path: '/messaggi',
@@ -110,6 +116,7 @@ export interface FileRoutesByFullPath {
   '/contatti': typeof ContattiRoute
   '/permuta': typeof PermutaRoute
   '/admin/appuntamenti': typeof AdminAppuntamentiRoute
+  '/admin/impostazioni': typeof AdminImpostazioniRoute
   '/admin/messaggi': typeof AdminMessaggiRoute
   '/admin/permute': typeof AdminPermuteRoute
   '/auto/$slug': typeof AutoSlugRoute
@@ -126,6 +133,7 @@ export interface FileRoutesByTo {
   '/contatti': typeof ContattiRoute
   '/permuta': typeof PermutaRoute
   '/admin/appuntamenti': typeof AdminAppuntamentiRoute
+  '/admin/impostazioni': typeof AdminImpostazioniRoute
   '/admin/messaggi': typeof AdminMessaggiRoute
   '/admin/permute': typeof AdminPermuteRoute
   '/auto/$slug': typeof AutoSlugRoute
@@ -144,6 +152,7 @@ export interface FileRoutesById {
   '/contatti': typeof ContattiRoute
   '/permuta': typeof PermutaRoute
   '/admin/appuntamenti': typeof AdminAppuntamentiRoute
+  '/admin/impostazioni': typeof AdminImpostazioniRoute
   '/admin/messaggi': typeof AdminMessaggiRoute
   '/admin/permute': typeof AdminPermuteRoute
   '/auto/$slug': typeof AutoSlugRoute
@@ -163,6 +172,7 @@ export interface FileRouteTypes {
     | '/contatti'
     | '/permuta'
     | '/admin/appuntamenti'
+    | '/admin/impostazioni'
     | '/admin/messaggi'
     | '/admin/permute'
     | '/auto/$slug'
@@ -179,6 +189,7 @@ export interface FileRouteTypes {
     | '/contatti'
     | '/permuta'
     | '/admin/appuntamenti'
+    | '/admin/impostazioni'
     | '/admin/messaggi'
     | '/admin/permute'
     | '/auto/$slug'
@@ -196,6 +207,7 @@ export interface FileRouteTypes {
     | '/contatti'
     | '/permuta'
     | '/admin/appuntamenti'
+    | '/admin/impostazioni'
     | '/admin/messaggi'
     | '/admin/permute'
     | '/auto/$slug'
@@ -281,6 +293,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAppuntamentiRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/impostazioni': {
+      id: '/admin/impostazioni'
+      path: '/impostazioni'
+      fullPath: '/admin/impostazioni'
+      preLoaderRoute: typeof AdminImpostazioniRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/messaggi': {
       id: '/admin/messaggi'
       path: '/messaggi'
@@ -328,6 +347,7 @@ declare module '@tanstack/react-router' {
 
 interface AdminRouteChildren {
   AdminAppuntamentiRoute: typeof AdminAppuntamentiRoute
+  AdminImpostazioniRoute: typeof AdminImpostazioniRoute
   AdminMessaggiRoute: typeof AdminMessaggiRoute
   AdminPermuteRoute: typeof AdminPermuteRoute
   AdminIndexRoute: typeof AdminIndexRoute
@@ -338,6 +358,7 @@ interface AdminRouteChildren {
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminAppuntamentiRoute: AdminAppuntamentiRoute,
+  AdminImpostazioniRoute: AdminImpostazioniRoute,
   AdminMessaggiRoute: AdminMessaggiRoute,
   AdminPermuteRoute: AdminPermuteRoute,
   AdminIndexRoute: AdminIndexRoute,
