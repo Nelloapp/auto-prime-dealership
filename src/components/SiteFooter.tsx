@@ -2,10 +2,11 @@ import { Link } from "@tanstack/react-router";
 import { Phone, MapPin, Clock, MessageCircle } from "lucide-react";
 import { useSettings } from "@/lib/cars";
 import { mapsHref, telHref, whatsappHref } from "@/lib/site";
-import logo from "@/assets/autoprime-logo.jpg.asset.json";
+import { useSiteLogo } from "@/lib/theme";
 
 export function SiteFooter() {
   const { data: s } = useSettings();
+  const logo = useSiteLogo();
   const phone = s?.phone ?? "329 789 7193";
   const address = s?.address ?? "Traversa Andolfi 11, 80045 Pompei (NA)";
 
@@ -13,7 +14,12 @@ export function SiteFooter() {
     <footer className="mt-16 bg-primary-deep text-primary-foreground">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:grid-cols-2 lg:grid-cols-3">
         <div>
-          <img src={logo.url} alt="Auto Prime logo" className="h-32 w-auto rounded-md" />
+          <img
+            src={logo.url}
+            alt="Auto Prime logo"
+            className="w-auto rounded-md"
+            style={{ height: logo.height }}
+          />
           <p className="mt-3 text-sm text-primary-foreground/70">
             Auto usate di qualità a prezzi onesti. Titolare {s?.owner_name ?? "Enrico Auricchio"}.
           </p>

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { CarCard } from "@/components/CarCard";
 import { carsQuery, useSettings } from "@/lib/cars";
 import { telHref, whatsappHref } from "@/lib/site";
+import { useHeroImage } from "@/lib/theme";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -47,13 +48,14 @@ const PLUSES = [
 function Home() {
   const { data: settings } = useSettings();
   const { data: cars } = useQuery(carsQuery);
+  const customHero = useHeroImage();
   const featured = (cars ?? []).filter((c) => c.status !== "venduta").slice(0, 6);
 
   return (
     <main>
       <section className="relative isolate overflow-hidden">
         <img
-          src={heroImg}
+          src={customHero ?? heroImg}
           alt="Piazzale Auto Prime con auto usate in vendita"
           width={1920}
           height={1088}
