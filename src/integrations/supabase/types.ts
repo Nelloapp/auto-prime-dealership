@@ -219,12 +219,21 @@ export type Database = {
         Row: {
           about_text: string
           address: string
+          color_accent: string
+          color_background: string
+          color_header: string
+          color_primary: string
           company_name: string
           email: string
+          hero_image_path: string
           id: boolean
+          logo_height: number
+          logo_path: string
+          nav_items: Json
           opening_hours: string
           owner_name: string
           phone: string
+          show_admin_link: boolean
           updated_at: string
           vat_number: string
           whatsapp: string
@@ -232,12 +241,21 @@ export type Database = {
         Insert: {
           about_text?: string
           address?: string
+          color_accent?: string
+          color_background?: string
+          color_header?: string
+          color_primary?: string
           company_name?: string
           email?: string
+          hero_image_path?: string
           id?: boolean
+          logo_height?: number
+          logo_path?: string
+          nav_items?: Json
           opening_hours?: string
           owner_name?: string
           phone?: string
+          show_admin_link?: boolean
           updated_at?: string
           vat_number?: string
           whatsapp?: string
@@ -245,12 +263,21 @@ export type Database = {
         Update: {
           about_text?: string
           address?: string
+          color_accent?: string
+          color_background?: string
+          color_header?: string
+          color_primary?: string
           company_name?: string
           email?: string
+          hero_image_path?: string
           id?: boolean
+          logo_height?: number
+          logo_path?: string
+          nav_items?: Json
           opening_hours?: string
           owner_name?: string
           phone?: string
+          show_admin_link?: boolean
           updated_at?: string
           vat_number?: string
           whatsapp?: string
