@@ -40,7 +40,7 @@ const PLUSES = [
   {
     icon: Wrench,
     title: "Assistenza post-vendita",
-    text: "Garanzia inclusa e supporto diretto anche dopo l'acquisto.",
+    text: "Supporto diretto anche dopo l'acquisto.",
   },
 ];
 
