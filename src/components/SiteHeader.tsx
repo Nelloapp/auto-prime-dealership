@@ -4,33 +4,33 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useSettings } from "@/lib/cars";
 import { telHref, whatsappHref } from "@/lib/site";
+import { useNavItems, useSiteLogo } from "@/lib/theme";
 import { cn } from "@/lib/utils";
-import logo from "@/assets/autoprime-logo.jpg.asset.json";
-
-const NAV = [
-  { to: "/", label: "Home" },
-  { to: "/catalogo", label: "Catalogo" },
-  { to: "/permuta", label: "Valuta la tua auto" },
-  { to: "/contatti", label: "Chi siamo" },
-];
 
 export function SiteHeader() {
   const { data: settings } = useSettings();
   const [open, setOpen] = useState(false);
   const phone = settings?.phone ?? "329 789 7193";
   const whatsapp = settings?.whatsapp ?? "393297897193";
+  const logo = useSiteLogo();
+  const { items: NAV, showAdminLink } = useNavItems();
 
   return (
     <header className="sticky top-0 z-50 border-b border-primary/25 bg-primary-deep/95 text-primary-foreground backdrop-blur">
-      <div className="mx-auto flex h-32 max-w-6xl items-center justify-between gap-3 px-4">
+      <div
+        className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-2"
+        style={{ minHeight: logo.height + 16 }}
+      >
         <Link to="/" className="flex items-center gap-3">
           <img
             src={logo.url}
             alt="Auto Prime logo"
-            className="h-24 w-auto rounded-md md:h-28"
+            className="w-auto rounded-md"
+            style={{ height: logo.height }}
           />
           <span className="sr-only">Auto Prime</span>
         </Link>
+
 
         <nav className="hidden items-center gap-1 md:flex">
           {NAV.map((item) => (
