@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CatalogoRouteImport } from './routes/catalogo'
+import { Route as PermutaRouteImport } from './routes/permuta'
 import { Route as AutoSlugRouteImport } from './routes/auto.$slug'
 
 const IndexRoute = IndexRouteImport.update({
@@ -23,6 +24,11 @@ const CatalogoRoute = CatalogoRouteImport.update({
   path: '/catalogo',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PermutaRoute = PermutaRouteImport.update({
+  id: '/permuta',
+  path: '/permuta',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AutoSlugRoute = AutoSlugRouteImport.update({
   id: '/auto/$slug',
   path: '/auto/$slug',
@@ -32,30 +38,34 @@ const AutoSlugRoute = AutoSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/catalogo': typeof CatalogoRoute
+  '/permuta': typeof PermutaRoute
   '/auto/$slug': typeof AutoSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/catalogo': typeof CatalogoRoute
+  '/permuta': typeof PermutaRoute
   '/auto/$slug': typeof AutoSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/catalogo': typeof CatalogoRoute
+  '/permuta': typeof PermutaRoute
   '/auto/$slug': typeof AutoSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/catalogo' | '/auto/$slug'
+  fullPaths: '/' | '/catalogo' | '/permuta' | '/auto/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/catalogo' | '/auto/$slug'
-  id: '__root__' | '/' | '/catalogo' | '/auto/$slug'
+  to: '/' | '/catalogo' | '/permuta' | '/auto/$slug'
+  id: '__root__' | '/' | '/catalogo' | '/permuta' | '/auto/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CatalogoRoute: typeof CatalogoRoute
+  PermutaRoute: typeof PermutaRoute
   AutoSlugRoute: typeof AutoSlugRoute
 }
 
@@ -75,6 +85,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CatalogoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/permuta': {
+      id: '/permuta'
+      path: '/permuta'
+      fullPath: '/permuta'
+      preLoaderRoute: typeof PermutaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auto/$slug': {
       id: '/auto/$slug'
       path: '/auto/$slug'
@@ -88,6 +105,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CatalogoRoute: CatalogoRoute,
+  PermutaRoute: PermutaRoute,
   AutoSlugRoute: AutoSlugRoute,
 }
 export const routeTree = rootRouteImport
