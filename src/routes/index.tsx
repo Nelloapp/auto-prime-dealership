@@ -59,7 +59,7 @@ function Home() {
           height={1088}
           className="absolute inset-0 size-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary-deep/97 via-primary-deep/85 to-primary/35" />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-deep/95 via-primary-deep/85 to-primary/35" />
         <div className="relative mx-auto max-w-6xl px-4 py-20 sm:py-28">
           <p className="font-display text-sm font-bold uppercase tracking-[0.2em] text-accent">
             Pompei · Napoli
