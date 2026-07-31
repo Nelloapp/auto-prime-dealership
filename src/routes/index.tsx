@@ -10,16 +10,16 @@ import { telHref, whatsappHref } from "@/lib/site";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Auto Prime Pompei — Auto usate garantite" },
+      { title: "Auto Prime Pompei — Auto usate selezionate" },
       {
         name: "description",
         content:
-          "Auto usate selezionate e garantite a Pompei (NA). Prezzi chiari, permuta valutata subito, assistenza dedicata. Scopri il nostro parco auto.",
+          "Auto usate selezionate a Pompei (NA). Prezzi chiari, permuta valutata subito, assistenza dedicata. Scopri il nostro parco auto.",
       },
-      { property: "og:title", content: "Auto Prime Pompei — Auto usate garantite" },
+      { property: "og:title", content: "Auto Prime Pompei — Auto usate selezionate" },
       {
         property: "og:description",
-        content: "Auto usate selezionate e garantite a Pompei. Scopri il parco auto Auto Prime.",
+        content: "Auto usate selezionate a Pompei. Scopri il parco auto Auto Prime.",
       },
     ],
   }),
@@ -40,7 +40,7 @@ const PLUSES = [
   {
     icon: Wrench,
     title: "Assistenza post-vendita",
-    text: "Garanzia inclusa e supporto diretto anche dopo l'acquisto.",
+    text: "Supporto diretto anche dopo l'acquisto.",
   },
 ];
 
@@ -68,7 +68,7 @@ function Home() {
             L'auto giusta, al prezzo giusto.
           </h1>
           <p className="mt-4 max-w-xl text-lg text-primary-foreground/85">
-            Usato selezionato, controllato e garantito. Vieni a provarlo o prenota un appuntamento
+            Usato selezionato e controllato. Vieni a provarlo o prenota un appuntamento
             in pochi secondi.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
