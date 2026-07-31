@@ -137,12 +137,12 @@ function AppearanceCard() {
 
   useEffect(() => {
     if (!data) return;
-    setColors({
-      color_primary: data.color_primary || DEFAULT_COLORS.color_primary,
-      color_accent: data.color_accent || DEFAULT_COLORS.color_accent,
-      color_background: data.color_background || DEFAULT_COLORS.color_background,
-      color_header: data.color_header || DEFAULT_COLORS.color_header,
-    });
+    setColors(
+      Object.fromEntries(
+        COLORS.map((c) => [c.name, (data[c.name] as string) || c.fallback]),
+      ) as Record<string, string>,
+    );
+
     setLogoPath(data.logo_path ?? "");
     setHeroPath(data.hero_image_path ?? "");
     setLogoHeight(data.logo_height || 128);
