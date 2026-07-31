@@ -17,6 +17,7 @@ import { Route as ChiSiamoRouteImport } from './routes/chi-siamo'
 import { Route as ContattiRouteImport } from './routes/contatti'
 import { Route as PermutaRouteImport } from './routes/permuta'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminAppuntamentiRouteImport } from './routes/admin.appuntamenti'
 import { Route as AutoSlugRouteImport } from './routes/auto.$slug'
 import { Route as AdminAutoIndexRouteImport } from './routes/admin.auto.index'
 import { Route as AdminAutoIdRouteImport } from './routes/admin.auto.$id'
@@ -62,6 +63,11 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminAppuntamentiRoute = AdminAppuntamentiRouteImport.update({
+  id: '/appuntamenti',
+  path: '/appuntamenti',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AutoSlugRoute = AutoSlugRouteImport.update({
   id: '/auto/$slug',
   path: '/auto/$slug',
@@ -91,6 +97,7 @@ export interface FileRoutesByFullPath {
   '/chi-siamo': typeof ChiSiamoRoute
   '/contatti': typeof ContattiRoute
   '/permuta': typeof PermutaRoute
+  '/admin/appuntamenti': typeof AdminAppuntamentiRoute
   '/auto/$slug': typeof AutoSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/admin/auto/$id': typeof AdminAutoIdRoute
@@ -104,6 +111,7 @@ export interface FileRoutesByTo {
   '/chi-siamo': typeof ChiSiamoRoute
   '/contatti': typeof ContattiRoute
   '/permuta': typeof PermutaRoute
+  '/admin/appuntamenti': typeof AdminAppuntamentiRoute
   '/auto/$slug': typeof AutoSlugRoute
   '/admin': typeof AdminIndexRoute
   '/admin/auto/$id': typeof AdminAutoIdRoute
@@ -119,6 +127,7 @@ export interface FileRoutesById {
   '/chi-siamo': typeof ChiSiamoRoute
   '/contatti': typeof ContattiRoute
   '/permuta': typeof PermutaRoute
+  '/admin/appuntamenti': typeof AdminAppuntamentiRoute
   '/auto/$slug': typeof AutoSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/admin/auto/$id': typeof AdminAutoIdRoute
@@ -135,6 +144,7 @@ export interface FileRouteTypes {
     | '/chi-siamo'
     | '/contatti'
     | '/permuta'
+    | '/admin/appuntamenti'
     | '/auto/$slug'
     | '/admin/'
     | '/admin/auto/$id'
@@ -148,6 +158,7 @@ export interface FileRouteTypes {
     | '/chi-siamo'
     | '/contatti'
     | '/permuta'
+    | '/admin/appuntamenti'
     | '/auto/$slug'
     | '/admin'
     | '/admin/auto/$id'
@@ -162,6 +173,7 @@ export interface FileRouteTypes {
     | '/chi-siamo'
     | '/contatti'
     | '/permuta'
+    | '/admin/appuntamenti'
     | '/auto/$slug'
     | '/admin/'
     | '/admin/auto/$id'
@@ -238,6 +250,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/appuntamenti': {
+      id: '/admin/appuntamenti'
+      path: '/appuntamenti'
+      fullPath: '/admin/appuntamenti'
+      preLoaderRoute: typeof AdminAppuntamentiRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/auto/$slug': {
       id: '/auto/$slug'
       path: '/auto/$slug'
@@ -270,6 +289,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AdminRouteChildren {
+  AdminAppuntamentiRoute: typeof AdminAppuntamentiRoute
   AdminIndexRoute: typeof AdminIndexRoute
   AdminAutoIdRoute: typeof AdminAutoIdRoute
   AdminAutoNuovaRoute: typeof AdminAutoNuovaRoute
@@ -277,6 +297,7 @@ interface AdminRouteChildren {
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminAppuntamentiRoute: AdminAppuntamentiRoute,
   AdminIndexRoute: AdminIndexRoute,
   AdminAutoIdRoute: AdminAutoIdRoute,
   AdminAutoNuovaRoute: AdminAutoNuovaRoute,
