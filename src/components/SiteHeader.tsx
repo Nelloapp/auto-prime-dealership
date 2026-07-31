@@ -90,6 +90,13 @@ export function SiteHeader() {
               {item.label}
             </Link>
           ))}
+          <Link
+            to="/auth"
+            onClick={() => setOpen(false)}
+            className="mt-1 flex items-center gap-2 rounded-md border-t border-primary/40 px-3 py-3 text-sm font-semibold text-primary-foreground/70 hover:text-accent"
+          >
+            <Lock className="size-4" /> Accesso admin
+          </Link>
         </nav>
       </div>
     </header>
