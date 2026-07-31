@@ -18,6 +18,7 @@ import { Route as ContattiRouteImport } from './routes/contatti'
 import { Route as PermutaRouteImport } from './routes/permuta'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AutoSlugRouteImport } from './routes/auto.$slug'
+import { Route as AdminAutoIndexRouteImport } from './routes/admin.auto.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -64,6 +65,11 @@ const AutoSlugRoute = AutoSlugRouteImport.update({
   path: '/auto/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminAutoIndexRoute = AdminAutoIndexRouteImport.update({
+  id: '/auto/',
+  path: '/auto/',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -75,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/permuta': typeof PermutaRoute
   '/auto/$slug': typeof AutoSlugRoute
   '/admin/': typeof AdminIndexRoute
+  '/admin/auto/': typeof AdminAutoIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -85,6 +92,7 @@ export interface FileRoutesByTo {
   '/permuta': typeof PermutaRoute
   '/auto/$slug': typeof AutoSlugRoute
   '/admin': typeof AdminIndexRoute
+  '/admin/auto': typeof AdminAutoIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -97,6 +105,7 @@ export interface FileRoutesById {
   '/permuta': typeof PermutaRoute
   '/auto/$slug': typeof AutoSlugRoute
   '/admin/': typeof AdminIndexRoute
+  '/admin/auto/': typeof AdminAutoIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -110,6 +119,7 @@ export interface FileRouteTypes {
     | '/permuta'
     | '/auto/$slug'
     | '/admin/'
+    | '/admin/auto/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -120,6 +130,7 @@ export interface FileRouteTypes {
     | '/permuta'
     | '/auto/$slug'
     | '/admin'
+    | '/admin/auto'
   id:
     | '__root__'
     | '/'
@@ -131,6 +142,7 @@ export interface FileRouteTypes {
     | '/permuta'
     | '/auto/$slug'
     | '/admin/'
+    | '/admin/auto/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -209,15 +221,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AutoSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/auto/': {
+      id: '/admin/auto/'
+      path: '/auto'
+      fullPath: '/admin/auto/'
+      preLoaderRoute: typeof AdminAutoIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
 interface AdminRouteChildren {
   AdminIndexRoute: typeof AdminIndexRoute
+  AdminAutoIndexRoute: typeof AdminAutoIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminIndexRoute: AdminIndexRoute,
+  AdminAutoIndexRoute: AdminAutoIndexRoute,
 }
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
