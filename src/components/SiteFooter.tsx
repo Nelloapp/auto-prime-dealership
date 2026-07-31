@@ -13,7 +13,7 @@ export function SiteFooter() {
     <footer className="mt-16 bg-primary-deep text-primary-foreground">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:grid-cols-2 lg:grid-cols-3">
         <div>
-          <img src={logo.url} alt="Auto Prime logo" className="h-16 w-auto rounded-md" />
+          <img src={logo.url} alt="Auto Prime logo" className="h-32 w-auto rounded-md" />
           <p className="mt-3 text-sm text-primary-foreground/70">
             Auto usate di qualità a prezzi onesti. Titolare {s?.owner_name ?? "Enrico Auricchio"}.
           </p>
