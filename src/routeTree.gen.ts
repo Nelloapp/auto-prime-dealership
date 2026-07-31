@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CatalogoRouteImport } from './routes/catalogo'
+import { Route as ContattiRouteImport } from './routes/contatti'
 import { Route as PermutaRouteImport } from './routes/permuta'
 import { Route as AutoSlugRouteImport } from './routes/auto.$slug'
 
@@ -22,6 +23,11 @@ const IndexRoute = IndexRouteImport.update({
 const CatalogoRoute = CatalogoRouteImport.update({
   id: '/catalogo',
   path: '/catalogo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContattiRoute = ContattiRouteImport.update({
+  id: '/contatti',
+  path: '/contatti',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PermutaRoute = PermutaRouteImport.update({
@@ -38,12 +44,14 @@ const AutoSlugRoute = AutoSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/catalogo': typeof CatalogoRoute
+  '/contatti': typeof ContattiRoute
   '/permuta': typeof PermutaRoute
   '/auto/$slug': typeof AutoSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/catalogo': typeof CatalogoRoute
+  '/contatti': typeof ContattiRoute
   '/permuta': typeof PermutaRoute
   '/auto/$slug': typeof AutoSlugRoute
 }
@@ -51,20 +59,22 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/catalogo': typeof CatalogoRoute
+  '/contatti': typeof ContattiRoute
   '/permuta': typeof PermutaRoute
   '/auto/$slug': typeof AutoSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/catalogo' | '/permuta' | '/auto/$slug'
+  fullPaths: '/' | '/catalogo' | '/contatti' | '/permuta' | '/auto/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/catalogo' | '/permuta' | '/auto/$slug'
-  id: '__root__' | '/' | '/catalogo' | '/permuta' | '/auto/$slug'
+  to: '/' | '/catalogo' | '/contatti' | '/permuta' | '/auto/$slug'
+  id: '__root__' | '/' | '/catalogo' | '/contatti' | '/permuta' | '/auto/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CatalogoRoute: typeof CatalogoRoute
+  ContattiRoute: typeof ContattiRoute
   PermutaRoute: typeof PermutaRoute
   AutoSlugRoute: typeof AutoSlugRoute
 }
@@ -83,6 +93,13 @@ declare module '@tanstack/react-router' {
       path: '/catalogo'
       fullPath: '/catalogo'
       preLoaderRoute: typeof CatalogoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contatti': {
+      id: '/contatti'
+      path: '/contatti'
+      fullPath: '/contatti'
+      preLoaderRoute: typeof ContattiRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/permuta': {
@@ -105,6 +122,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CatalogoRoute: CatalogoRoute,
+  ContattiRoute: ContattiRoute,
   PermutaRoute: PermutaRoute,
   AutoSlugRoute: AutoSlugRoute,
 }
