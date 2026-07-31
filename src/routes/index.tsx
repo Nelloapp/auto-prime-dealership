@@ -10,16 +10,16 @@ import { telHref, whatsappHref } from "@/lib/site";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Auto Prime Pompei — Auto usate garantite" },
+      { title: "Auto Prime Pompei — Auto usate selezionate" },
       {
         name: "description",
         content:
-          "Auto usate selezionate e garantite a Pompei (NA). Prezzi chiari, permuta valutata subito, assistenza dedicata. Scopri il nostro parco auto.",
+          "Auto usate selezionate a Pompei (NA). Prezzi chiari, permuta valutata subito, assistenza dedicata. Scopri il nostro parco auto.",
       },
-      { property: "og:title", content: "Auto Prime Pompei — Auto usate garantite" },
+      { property: "og:title", content: "Auto Prime Pompei — Auto usate selezionate" },
       {
         property: "og:description",
-        content: "Auto usate selezionate e garantite a Pompei. Scopri il parco auto Auto Prime.",
+        content: "Auto usate selezionate a Pompei. Scopri il parco auto Auto Prime.",
       },
     ],
   }),
