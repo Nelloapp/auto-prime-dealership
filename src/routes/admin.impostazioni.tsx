@@ -80,6 +80,77 @@ function SettingsPage() {
           {saving && <Loader2 className="animate-spin" />} Salva impostazioni
         </Button>
       </form>
+
+      <PasswordCard />
     </div>
+  );
+}
+
+function PasswordCard() {
+  const [busy, setBusy] = useState(false);
+
+  async function changePassword(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const password = String(data.get("new_password") ?? "");
+    const confirm = String(data.get("confirm_password") ?? "");
+
+    if (password.length < 6) {
+      toast.error("La password deve avere almeno 6 caratteri");
+      return;
+    }
+    if (password !== confirm) {
+      toast.error("Le due password non coincidono");
+      return;
+    }
+
+    setBusy(true);
+    const { error } = await supabase.auth.updateUser({ password });
+    setBusy(false);
+    if (error) {
+      toast.error("Impossibile aggiornare la password");
+      return;
+    }
+    form.reset();
+    toast.success("Password aggiornata");
+  }
+
+  return (
+    <form onSubmit={changePassword} className="space-y-4 rounded-2xl bg-card p-5 shadow-card">
+      <div>
+        <h2 className="font-display text-lg font-black">Cambia password</h2>
+        <p className="text-sm text-muted-foreground">
+          Aggiorna la password del tuo accesso amministratore.
+        </p>
+      </div>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div>
+          <Label htmlFor="new_password">Nuova password</Label>
+          <Input
+            id="new_password"
+            name="new_password"
+            type="password"
+            autoComplete="new-password"
+            required
+            className="mt-1 h-11"
+          />
+        </div>
+        <div>
+          <Label htmlFor="confirm_password">Conferma password</Label>
+          <Input
+            id="confirm_password"
+            name="confirm_password"
+            type="password"
+            autoComplete="new-password"
+            required
+            className="mt-1 h-11"
+          />
+        </div>
+      </div>
+      <Button type="submit" variant="outline" size="lg" disabled={busy}>
+        {busy && <Loader2 className="animate-spin" />} Aggiorna password
+      </Button>
+    </form>
   );
 }
