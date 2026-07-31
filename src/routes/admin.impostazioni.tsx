@@ -37,7 +37,13 @@ const COLORS = [
   { name: "color_header", label: "Sfondo header/footer", fallback: "#08090c" },
 ] as const;
 
-const DEFAULT_COLORS = Object.fromEntries(COLORS.map((c) => [c.name, c.fallback]));
+const DEFAULT_COLORS: Record<string, string> = {
+  color_primary: "#d62828",
+  color_accent: "#d6d6d6",
+  color_background: "#0d0f14",
+  color_header: "#08090c",
+};
+
 
 function SettingsPage() {
   const { isLoading } = useQuery(settingsQuery);
