@@ -47,12 +47,15 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Link
-            to="/auth"
-            className="hidden items-center gap-1.5 rounded-full border border-primary-foreground/20 px-3 py-2 text-xs font-semibold uppercase tracking-wider text-primary-foreground/70 transition-colors hover:border-accent/60 hover:text-accent md:inline-flex"
-          >
-            <Lock className="size-3.5" /> Admin
-          </Link>
+          {showAdminLink && (
+            <Link
+              to="/auth"
+              className="hidden items-center gap-1.5 rounded-full border border-primary-foreground/20 px-3 py-2 text-xs font-semibold uppercase tracking-wider text-primary-foreground/70 transition-colors hover:border-accent/60 hover:text-accent md:inline-flex"
+            >
+              <Lock className="size-3.5" /> Admin
+            </Link>
+          )}
+
           <Button asChild variant="cta" size="sm" className="hidden sm:inline-flex">
             <a href={telHref(phone)}>
               <Phone /> Chiama ora
