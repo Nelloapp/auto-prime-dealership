@@ -59,7 +59,7 @@ function Home() {
           height={1088}
           className="absolute inset-0 size-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-primary/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-deep/95 via-primary-deep/85 to-primary/35" />
         <div className="relative mx-auto max-w-6xl px-4 py-20 sm:py-28">
           <p className="font-display text-sm font-bold uppercase tracking-[0.2em] text-accent">
             Pompei · Napoli
@@ -116,7 +116,7 @@ function Home() {
         )}
       </section>
 
-      <section className="bg-primary">
+      <section className="bg-gradient-hero border-y border-primary/30">
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-4 py-14 text-center">
           <h2 className="font-display text-2xl font-black text-primary-foreground sm:text-3xl">
             Hai una domanda su un'auto?
