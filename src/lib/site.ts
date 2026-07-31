@@ -1,0 +1,111 @@
+export const FUEL_LABELS: Record<string, string> = {
+  benzina: "Benzina",
+  diesel: "Diesel",
+  gpl: "GPL",
+  metano: "Metano",
+  ibrida: "Ibrida",
+  elettrica: "Elettrica",
+};
+
+export const GEARBOX_LABELS: Record<string, string> = {
+  manuale: "Manuale",
+  automatico: "Automatico",
+};
+
+export const CAR_STATUS_LABELS: Record<string, string> = {
+  disponibile: "Disponibile",
+  venduta: "Venduta",
+  riservata: "Riservata",
+  in_arrivo: "In arrivo",
+};
+
+export const APPOINTMENT_STATUS_LABELS: Record<string, string> = {
+  in_attesa: "In attesa",
+  confermato: "Confermato",
+  rifiutato: "Rifiutato",
+  riprogrammato: "Riprogrammato",
+};
+
+export const LEAD_STATUS_LABELS: Record<string, string> = {
+  nuovo: "Nuovo",
+  in_lavorazione: "In lavorazione",
+  chiuso: "Chiuso",
+};
+
+export const TIME_SLOTS = [
+  "09:00",
+  "09:30",
+  "10:00",
+  "10:30",
+  "11:00",
+  "11:30",
+  "12:00",
+  "12:30",
+  "15:00",
+  "15:30",
+  "16:00",
+  "16:30",
+  "17:00",
+  "17:30",
+  "18:00",
+  "18:30",
+  "19:00",
+];
+
+export function formatPrice(value: number | string | null | undefined) {
+  if (value === null || value === undefined) return "-";
+  const n = typeof value === "string" ? Number(value) : value;
+  return new Intl.NumberFormat("it-IT", {
+    style: "currency",
+    currency: "EUR",
+    maximumFractionDigits: 0,
+  }).format(n);
+}
+
+export function formatKm(km: number | null | undefined) {
+  if (km === null || km === undefined) return "-";
+  return `${new Intl.NumberFormat("it-IT").format(km)} km`;
+}
+
+export function formatDate(value: string | null | undefined) {
+  if (!value) return "-";
+  return new Intl.DateTimeFormat("it-IT", { dateStyle: "medium" }).format(new Date(value));
+}
+
+export function formatDateTime(value: string | null | undefined) {
+  if (!value) return "-";
+  return new Intl.DateTimeFormat("it-IT", { dateStyle: "medium", timeStyle: "short" }).format(
+    new Date(value),
+  );
+}
+
+export function slugify(input: string) {
+  return input
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 80);
+}
+
+export function telHref(phone: string) {
+  return `tel:${phone.replace(/[^+\d]/g, "")}`;
+}
+
+export function whatsappHref(whatsapp: string, message: string) {
+  const num = whatsapp.replace(/[^\d]/g, "");
+  return `https://wa.me/${num}?text=${encodeURIComponent(message)}`;
+}
+
+export function mapsHref(address: string) {
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+}
+
+export function mapEmbedSrc(address: string) {
+  return `https://www.google.com/maps?q=${encodeURIComponent(address)}&output=embed`;
+}
+
+export function carTitle(car: { brand: string; model: string; version?: string | null }) {
+  return [car.brand, car.model, car.version].filter(Boolean).join(" ");
+}

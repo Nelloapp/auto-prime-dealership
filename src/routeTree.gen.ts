@@ -10,33 +10,222 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as CatalogoRouteImport } from './routes/catalogo'
+import { Route as ChiSiamoRouteImport } from './routes/chi-siamo'
+import { Route as ContattiRouteImport } from './routes/contatti'
+import { Route as PermutaRouteImport } from './routes/permuta'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminAppuntamentiRouteImport } from './routes/admin.appuntamenti'
+import { Route as AdminImpostazioniRouteImport } from './routes/admin.impostazioni'
+import { Route as AdminMessaggiRouteImport } from './routes/admin.messaggi'
+import { Route as AdminPermuteRouteImport } from './routes/admin.permute'
+import { Route as AutoSlugRouteImport } from './routes/auto.$slug'
+import { Route as AdminAutoIndexRouteImport } from './routes/admin.auto.index'
+import { Route as AdminAutoIdRouteImport } from './routes/admin.auto.$id'
+import { Route as AdminAutoNuovaRouteImport } from './routes/admin.auto.nuova'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CatalogoRoute = CatalogoRouteImport.update({
+  id: '/catalogo',
+  path: '/catalogo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChiSiamoRoute = ChiSiamoRouteImport.update({
+  id: '/chi-siamo',
+  path: '/chi-siamo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContattiRoute = ContattiRouteImport.update({
+  id: '/contatti',
+  path: '/contatti',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PermutaRoute = PermutaRouteImport.update({
+  id: '/permuta',
+  path: '/permuta',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAppuntamentiRoute = AdminAppuntamentiRouteImport.update({
+  id: '/appuntamenti',
+  path: '/appuntamenti',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminImpostazioniRoute = AdminImpostazioniRouteImport.update({
+  id: '/impostazioni',
+  path: '/impostazioni',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminMessaggiRoute = AdminMessaggiRouteImport.update({
+  id: '/messaggi',
+  path: '/messaggi',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminPermuteRoute = AdminPermuteRouteImport.update({
+  id: '/permute',
+  path: '/permute',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AutoSlugRoute = AutoSlugRouteImport.update({
+  id: '/auto/$slug',
+  path: '/auto/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminAutoIndexRoute = AdminAutoIndexRouteImport.update({
+  id: '/auto/',
+  path: '/auto/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAutoIdRoute = AdminAutoIdRouteImport.update({
+  id: '/auto/$id',
+  path: '/auto/$id',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAutoNuovaRoute = AdminAutoNuovaRouteImport.update({
+  id: '/auto/nuova',
+  path: '/auto/nuova',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/catalogo': typeof CatalogoRoute
+  '/chi-siamo': typeof ChiSiamoRoute
+  '/contatti': typeof ContattiRoute
+  '/permuta': typeof PermutaRoute
+  '/admin/appuntamenti': typeof AdminAppuntamentiRoute
+  '/admin/impostazioni': typeof AdminImpostazioniRoute
+  '/admin/messaggi': typeof AdminMessaggiRoute
+  '/admin/permute': typeof AdminPermuteRoute
+  '/auto/$slug': typeof AutoSlugRoute
+  '/admin/': typeof AdminIndexRoute
+  '/admin/auto/$id': typeof AdminAutoIdRoute
+  '/admin/auto/nuova': typeof AdminAutoNuovaRoute
+  '/admin/auto/': typeof AdminAutoIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/catalogo': typeof CatalogoRoute
+  '/chi-siamo': typeof ChiSiamoRoute
+  '/contatti': typeof ContattiRoute
+  '/permuta': typeof PermutaRoute
+  '/admin/appuntamenti': typeof AdminAppuntamentiRoute
+  '/admin/impostazioni': typeof AdminImpostazioniRoute
+  '/admin/messaggi': typeof AdminMessaggiRoute
+  '/admin/permute': typeof AdminPermuteRoute
+  '/auto/$slug': typeof AutoSlugRoute
+  '/admin': typeof AdminIndexRoute
+  '/admin/auto/$id': typeof AdminAutoIdRoute
+  '/admin/auto/nuova': typeof AdminAutoNuovaRoute
+  '/admin/auto': typeof AdminAutoIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/catalogo': typeof CatalogoRoute
+  '/chi-siamo': typeof ChiSiamoRoute
+  '/contatti': typeof ContattiRoute
+  '/permuta': typeof PermutaRoute
+  '/admin/appuntamenti': typeof AdminAppuntamentiRoute
+  '/admin/impostazioni': typeof AdminImpostazioniRoute
+  '/admin/messaggi': typeof AdminMessaggiRoute
+  '/admin/permute': typeof AdminPermuteRoute
+  '/auto/$slug': typeof AutoSlugRoute
+  '/admin/': typeof AdminIndexRoute
+  '/admin/auto/$id': typeof AdminAutoIdRoute
+  '/admin/auto/nuova': typeof AdminAutoNuovaRoute
+  '/admin/auto/': typeof AdminAutoIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/auth'
+    | '/catalogo'
+    | '/chi-siamo'
+    | '/contatti'
+    | '/permuta'
+    | '/admin/appuntamenti'
+    | '/admin/impostazioni'
+    | '/admin/messaggi'
+    | '/admin/permute'
+    | '/auto/$slug'
+    | '/admin/'
+    | '/admin/auto/$id'
+    | '/admin/auto/nuova'
+    | '/admin/auto/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/auth'
+    | '/catalogo'
+    | '/chi-siamo'
+    | '/contatti'
+    | '/permuta'
+    | '/admin/appuntamenti'
+    | '/admin/impostazioni'
+    | '/admin/messaggi'
+    | '/admin/permute'
+    | '/auto/$slug'
+    | '/admin'
+    | '/admin/auto/$id'
+    | '/admin/auto/nuova'
+    | '/admin/auto'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/auth'
+    | '/catalogo'
+    | '/chi-siamo'
+    | '/contatti'
+    | '/permuta'
+    | '/admin/appuntamenti'
+    | '/admin/impostazioni'
+    | '/admin/messaggi'
+    | '/admin/permute'
+    | '/auto/$slug'
+    | '/admin/'
+    | '/admin/auto/$id'
+    | '/admin/auto/nuova'
+    | '/admin/auto/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRouteWithChildren
+  AuthRoute: typeof AuthRoute
+  CatalogoRoute: typeof CatalogoRoute
+  ChiSiamoRoute: typeof ChiSiamoRoute
+  ContattiRoute: typeof ContattiRoute
+  PermutaRoute: typeof PermutaRoute
+  AutoSlugRoute: typeof AutoSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +237,147 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/catalogo': {
+      id: '/catalogo'
+      path: '/catalogo'
+      fullPath: '/catalogo'
+      preLoaderRoute: typeof CatalogoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/chi-siamo': {
+      id: '/chi-siamo'
+      path: '/chi-siamo'
+      fullPath: '/chi-siamo'
+      preLoaderRoute: typeof ChiSiamoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contatti': {
+      id: '/contatti'
+      path: '/contatti'
+      fullPath: '/contatti'
+      preLoaderRoute: typeof ContattiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/permuta': {
+      id: '/permuta'
+      path: '/permuta'
+      fullPath: '/permuta'
+      preLoaderRoute: typeof PermutaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/appuntamenti': {
+      id: '/admin/appuntamenti'
+      path: '/appuntamenti'
+      fullPath: '/admin/appuntamenti'
+      preLoaderRoute: typeof AdminAppuntamentiRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/impostazioni': {
+      id: '/admin/impostazioni'
+      path: '/impostazioni'
+      fullPath: '/admin/impostazioni'
+      preLoaderRoute: typeof AdminImpostazioniRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/messaggi': {
+      id: '/admin/messaggi'
+      path: '/messaggi'
+      fullPath: '/admin/messaggi'
+      preLoaderRoute: typeof AdminMessaggiRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/permute': {
+      id: '/admin/permute'
+      path: '/permute'
+      fullPath: '/admin/permute'
+      preLoaderRoute: typeof AdminPermuteRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/auto/$slug': {
+      id: '/auto/$slug'
+      path: '/auto/$slug'
+      fullPath: '/auto/$slug'
+      preLoaderRoute: typeof AutoSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/auto/': {
+      id: '/admin/auto/'
+      path: '/auto'
+      fullPath: '/admin/auto/'
+      preLoaderRoute: typeof AdminAutoIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/auto/$id': {
+      id: '/admin/auto/$id'
+      path: '/auto/$id'
+      fullPath: '/admin/auto/$id'
+      preLoaderRoute: typeof AdminAutoIdRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/auto/nuova': {
+      id: '/admin/auto/nuova'
+      path: '/auto/nuova'
+      fullPath: '/admin/auto/nuova'
+      preLoaderRoute: typeof AdminAutoNuovaRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
+interface AdminRouteChildren {
+  AdminAppuntamentiRoute: typeof AdminAppuntamentiRoute
+  AdminImpostazioniRoute: typeof AdminImpostazioniRoute
+  AdminMessaggiRoute: typeof AdminMessaggiRoute
+  AdminPermuteRoute: typeof AdminPermuteRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+  AdminAutoIdRoute: typeof AdminAutoIdRoute
+  AdminAutoNuovaRoute: typeof AdminAutoNuovaRoute
+  AdminAutoIndexRoute: typeof AdminAutoIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminAppuntamentiRoute: AdminAppuntamentiRoute,
+  AdminImpostazioniRoute: AdminImpostazioniRoute,
+  AdminMessaggiRoute: AdminMessaggiRoute,
+  AdminPermuteRoute: AdminPermuteRoute,
+  AdminIndexRoute: AdminIndexRoute,
+  AdminAutoIdRoute: AdminAutoIdRoute,
+  AdminAutoNuovaRoute: AdminAutoNuovaRoute,
+  AdminAutoIndexRoute: AdminAutoIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRouteWithChildren,
+  AuthRoute: AuthRoute,
+  CatalogoRoute: CatalogoRoute,
+  ChiSiamoRoute: ChiSiamoRoute,
+  ContattiRoute: ContattiRoute,
+  PermutaRoute: PermutaRoute,
+  AutoSlugRoute: AutoSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
