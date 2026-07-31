@@ -68,7 +68,7 @@ function Home() {
             L'auto giusta, al prezzo giusto.
           </h1>
           <p className="mt-4 max-w-xl text-lg text-primary-foreground/85">
-            Usato selezionato, controllato e garantito. Vieni a provarlo o prenota un appuntamento
+            Usato selezionato e controllato. Vieni a provarlo o prenota un appuntamento
             in pochi secondi.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
