@@ -71,35 +71,35 @@
   --grigio-chiaro: #f2f2f2;
   --grigio-testo: #3a3a3a;
 
-  --background: var(--nero-carbonio);
-  --foreground: var(--bianco);
-  --card: var(--nero-morbido);
-  --card-foreground: var(--bianco);
-  --popover: var(--nero-morbido);
-  --popover-foreground: var(--bianco);
+  --background: var(--bianco);
+  --foreground: var(--grigio-testo);
+  --card: var(--bianco);
+  --card-foreground: var(--grigio-testo);
+  --popover: var(--bianco);
+  --popover-foreground: var(--grigio-testo);
 
   --primary: var(--rosso-corsa);
   --primary-foreground: var(--bianco);
   --primary-deep: var(--nero-carbonio);
-  --primary-glow: color-mix(in oklab, var(--rosso-corsa) 78%, white);
+  --primary-glow: var(--rosso-scuro);
 
-  --secondary: var(--nero-morbido);
-  --secondary-foreground: var(--grigio-chiaro);
-  --muted: #202020;
-  --muted-foreground: #b3b3b3;
+  --secondary: var(--grigio-chiaro);
+  --secondary-foreground: var(--nero-carbonio);
+  --muted: var(--grigio-chiaro);
+  --muted-foreground: #6b6b6b;
 
   --accent: var(--grigio-chiaro);
-  --accent-foreground: var(--grigio-testo);
+  --accent-foreground: var(--nero-carbonio);
   --highlight: var(--rosso-corsa);
   --highlight-foreground: var(--bianco);
 
-  --success: oklch(0.65 0.14 155);
-  --success-foreground: oklch(0.12 0.01 155);
+  --success: #12813f;
+  --success-foreground: var(--bianco);
   --destructive: var(--rosso-scuro);
   --destructive-foreground: var(--bianco);
 
-  --border: oklch(1 0 0 / 12%);
-  --input: oklch(1 0 0 / 16%);
+  --border: oklch(0 0 0 / 12%);
+  --input: oklch(0 0 0 / 18%);
   --ring: var(--rosso-corsa);
 
   --sidebar: var(--nero-carbonio);
@@ -111,12 +111,13 @@
   --sidebar-border: oklch(1 0 0 / 12%);
   --sidebar-ring: var(--rosso-corsa);
 
-  --gradient-hero: linear-gradient(135deg, var(--nero-carbonio) 0%, var(--nero-morbido) 55%, color-mix(in oklab, var(--rosso-scuro) 70%, var(--nero-morbido)) 100%);
+  --gradient-hero: linear-gradient(135deg, var(--nero-carbonio) 0%, var(--nero-morbido) 100%);
   --gradient-accent: linear-gradient(100deg, var(--rosso-corsa) 0%, var(--rosso-scuro) 100%);
   --gradient-silver: linear-gradient(120deg, var(--bianco) 0%, #b8b8b8 55%, var(--grigio-chiaro) 100%);
-  --shadow-card: 0 14px 38px -20px oklch(0 0 0 / 0.85);
-  --shadow-pop: 0 24px 60px -22px color-mix(in oklab, var(--rosso-corsa) 45%, transparent);
+  --shadow-card: 0 8px 24px -14px oklch(0 0 0 / 0.45);
+  --shadow-pop: 0 18px 40px -20px oklch(0 0 0 / 0.5);
 }
+
 
 
 .dark {
