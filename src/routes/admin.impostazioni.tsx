@@ -31,18 +31,19 @@ const FIELDS = [
 ] as const;
 
 const COLORS = [
-  { name: "color_primary", label: "Colore principale", fallback: "#d62828" },
-  { name: "color_accent", label: "Colore accento", fallback: "#d6d6d6" },
-  { name: "color_background", label: "Sfondo pagine", fallback: "#0d0f14" },
-  { name: "color_header", label: "Sfondo header/footer", fallback: "#08090c" },
+  { name: "color_primary", label: "Colore principale", fallback: "#e30613" },
+  { name: "color_accent", label: "Colore accento", fallback: "#f2f2f2" },
+  { name: "color_background", label: "Sfondo pagine", fallback: "#ffffff" },
+  { name: "color_header", label: "Sfondo header/footer", fallback: "#0d0d0d" },
 ] as const;
 
 const DEFAULT_COLORS: Record<string, string> = {
-  color_primary: "#d62828",
-  color_accent: "#d6d6d6",
-  color_background: "#0d0f14",
-  color_header: "#08090c",
+  color_primary: "#e30613",
+  color_accent: "#f2f2f2",
+  color_background: "#ffffff",
+  color_header: "#0d0d0d",
 };
+
 
 
 function SettingsPage() {
