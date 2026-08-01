@@ -117,31 +117,36 @@ function Home() {
       </section>
 
 
-      <section className="mx-auto max-w-6xl px-4 pb-16">
-        <div className="mb-6 flex items-end justify-between gap-4">
-          <h2 className="font-display text-2xl font-black sm:text-3xl">Ultimi arrivi</h2>
-          <Link to="/catalogo" className="text-sm font-bold text-primary hover:underline">
-            Vedi tutte
-          </Link>
-        </div>
-        {featured.length === 0 ? (
-          <p className="rounded-2xl bg-card p-8 text-center text-muted-foreground shadow-card">
-            Nuove auto in arrivo. Contattaci per sapere cosa abbiamo disponibile.
-          </p>
-        ) : (
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {featured.map((car) => (
-              <CarCard key={car.id} car={car} />
-            ))}
+      <section className="bg-secondary">
+        <div className="mx-auto max-w-6xl px-4 py-16">
+          <div className="mb-6 flex items-end justify-between gap-4">
+            <h2 className="font-display text-2xl font-bold uppercase text-primary-deep sm:text-3xl">
+              Ultimi arrivi
+            </h2>
+            <Link to="/catalogo" className="text-sm font-semibold text-primary hover:underline">
+              Vedi tutte
+            </Link>
           </div>
-        )}
+          {featured.length === 0 ? (
+            <p className="rounded-xl border border-border bg-card p-8 text-center text-muted-foreground">
+              Nuove auto in arrivo. Contattaci per sapere cosa abbiamo disponibile.
+            </p>
+          ) : (
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {featured.map((car) => (
+                <CarCard key={car.id} car={car} />
+              ))}
+            </div>
+          )}
+        </div>
       </section>
 
-      <section className="bg-gradient-hero border-y border-primary/30">
+      <section className="bg-primary-deep track-stripes">
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-4 py-14 text-center">
-          <h2 className="font-display text-2xl font-black text-primary-foreground sm:text-3xl">
+          <h2 className="font-display text-2xl font-bold uppercase text-primary-foreground sm:text-3xl">
             Hai una domanda su un'auto?
           </h2>
+
           <p className="max-w-lg text-primary-foreground/80">
             Scrivici su WhatsApp o chiamaci: ti rispondiamo subito negli orari di apertura.
           </p>
