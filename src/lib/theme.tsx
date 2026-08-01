@@ -8,7 +8,8 @@ export const DEFAULT_NAV: NavItem[] = [
   { to: "/", label: "Home", visible: true },
   { to: "/catalogo", label: "Catalogo", visible: true },
   { to: "/permuta", label: "Valuta la tua auto", visible: true },
-  { to: "/contatti", label: "Chi siamo", visible: true },
+  { to: "/chi-siamo", label: "Chi siamo", visible: true },
+  { to: "/contatti", label: "Contatti", visible: true },
 ];
 
 export const NAV_ROUTES = DEFAULT_NAV.map((n) => n.to);

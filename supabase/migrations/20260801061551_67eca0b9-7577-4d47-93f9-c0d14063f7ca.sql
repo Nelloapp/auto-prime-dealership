@@ -1,0 +1,4 @@
+UPDATE public.site_settings
+SET nav_items = '[{"to": "/", "label": "Home", "visible": true}, {"to": "/catalogo", "label": "Catalogo", "visible": true}, {"to": "/permuta", "label": "Valuta la tua auto", "visible": true}, {"to": "/chi-siamo", "label": "Chi siamo", "visible": true}, {"to": "/contatti", "label": "Contatti", "visible": true}]'::jsonb;
+
+ALTER TABLE public.site_settings ALTER COLUMN nav_items SET DEFAULT '[{"to": "/", "label": "Home", "visible": true}, {"to": "/catalogo", "label": "Catalogo", "visible": true}, {"to": "/permuta", "label": "Valuta la tua auto", "visible": true}, {"to": "/chi-siamo", "label": "Chi siamo", "visible": true}, {"to": "/contatti", "label": "Contatti", "visible": true}]'::jsonb;
