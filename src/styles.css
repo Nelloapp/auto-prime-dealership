@@ -120,19 +120,20 @@
 
 
 .dark {
-  --background: oklch(0.13 0.006 265);
-  --foreground: oklch(0.97 0.003 250);
-  --card: oklch(0.175 0.008 265);
-  --card-foreground: oklch(0.97 0.003 250);
-  --popover: oklch(0.175 0.008 265);
-  --popover-foreground: oklch(0.97 0.003 250);
-  --secondary: oklch(0.24 0.008 265);
-  --secondary-foreground: oklch(0.95 0.003 250);
-  --muted: oklch(0.22 0.006 265);
-  --muted-foreground: oklch(0.72 0.006 258);
+  --background: var(--nero-carbonio);
+  --foreground: var(--bianco);
+  --card: var(--nero-morbido);
+  --card-foreground: var(--bianco);
+  --popover: var(--nero-morbido);
+  --popover-foreground: var(--bianco);
+  --secondary: var(--nero-morbido);
+  --secondary-foreground: var(--grigio-chiaro);
+  --muted: #202020;
+  --muted-foreground: #b3b3b3;
   --border: oklch(1 0 0 / 12%);
   --input: oklch(1 0 0 / 16%);
 }
+
 
 @layer base {
   * {
