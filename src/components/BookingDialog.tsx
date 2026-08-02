@@ -19,7 +19,15 @@ import { supabase } from "@/integrations/supabase/client";
 import { TIME_SLOTS } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-export function BookingDialog({ carId, carLabel }: { carId?: string; carLabel?: string }) {
+export function BookingDialog({
+  carId,
+  carLabel,
+  trigger,
+}: {
+  carId?: string;
+  carLabel?: string;
+  trigger?: React.ReactNode;
+}) {
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState<Date | undefined>();
   const [time, setTime] = useState<string>("");
