@@ -24,6 +24,8 @@ export function SiteHeader() {
             alt="Auto Prime logo"
             className="h-[min(3.5rem,var(--logo-h))] w-auto max-w-[55vw] rounded-md object-contain sm:h-[var(--logo-h)] sm:max-w-none"
             style={{ ["--logo-h" as string]: `${logo.height}px` }}
+          />
+
 
           <span className="sr-only">Auto Prime</span>
         </Link>
