@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import {
   ArrowLeft,
   Calendar,
+  CalendarCheck,
   Cog,
   Fuel,
   Gauge,
@@ -16,13 +17,17 @@ import {
 import { CarGallery } from "@/components/CarGallery";
 import { BookingDialog } from "@/components/BookingDialog";
 import { ContactForm } from "@/components/ContactForm";
+import { RateCalculator } from "@/components/RateCalculator";
+import { StickyActions } from "@/components/StickyActions";
 import { Button } from "@/components/ui/button";
 import { carQuery, sortedImages, useSettings } from "@/lib/cars";
 import {
   CAR_STATUS_LABELS,
   FUEL_LABELS,
   GEARBOX_LABELS,
+  absoluteUrl,
   carTitle,
+  carWhatsappMessage,
   formatKm,
   formatPrice,
   telHref,
@@ -83,7 +88,8 @@ function CarDetail() {
   const title = carTitle(car);
   const images = sortedImages(car).map((i) => i.url);
   const discounted = car.previous_price && Number(car.previous_price) > Number(car.price);
-  const waMessage = `Ciao Auto Prime, sono interessato a: ${title} (${formatPrice(car.price)}).`;
+  const waMessage = carWhatsappMessage(car);
+  const carUrl = absoluteUrl(`/auto/${car.slug}`);
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-8">
@@ -171,9 +177,28 @@ function CarDetail() {
             </div>
           </div>
 
+          <RateCalculator price={Number(car.price)} carLabel={title} carUrl={carUrl} />
+
           <ContactForm carId={car.id} title="Richiedi informazioni" />
         </div>
       </div>
+      <StickyActions
+        waMessage={waMessage}
+        extra={
+          <BookingDialog
+            carId={car.id}
+            carLabel={title}
+            trigger={
+              <button
+                type="button"
+                className="inline-flex h-12 items-center justify-center gap-1.5 rounded-lg bg-primary-deep px-2 font-display text-sm font-bold uppercase tracking-wide text-primary-foreground"
+              >
+                <CalendarCheck className="size-4" /> Prenota
+              </button>
+            }
+          />
+        }
+      />
     </main>
   );
 }

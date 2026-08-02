@@ -16,6 +16,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Toaster } from "@/components/ui/sonner";
 import { SiteTheme } from "@/lib/theme";
+import { StickyActions } from "@/components/StickyActions";
 
 
 function NotFoundComponent() {
@@ -129,6 +130,7 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const isAdmin = pathname.startsWith("/admin") || pathname.startsWith("/auth");
+  const isCarDetail = pathname.startsWith("/auto/");
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -137,6 +139,8 @@ function RootComponent() {
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
       {!isAdmin && <SiteFooter />}
+      {!isAdmin && !isCarDetail && <StickyActions />}
+      {!isAdmin && <div className="h-16 sm:hidden" aria-hidden />}
       <Toaster position="top-center" richColors />
     </QueryClientProvider>
   );

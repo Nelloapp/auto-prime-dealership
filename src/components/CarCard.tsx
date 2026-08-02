@@ -7,6 +7,7 @@ import {
   FUEL_LABELS,
   GEARBOX_LABELS,
   carTitle,
+  carWhatsappMessage,
   formatKm,
   formatPrice,
   whatsappHref,
@@ -102,10 +103,7 @@ export function CarCard({ car }: { car: CarWithImages }) {
           </Button>
           <Button asChild variant="outline" size="sm" className="h-11">
             <a
-              href={whatsappHref(
-                settings?.whatsapp ?? "393297897193",
-                `Ciao Auto Prime, sono interessato a ${title}.`,
-              )}
+              href={whatsappHref(settings?.whatsapp ?? "393297897193", carWhatsappMessage(car))}
               target="_blank"
               rel="noreferrer"
             >
