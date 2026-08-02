@@ -109,3 +109,47 @@ export function mapEmbedSrc(address: string) {
 export function carTitle(car: { brand: string; model: string; version?: string | null }) {
   return [car.brand, car.model, car.version].filter(Boolean).join(" ");
 }
+
+/** URL assoluto di una pagina del sito (usa l'origin corrente lato client). */
+export function absoluteUrl(path: string) {
+  const origin =
+    typeof window !== "undefined" ? window.location.origin : "https://auto-prime-dealership.lovable.app";
+  return `${origin}${path.startsWith("/") ? path : `/${path}`}`;
+}
+
+type CarLike = {
+  slug: string;
+  brand: string;
+  model: string;
+  version?: string | null;
+  year: number;
+  km: number;
+  price: number | string;
+};
+
+/** Messaggio WhatsApp precompilato con i dati dell'auto e il link alla scheda. */
+export function carWhatsappMessage(car: CarLike, extra?: string) {
+  const lines = [
+    `Ciao Auto Prime, sono interessato a:`,
+    `${carTitle(car)} — ${car.year} — ${formatKm(car.km)}`,
+    `Prezzo: ${formatPrice(car.price)}`,
+  ];
+  if (extra) lines.push(extra);
+  lines.push(absoluteUrl(`/auto/${car.slug}`));
+  return lines.join("\n");
+}
+
+/** Messaggio WhatsApp generico, con il contesto della pagina di partenza. */
+export function genericWhatsappMessage(pageLabel?: string) {
+  return pageLabel
+    ? `Ciao Auto Prime! Vi scrivo dalla pagina "${pageLabel}" del sito.`
+    : "Ciao Auto Prime! Vorrei avere informazioni.";
+}
+
+/** Rata mensile con ammortamento francese. */
+export function monthlyPayment(amount: number, annualRatePercent: number, months: number) {
+  if (amount <= 0 || months <= 0) return 0;
+  const i = annualRatePercent / 100 / 12;
+  if (i === 0) return amount / months;
+  return (amount * i) / (1 - Math.pow(1 + i, -months));
+}
