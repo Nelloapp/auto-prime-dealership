@@ -364,6 +364,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      attach_trade_in_photos: {
+        Args: { _id: string; _photos: string[] }
+        Returns: boolean
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

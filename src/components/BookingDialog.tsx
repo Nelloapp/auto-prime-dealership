@@ -19,7 +19,15 @@ import { supabase } from "@/integrations/supabase/client";
 import { TIME_SLOTS } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-export function BookingDialog({ carId, carLabel }: { carId?: string; carLabel?: string }) {
+export function BookingDialog({
+  carId,
+  carLabel,
+  trigger,
+}: {
+  carId?: string;
+  carLabel?: string;
+  trigger?: React.ReactNode;
+}) {
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState<Date | undefined>();
   const [time, setTime] = useState<string>("");
@@ -64,9 +72,11 @@ export function BookingDialog({ carId, carLabel }: { carId?: string; carLabel?: 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="cta" size="lg" className="w-full">
-          <CalendarCheck /> Prenota appuntamento
-        </Button>
+        {trigger ?? (
+          <Button variant="cta" size="lg" className="w-full">
+            <CalendarCheck /> Prenota appuntamento
+          </Button>
+        )}
       </DialogTrigger>
       <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-lg">
         <DialogHeader>
