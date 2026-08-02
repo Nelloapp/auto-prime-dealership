@@ -16,20 +16,20 @@ export function SiteHeader() {
   const { items: NAV, showAdminLink } = useNavItems();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-primary/25 bg-primary-deep/95 text-primary-foreground backdrop-blur">
-      <div
-        className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-2"
-        style={{ minHeight: logo.height + 16 }}
-      >
-        <Link to="/" className="flex items-center gap-3">
+    <header className="sticky top-0 z-50 w-full overflow-x-clip border-b border-primary/25 bg-primary-deep/95 text-primary-foreground backdrop-blur">
+      <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-2 md:flex md:justify-between">
+        <Link to="/" className="flex min-w-0 items-center gap-3">
           <img
             src={logo.url}
             alt="Auto Prime logo"
-            className="w-auto rounded-md"
-            style={{ height: logo.height }}
+            className="h-14 w-auto max-w-[55vw] rounded-md object-contain sm:h-auto sm:max-w-none"
+            style={{ ["--logo-h" as string]: `${logo.height}px` }}
+            sizes="(min-width: 640px) auto"
+            height={logo.height}
           />
           <span className="sr-only">Auto Prime</span>
         </Link>
+
 
 
         <nav className="hidden items-center gap-1 md:flex">
