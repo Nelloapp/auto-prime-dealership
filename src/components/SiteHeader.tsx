@@ -63,10 +63,16 @@ export function SiteHeader() {
           </Button>
 
           <Button asChild variant="whatsapp" size="icon" className="sm:hidden">
-            <a href={whatsappHref(whatsapp, "Ciao Auto Prime!")} aria-label="WhatsApp">
+            <a
+              href={whatsappHref(whatsapp, "Ciao Auto Prime!")}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="WhatsApp"
+            >
               <MessageCircle />
             </a>
           </Button>
+
           <Button asChild variant="cta" size="icon" className="sm:hidden">
             <a href={telHref(phone)} aria-label="Chiama">
               <Phone />
