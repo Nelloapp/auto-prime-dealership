@@ -16,20 +16,20 @@ export function SiteHeader() {
   const { items: NAV, showAdminLink } = useNavItems();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-primary/25 bg-primary-deep/95 text-primary-foreground backdrop-blur">
-      <div
-        className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-2"
-        style={{ minHeight: logo.height + 16 }}
-      >
-        <Link to="/" className="flex items-center gap-3">
+    <header className="sticky top-0 z-50 w-full overflow-x-clip border-b border-primary/25 bg-primary-deep/95 text-primary-foreground backdrop-blur">
+      <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-2 md:flex md:justify-between">
+        <Link to="/" className="flex min-w-0 items-center gap-3">
           <img
             src={logo.url}
             alt="Auto Prime logo"
-            className="w-auto rounded-md"
-            style={{ height: logo.height }}
+            className="h-[min(3.5rem,var(--logo-h))] w-auto max-w-[55vw] rounded-md object-contain sm:h-[var(--logo-h)] sm:max-w-none"
+            style={{ ["--logo-h" as string]: `${logo.height}px` }}
           />
+
+
           <span className="sr-only">Auto Prime</span>
         </Link>
+
 
 
         <nav className="hidden items-center gap-1 md:flex">
@@ -63,10 +63,16 @@ export function SiteHeader() {
           </Button>
 
           <Button asChild variant="whatsapp" size="icon" className="sm:hidden">
-            <a href={whatsappHref(whatsapp, "Ciao Auto Prime!")} aria-label="WhatsApp">
+            <a
+              href={whatsappHref(whatsapp, "Ciao Auto Prime!")}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="WhatsApp"
+            >
               <MessageCircle />
             </a>
           </Button>
+
           <Button asChild variant="cta" size="icon" className="sm:hidden">
             <a href={telHref(phone)} aria-label="Chiama">
               <Phone />

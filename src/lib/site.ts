@@ -94,9 +94,13 @@ export function telHref(phone: string) {
 }
 
 export function whatsappHref(whatsapp: string, message: string) {
-  const num = whatsapp.replace(/[^\d]/g, "");
+  let num = whatsapp.replace(/[^\d]/g, "");
+  if (num.startsWith("00")) num = num.slice(2);
+  // numeri italiani salvati senza prefisso internazionale (es. 3297897193)
+  if (num.length === 10 && num.startsWith("3")) num = `39${num}`;
   return `https://wa.me/${num}?text=${encodeURIComponent(message)}`;
 }
+
 
 export function mapsHref(address: string) {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
