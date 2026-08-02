@@ -72,9 +72,11 @@ export function BookingDialog({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="cta" size="lg" className="w-full">
-          <CalendarCheck /> Prenota appuntamento
-        </Button>
+        {trigger ?? (
+          <Button variant="cta" size="lg" className="w-full">
+            <CalendarCheck /> Prenota appuntamento
+          </Button>
+        )}
       </DialogTrigger>
       <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-lg">
         <DialogHeader>
