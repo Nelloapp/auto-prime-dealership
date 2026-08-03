@@ -13,6 +13,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { supabase } from "@/integrations/supabase/client";
+import { attachTradeInPhotos } from "@/lib/tradein.functions";
+
 import { uploadCarPhoto } from "@/lib/storage";
 import { FUEL_LABELS, genericWhatsappMessage, whatsappHref } from "@/lib/site";
 import { useSettings } from "@/lib/cars";
