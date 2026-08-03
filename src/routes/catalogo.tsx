@@ -57,6 +57,7 @@ export const Route = createFileRoute("/catalogo")({
     pronta: search["pronta"] === true || search["pronta"] === "true",
     filtri: search["filtri"] === true || search["filtri"] === "true",
   }),
+  search: { middlewares: [stripSearchParams(DEFAULTS)] },
   head: () => ({
     meta: [
       { title: "Parco auto usate — Auto Prime Pompei" },
