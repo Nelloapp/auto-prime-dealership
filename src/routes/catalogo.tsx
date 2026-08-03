@@ -47,15 +47,15 @@ const str = (v: unknown, fallback: string) =>
 
 export const Route = createFileRoute("/catalogo")({
   validateSearch: (search: Record<string, unknown>): CatalogSearch => ({
-    q: str(search.q, DEFAULTS.q),
-    brand: str(search.brand, DEFAULTS.brand),
-    fuel: str(search.fuel, DEFAULTS.fuel),
-    gearbox: str(search.gearbox, DEFAULTS.gearbox),
-    maxPrice: str(search.maxPrice, DEFAULTS.maxPrice).replace(/\D/g, ""),
-    maxKm: str(search.maxKm, DEFAULTS.maxKm).replace(/\D/g, ""),
-    sort: str(search.sort, DEFAULTS.sort),
-    pronta: search.pronta === true || search.pronta === "true",
-    filtri: search.filtri === true || search.filtri === "true",
+    q: str(search["q"], DEFAULTS.q),
+    brand: str(search["brand"], DEFAULTS.brand),
+    fuel: str(search["fuel"], DEFAULTS.fuel),
+    gearbox: str(search["gearbox"], DEFAULTS.gearbox),
+    maxPrice: str(search["maxPrice"], DEFAULTS.maxPrice).replace(/\D/g, ""),
+    maxKm: str(search["maxKm"], DEFAULTS.maxKm).replace(/\D/g, ""),
+    sort: str(search["sort"], DEFAULTS.sort),
+    pronta: search["pronta"] === true || search["pronta"] === "true",
+    filtri: search["filtri"] === true || search["filtri"] === "true",
   }),
   head: () => ({
     meta: [
