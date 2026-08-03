@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { createFileRoute, stripSearchParams, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Search, SlidersHorizontal, X } from "lucide-react";
 import { CarCard } from "@/components/CarCard";
@@ -57,7 +57,6 @@ export const Route = createFileRoute("/catalogo")({
     pronta: search["pronta"] === true || search["pronta"] === "true",
     filtri: search["filtri"] === true || search["filtri"] === "true",
   }),
-  search: { middlewares: [stripSearchParams(DEFAULTS)] },
   head: () => ({
     meta: [
       { title: "Parco auto usate — Auto Prime Pompei" },
