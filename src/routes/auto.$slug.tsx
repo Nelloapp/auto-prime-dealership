@@ -18,6 +18,7 @@ import { CarGallery } from "@/components/CarGallery";
 import { BookingDialog } from "@/components/BookingDialog";
 import { ContactForm } from "@/components/ContactForm";
 import { RateCalculator } from "@/components/RateCalculator";
+import { SimilarCars } from "@/components/SimilarCars";
 import { StickyActions } from "@/components/StickyActions";
 import { Button } from "@/components/ui/button";
 import { carQuery, sortedImages, useSettings } from "@/lib/cars";
@@ -182,6 +183,8 @@ function CarDetail() {
           <ContactForm carId={car.id} title="Richiedi informazioni" />
         </div>
       </div>
+      <SimilarCars car={car} />
+
       <StickyActions
         waMessage={waMessage}
         extra={
