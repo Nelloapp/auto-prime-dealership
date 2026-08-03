@@ -13,6 +13,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { supabase } from "@/integrations/supabase/client";
+import { attachTradeInPhotos } from "@/lib/tradein.functions";
+
 import { uploadCarPhoto } from "@/lib/storage";
 import { FUEL_LABELS, genericWhatsappMessage, whatsappHref } from "@/lib/site";
 import { useSettings } from "@/lib/cars";
@@ -93,11 +95,9 @@ function Permuta() {
       for (const file of files) {
         photos.push(await uploadCarPhoto(file, "permute"));
       }
-      const { error } = await supabase.rpc("attach_trade_in_photos", {
-        _id: requestId,
-        _photos: photos,
-      });
-      if (error) throw error;
+      const res = await attachTradeInPhotos({ data: { id: requestId, photos } });
+      if (!res.ok) throw new Error("attach_failed");
+
       toast.success("Foto allegate alla tua richiesta!");
       setFiles([]);
       setStep(1);
