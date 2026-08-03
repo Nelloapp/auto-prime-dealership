@@ -183,6 +183,8 @@ function CarDetail() {
           <ContactForm carId={car.id} title="Richiedi informazioni" />
         </div>
       </div>
+      <SimilarCars car={car} />
+
       <StickyActions
         waMessage={waMessage}
         extra={
