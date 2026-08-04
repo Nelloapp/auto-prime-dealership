@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { ContactForm } from "@/components/ContactForm";
+import { OpenStatus } from "@/components/OpenStatus";
 import { Button } from "@/components/ui/button";
 import { useSettings } from "@/lib/cars";
 import { mapEmbedSrc, mapsHref, telHref, whatsappHref } from "@/lib/site";
@@ -75,6 +76,7 @@ function Contatti() {
                 <p className="text-muted-foreground">
                   {s?.opening_hours ?? "Lun-Sab 9:00-13:00 / 15:00-19:30"}
                 </p>
+                <OpenStatus className="mt-2" />
               </div>
             </div>
             <div className="flex flex-wrap gap-2 pt-1">

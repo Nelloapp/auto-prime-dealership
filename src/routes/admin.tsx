@@ -8,6 +8,7 @@ import {
   LogOut,
   MessageSquare,
   Settings,
+  Star,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useIsAdmin, useSession } from "@/hooks/useAuth";
@@ -34,6 +35,7 @@ const NAV = [
   { to: "/admin/appuntamenti", label: "Appuntamenti", icon: CalendarCheck },
   { to: "/admin/permute", label: "Permute", icon: HandCoins },
   { to: "/admin/messaggi", label: "Messaggi", icon: MessageSquare },
+  { to: "/admin/recensioni", label: "Recensioni", icon: Star },
   { to: "/admin/impostazioni", label: "Impostazioni", icon: Settings },
 ] as const;
 
