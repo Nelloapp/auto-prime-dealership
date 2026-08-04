@@ -8,6 +8,7 @@ import {
   LogOut,
   MessageSquare,
   Settings,
+  Star,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useIsAdmin, useSession } from "@/hooks/useAuth";
