@@ -4,6 +4,9 @@ import { ShieldCheck, HandCoins, Wrench, ArrowRight, Phone, MessageCircle } from
 import heroImg from "@/assets/hero-autoprime.jpg";
 import { Button } from "@/components/ui/button";
 import { CarCard } from "@/components/CarCard";
+import { HowItWorks } from "@/components/HowItWorks";
+import { OpenStatus } from "@/components/OpenStatus";
+import { Reviews } from "@/components/Reviews";
 import { carsQuery, useSettings } from "@/lib/cars";
 import { telHref, whatsappHref } from "@/lib/site";
 import { useHeroImage } from "@/lib/theme";
@@ -83,7 +86,11 @@ function Home() {
             in pochi secondi.
           </p>
 
-          <div className="mt-8">
+          <div className="mt-6">
+            <OpenStatus className="border-white/15 bg-white/10 text-primary-foreground" />
+          </div>
+
+          <div className="mt-6">
             <Button asChild variant="cta" size="xl">
               <Link to="/catalogo">
                 Vedi il parco auto <ArrowRight />
@@ -140,6 +147,10 @@ function Home() {
           )}
         </div>
       </section>
+
+      <HowItWorks />
+
+      <Reviews />
 
       <section className="bg-primary-deep track-stripes">
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-4 py-14 text-center">
