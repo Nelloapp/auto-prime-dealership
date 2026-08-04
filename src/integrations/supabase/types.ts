@@ -215,6 +215,45 @@ export type Database = {
           },
         ]
       }
+      reviews: {
+        Row: {
+          author_name: string
+          body: string
+          car_label: string | null
+          created_at: string
+          id: string
+          position: number
+          published: boolean
+          rating: number
+          source: string | null
+          updated_at: string
+        }
+        Insert: {
+          author_name: string
+          body: string
+          car_label?: string | null
+          created_at?: string
+          id?: string
+          position?: number
+          published?: boolean
+          rating?: number
+          source?: string | null
+          updated_at?: string
+        }
+        Update: {
+          author_name?: string
+          body?: string
+          car_label?: string | null
+          created_at?: string
+          id?: string
+          position?: number
+          published?: boolean
+          rating?: number
+          source?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       site_settings: {
         Row: {
           about_text: string
