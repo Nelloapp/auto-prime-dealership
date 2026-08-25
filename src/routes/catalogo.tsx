@@ -111,7 +111,7 @@ function Catalogo() {
   const navigate = useNavigate({ from: "/catalogo" });
 
   const set = (patch: Partial<CatalogSearch>) =>
-    navigate({ search: (prev: CatalogSearch) => ({ ...prev, ...patch }), replace: true });
+    navigate({ search: (prev: Partial<CatalogSearch>) => ({ ...DEFAULTS, ...prev, ...patch }), replace: true });
 
   const { q, brand, fuel, gearbox, maxPrice, maxKm, sort, pronta, filtri } = search;
 
