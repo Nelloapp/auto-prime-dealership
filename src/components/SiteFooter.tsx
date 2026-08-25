@@ -1,14 +1,17 @@
-import { Link } from "@tanstack/react-router";
 import { Phone, MapPin, Clock, MessageCircle } from "lucide-react";
 import { useSettings } from "@/lib/cars";
 import { mapsHref, telHref, whatsappHref } from "@/lib/site";
-import { useSiteLogo } from "@/lib/theme";
+import { SiteNavLink } from "@/components/SiteNavLink";
+import { useNavItems, useSiteLogo, useSocials } from "@/lib/theme";
 
 export function SiteFooter() {
   const { data: s } = useSettings();
-  const logo = useSiteLogo();
+  const logo = useSiteLogo("footer");
+  const socials = useSocials();
+  const { items: NAV } = useNavItems();
   const phone = s?.phone ?? "329 789 7193";
   const address = s?.address ?? "Traversa Andolfi 11, 80045 Pompei (NA)";
+  const company = s?.company_name ?? "Auto Prime";
 
   return (
     <footer className="mt-16 bg-primary-deep text-primary-foreground">
@@ -16,16 +19,32 @@ export function SiteFooter() {
         <div>
           <img
             src={logo.url}
-            alt="Auto Prime logo"
-            className="w-auto rounded-md"
+            alt={`${company} logo`}
+            className="w-auto max-w-full rounded-md object-contain"
             style={{ height: logo.height }}
           />
           <p className="mt-3 text-sm text-primary-foreground/70">
-            Auto usate di qualità a prezzi onesti. Titolare {s?.owner_name ?? "Enrico Auricchio"}.
+            {s?.footer_note?.trim() ||
+              `Auto usate di qualità a prezzi onesti. Titolare ${s?.owner_name ?? "Enrico Auricchio"}.`}
           </p>
           <p className="mt-3 text-xs text-primary-foreground/60">
             P.IVA {s?.vat_number ?? "11121961210"}
           </p>
+          {socials.length > 0 && (
+            <div className="mt-4 flex flex-wrap gap-3 text-xs font-semibold uppercase tracking-wider">
+              {socials.map((sn) => (
+                <a
+                  key={sn.key}
+                  href={sn.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary-foreground/70 hover:text-accent"
+                >
+                  {sn.label}
+                </a>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="space-y-3 text-sm">
@@ -53,22 +72,17 @@ export function SiteFooter() {
         </div>
 
         <div className="space-y-2 text-sm">
-          <Link to="/catalogo" className="block hover:text-accent">
-            Catalogo auto
-          </Link>
-          <Link to="/permuta" className="block hover:text-accent">
-            Valuta la tua auto
-          </Link>
-          <Link to="/contatti" className="block hover:text-accent">
-            Chi siamo e contatti
-          </Link>
-          <Link to="/auth" className="block text-primary-foreground/50 hover:text-accent">
-            Area riservata
-          </Link>
+          {NAV.filter((i) => i.to !== "/").map((item) => (
+            <SiteNavLink key={item.to} item={item} className="block hover:text-accent" />
+          ))}
+          <SiteNavLink
+            item={{ to: "/", label: "Home", visible: true }}
+            className="block hover:text-accent"
+          />
         </div>
       </div>
       <div className="border-t border-primary/40 py-4 text-center text-xs text-primary-foreground/50">
-        © {new Date().getFullYear()} Auto Prime — Tutti i diritti riservati
+        © {new Date().getFullYear()} {company} — Tutti i diritti riservati
       </div>
     </footer>
   );
