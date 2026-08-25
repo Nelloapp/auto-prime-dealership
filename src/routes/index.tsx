@@ -9,7 +9,7 @@ import { OpenStatus } from "@/components/OpenStatus";
 import { Reviews } from "@/components/Reviews";
 import { carsQuery, useSettings } from "@/lib/cars";
 import { telHref, whatsappHref } from "@/lib/site";
-import { useHeroImage } from "@/lib/theme";
+import { DEFAULT_PLUSES, parseBlocks, useHeroImage, useSiteLogo } from "@/lib/theme";
 
 export const Route = createFileRoute("/")({
   head: () => ({
