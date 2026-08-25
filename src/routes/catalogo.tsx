@@ -46,7 +46,7 @@ const str = (v: unknown, fallback: string) =>
   typeof v === "string" ? v.slice(0, 60) : fallback;
 
 export const Route = createFileRoute("/catalogo")({
-  validateSearch: (search: Record<string, unknown>): CatalogSearch => ({
+  validateSearch: (search: Record<string, unknown>): Partial<CatalogSearch> => ({
     q: str(search["q"], DEFAULTS.q),
     brand: str(search["brand"], DEFAULTS.brand),
     fuel: str(search["fuel"], DEFAULTS.fuel),
@@ -107,7 +107,7 @@ function Chip({
 
 function Catalogo() {
   const { data: cars, isLoading } = useQuery(carsQuery);
-  const search = Route.useSearch();
+  const search: CatalogSearch = { ...DEFAULTS, ...Route.useSearch() };
   const navigate = useNavigate({ from: "/catalogo" });
 
   const set = (patch: Partial<CatalogSearch>) =>
