@@ -59,7 +59,7 @@ export const Route = createFileRoute("/auto/$slug")({
         Questo annuncio non è più disponibile o è stato rimosso.
       </p>
       <Button asChild variant="cta" size="lg" className="mt-6">
-        <Link to="/catalogo">Torna al parco auto</Link>
+        <Link to="/catalogo" search={{}}>Torna al parco auto</Link>
       </Button>
     </main>
   ),
@@ -95,7 +95,7 @@ function CarDetail() {
   return (
     <main className="mx-auto max-w-6xl px-4 py-8">
       <Link
-        to="/catalogo"
+        to="/catalogo" search={{}}
         className="inline-flex items-center gap-1.5 text-sm font-semibold text-muted-foreground hover:text-foreground"
       >
         <ArrowLeft className="size-4" /> Torna al parco auto

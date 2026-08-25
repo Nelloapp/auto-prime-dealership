@@ -85,7 +85,7 @@ function Home() {
 
           <div className="mt-6">
             <Button asChild variant="cta" size="xl">
-              <Link to="/catalogo">
+              <Link to="/catalogo" search={{}}>
                 {settings?.hero_cta_label?.trim() || "Vedi il parco auto"} <ArrowRight />
               </Link>
             </Button>
@@ -128,7 +128,7 @@ function Home() {
               <h2 className="font-display text-2xl font-bold uppercase text-primary-deep sm:text-3xl">
                 {settings?.featured_title?.trim() || "Ultimi arrivi"}
               </h2>
-              <Link to="/catalogo" className="text-sm font-semibold text-primary hover:underline">
+              <Link to="/catalogo" search={{}} className="text-sm font-semibold text-primary hover:underline">
                 Vedi tutte
               </Link>
             </div>
