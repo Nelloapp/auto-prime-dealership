@@ -263,8 +263,30 @@ export type Database = {
           color_header: string
           color_primary: string
           company_name: string
+          custom_pages: Json
           email: string
+          featured_title: string
+          finance_default_term: number
+          finance_disclaimer: string
+          finance_down_default_pct: number
+          finance_down_max_pct: number
+          finance_enabled: boolean
+          finance_tan: number
+          finance_terms: Json
+          finance_title: string
+          font_body: string
+          font_heading: string
+          footer_logo_height: number
+          footer_logo_path: string
+          footer_note: string
+          hero_cta_label: string
+          hero_eyebrow: string
           hero_image_path: string
+          hero_logo_height: number
+          hero_show_logo: boolean
+          hero_subtitle: string
+          hero_title: string
+          how_steps: Json
           id: boolean
           logo_height: number
           logo_path: string
@@ -272,7 +294,17 @@ export type Database = {
           opening_hours: string
           owner_name: string
           phone: string
+          pluses: Json
+          radius_px: number
           show_admin_link: boolean
+          show_featured: boolean
+          show_how_it_works: boolean
+          show_pluses: boolean
+          show_reviews: boolean
+          social_facebook: string
+          social_instagram: string
+          social_tiktok: string
+          social_youtube: string
           updated_at: string
           vat_number: string
           whatsapp: string
@@ -285,8 +317,30 @@ export type Database = {
           color_header?: string
           color_primary?: string
           company_name?: string
+          custom_pages?: Json
           email?: string
+          featured_title?: string
+          finance_default_term?: number
+          finance_disclaimer?: string
+          finance_down_default_pct?: number
+          finance_down_max_pct?: number
+          finance_enabled?: boolean
+          finance_tan?: number
+          finance_terms?: Json
+          finance_title?: string
+          font_body?: string
+          font_heading?: string
+          footer_logo_height?: number
+          footer_logo_path?: string
+          footer_note?: string
+          hero_cta_label?: string
+          hero_eyebrow?: string
           hero_image_path?: string
+          hero_logo_height?: number
+          hero_show_logo?: boolean
+          hero_subtitle?: string
+          hero_title?: string
+          how_steps?: Json
           id?: boolean
           logo_height?: number
           logo_path?: string
@@ -294,7 +348,17 @@ export type Database = {
           opening_hours?: string
           owner_name?: string
           phone?: string
+          pluses?: Json
+          radius_px?: number
           show_admin_link?: boolean
+          show_featured?: boolean
+          show_how_it_works?: boolean
+          show_pluses?: boolean
+          show_reviews?: boolean
+          social_facebook?: string
+          social_instagram?: string
+          social_tiktok?: string
+          social_youtube?: string
           updated_at?: string
           vat_number?: string
           whatsapp?: string
@@ -307,8 +371,30 @@ export type Database = {
           color_header?: string
           color_primary?: string
           company_name?: string
+          custom_pages?: Json
           email?: string
+          featured_title?: string
+          finance_default_term?: number
+          finance_disclaimer?: string
+          finance_down_default_pct?: number
+          finance_down_max_pct?: number
+          finance_enabled?: boolean
+          finance_tan?: number
+          finance_terms?: Json
+          finance_title?: string
+          font_body?: string
+          font_heading?: string
+          footer_logo_height?: number
+          footer_logo_path?: string
+          footer_note?: string
+          hero_cta_label?: string
+          hero_eyebrow?: string
           hero_image_path?: string
+          hero_logo_height?: number
+          hero_show_logo?: boolean
+          hero_subtitle?: string
+          hero_title?: string
+          how_steps?: Json
           id?: boolean
           logo_height?: number
           logo_path?: string
@@ -316,7 +402,17 @@ export type Database = {
           opening_hours?: string
           owner_name?: string
           phone?: string
+          pluses?: Json
+          radius_px?: number
           show_admin_link?: boolean
+          show_featured?: boolean
+          show_how_it_works?: boolean
+          show_pluses?: boolean
+          show_reviews?: boolean
+          social_facebook?: string
+          social_instagram?: string
+          social_tiktok?: string
+          social_youtube?: string
           updated_at?: string
           vat_number?: string
           whatsapp?: string
