@@ -100,7 +100,7 @@ function ChiSiamo() {
 
         <div className="mt-10 flex flex-wrap gap-3">
           <Button asChild variant="cta" size="xl">
-            <Link to="/catalogo" search={{}}>Scopri le auto disponibili</Link>
+            <Link to="/catalogo" search={(prev) => prev}>Scopri le auto disponibili</Link>
           </Button>
           <Button asChild variant="outline" size="xl">
             <Link to="/contatti">Contattaci</Link>

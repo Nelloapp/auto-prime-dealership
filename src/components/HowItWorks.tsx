@@ -41,7 +41,7 @@ export function HowItWorks() {
 
         <div className="mt-6">
           <Link
-            to="/catalogo" search={{}}
+            to="/catalogo" search={(prev) => prev}
             className="inline-flex items-center gap-2 font-semibold text-primary hover:underline"
           >
             Inizia dal parco auto <ArrowRight className="size-4" />
