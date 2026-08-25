@@ -30,29 +30,16 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const PLUSES = [
-  {
-    icon: ShieldCheck,
-    title: "Auto controllate",
-    text: "Ogni vettura passa un check tecnico completo prima di entrare in vendita.",
-  },
-  {
-    icon: HandCoins,
-    title: "Permuta e finanziamenti",
-    text: "Valutiamo il tuo usato in giornata e troviamo la formula di pagamento giusta.",
-  },
-  {
-    icon: Wrench,
-    title: "Assistenza post-vendita",
-    text: "Supporto diretto anche dopo l'acquisto.",
-  },
-];
+const PLUS_ICONS = [ShieldCheck, HandCoins, Wrench];
 
 function Home() {
   const { data: settings } = useSettings();
   const { data: cars } = useQuery(carsQuery);
   const customHero = useHeroImage();
+  const heroLogo = useSiteLogo("hero");
+  const pluses = parseBlocks(settings?.pluses, DEFAULT_PLUSES);
   const featured = (cars ?? []).filter((c) => c.status !== "venduta").slice(0, 6);
+
 
   return (
     <main>
