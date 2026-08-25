@@ -1,12 +1,10 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Calculator, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { useSettings } from "@/lib/cars";
 import { formatPrice, monthlyPayment, whatsappHref } from "@/lib/site";
-
-const TERMS = [24, 36, 48, 60, 72];
-const TAN = 7.9;
+import { useFinance } from "@/lib/theme";
 
 export function RateCalculator({
   price,
@@ -18,15 +16,24 @@ export function RateCalculator({
   carUrl: string;
 }) {
   const { data: settings } = useSettings();
-  const maxDown = Math.round(price * 0.5);
-  const [down, setDown] = useState(() => Math.round(price * 0.2));
-  const [months, setMonths] = useState(60);
+  const finance = useFinance();
+  const maxDown = Math.round((price * finance.downMaxPct) / 100);
+  const [down, setDown] = useState(() => Math.round((price * finance.downDefaultPct) / 100));
+  const [months, setMonths] = useState(finance.defaultTerm);
+
+  useEffect(() => {
+    setDown(Math.round((price * finance.downDefaultPct) / 100));
+    setMonths(finance.defaultTerm);
+  }, [price, finance.downDefaultPct, finance.defaultTerm]);
 
   const rate = useMemo(
-    () => monthlyPayment(Math.max(price - down, 0), TAN, months),
-    [price, down, months],
+    () => monthlyPayment(Math.max(price - down, 0), finance.tan, months),
+    [price, down, months, finance.tan],
   );
 
+  if (!finance.enabled) return null;
+
+  const tanLabel = String(finance.tan).replace(".", ",");
   const waText = [
     `Ciao Auto Prime, vorrei un preventivo finanziamento per:`,
     `${carLabel} — ${formatPrice(price)}`,
@@ -38,7 +45,7 @@ export function RateCalculator({
   return (
     <div className="rounded-2xl bg-card p-5 shadow-card">
       <h2 className="flex items-center gap-2 font-display text-lg font-extrabold uppercase">
-        <Calculator className="size-5 text-primary" /> Calcola la rata
+        <Calculator className="size-5 text-primary" /> {finance.title}
       </h2>
 
       <div className="mt-4 space-y-5">
@@ -49,9 +56,9 @@ export function RateCalculator({
           </div>
           <Slider
             className="mt-3"
-            value={[down]}
+            value={[Math.min(down, maxDown)]}
             min={0}
-            max={maxDown}
+            max={Math.max(maxDown, 500)}
             step={500}
             onValueChange={(v) => setDown(v[0] ?? 0)}
             aria-label="Anticipo"
@@ -60,8 +67,11 @@ export function RateCalculator({
 
         <div>
           <span className="text-sm font-semibold text-muted-foreground">Durata</span>
-          <div className="mt-2 grid grid-cols-5 gap-1.5">
-            {TERMS.map((m) => (
+          <div
+            className="mt-2 grid gap-1.5"
+            style={{ gridTemplateColumns: `repeat(${Math.min(finance.terms.length, 5)}, minmax(0,1fr))` }}
+          >
+            {finance.terms.map((m) => (
               <button
                 key={m}
                 type="button"
@@ -88,7 +98,7 @@ export function RateCalculator({
             <span className="text-base text-muted-foreground">/mese</span>
           </p>
           <p className="mt-1 font-mono text-xs text-muted-foreground">
-            {months} mesi · TAN {TAN.toString().replace(".", ",")}% · anticipo {formatPrice(down)}
+            {months} mesi · TAN {tanLabel}% · anticipo {formatPrice(down)}
           </p>
         </div>
 
@@ -103,8 +113,8 @@ export function RateCalculator({
         </Button>
 
         <p className="text-xs text-muted-foreground">
-          Preventivo indicativo calcolato con TAN {TAN.toString().replace(".", ",")}%: non è
-          un'offerta contrattuale. Il piano definitivo è soggetto ad approvazione della finanziaria.
+          {finance.disclaimer.trim() ||
+            `Preventivo indicativo calcolato con TAN ${tanLabel}%: non è un'offerta contrattuale. Il piano definitivo è soggetto ad approvazione della finanziaria.`}
         </p>
       </div>
     </div>

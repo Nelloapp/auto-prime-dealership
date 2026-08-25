@@ -9,7 +9,7 @@ import { OpenStatus } from "@/components/OpenStatus";
 import { Reviews } from "@/components/Reviews";
 import { carsQuery, useSettings } from "@/lib/cars";
 import { telHref, whatsappHref } from "@/lib/site";
-import { useHeroImage } from "@/lib/theme";
+import { DEFAULT_PLUSES, parseBlocks, useHeroImage, useSiteLogo } from "@/lib/theme";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -30,29 +30,16 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const PLUSES = [
-  {
-    icon: ShieldCheck,
-    title: "Auto controllate",
-    text: "Ogni vettura passa un check tecnico completo prima di entrare in vendita.",
-  },
-  {
-    icon: HandCoins,
-    title: "Permuta e finanziamenti",
-    text: "Valutiamo il tuo usato in giornata e troviamo la formula di pagamento giusta.",
-  },
-  {
-    icon: Wrench,
-    title: "Assistenza post-vendita",
-    text: "Supporto diretto anche dopo l'acquisto.",
-  },
-];
+const PLUS_ICONS = [ShieldCheck, HandCoins, Wrench];
 
 function Home() {
   const { data: settings } = useSettings();
   const { data: cars } = useQuery(carsQuery);
   const customHero = useHeroImage();
+  const heroLogo = useSiteLogo("hero");
+  const pluses = parseBlocks(settings?.pluses, DEFAULT_PLUSES);
   const featured = (cars ?? []).filter((c) => c.status !== "venduta").slice(0, 6);
+
 
   return (
     <main>
@@ -69,21 +56,27 @@ function Home() {
         </div>
 
         <div className="hero-rise relative mx-auto max-w-6xl px-4 py-20 sm:py-28">
+          {settings?.hero_show_logo && (
+            <img
+              src={heroLogo.url}
+              alt={`${settings?.company_name ?? "Auto Prime"} logo`}
+              className="mb-6 w-auto max-w-full object-contain"
+              style={{ height: heroLogo.height }}
+            />
+          )}
           <p className="font-mono text-xs uppercase tracking-[0.3em] text-primary-foreground/60">
-            Pompei · Napoli
+            {settings?.hero_eyebrow ?? "Pompei · Napoli"}
           </p>
-          <h1 className="mt-4 max-w-xl font-display text-5xl font-bold uppercase leading-[0.95] text-primary-foreground sm:text-7xl">
-            Auto di qualità.
-            <br />
-            Prezzi onesti.
+          <h1 className="mt-4 max-w-xl whitespace-pre-line font-display text-5xl font-bold uppercase leading-[0.95] text-primary-foreground sm:text-7xl">
+            {settings?.hero_title?.trim() || "Auto di qualità.\nPrezzi onesti."}
           </h1>
 
           {/* striscia livrea allineata al CTA */}
           <div className="mt-8 h-1 w-40 bg-primary" />
 
           <p className="mt-6 max-w-md text-base text-primary-foreground/75">
-            Usato selezionato e controllato. Vieni a provarlo o prenota un appuntamento
-            in pochi secondi.
+            {settings?.hero_subtitle?.trim() ||
+              "Usato selezionato e controllato. Vieni a provarlo o prenota un appuntamento in pochi secondi."}
           </p>
 
           <div className="mt-6">
@@ -92,8 +85,8 @@ function Home() {
 
           <div className="mt-6">
             <Button asChild variant="cta" size="xl">
-              <Link to="/catalogo">
-                Vedi il parco auto <ArrowRight />
+              <Link to="/catalogo" search={{}}>
+                {settings?.hero_cta_label?.trim() || "Vedi il parco auto"} <ArrowRight />
               </Link>
             </Button>
           </div>
@@ -109,48 +102,55 @@ function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-14">
-        <div className="grid gap-4 sm:grid-cols-3">
-          {PLUSES.map(({ icon: Icon, title, text }) => (
-            <div key={title} className="rounded-xl border border-border bg-secondary p-6">
-              <Icon className="size-8 text-primary" />
-              <h2 className="mt-3 font-display text-lg font-bold uppercase text-primary-deep">
-                {title}
-              </h2>
-              <p className="mt-1 text-sm text-muted-foreground">{text}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-
-      <section className="bg-secondary">
-        <div className="mx-auto max-w-6xl px-4 py-16">
-          <div className="mb-6 flex items-end justify-between gap-4">
-            <h2 className="font-display text-2xl font-bold uppercase text-primary-deep sm:text-3xl">
-              Ultimi arrivi
-            </h2>
-            <Link to="/catalogo" className="text-sm font-semibold text-primary hover:underline">
-              Vedi tutte
-            </Link>
+      {settings?.show_pluses !== false && (
+        <section className="mx-auto max-w-6xl px-4 py-14">
+          <div className="grid gap-4 sm:grid-cols-3">
+            {pluses.map(({ title, text }, i) => {
+              const Icon = PLUS_ICONS[i % PLUS_ICONS.length]!;
+              return (
+                <div key={title} className="rounded-xl border border-border bg-secondary p-6">
+                  <Icon className="size-8 text-primary" />
+                  <h2 className="mt-3 font-display text-lg font-bold uppercase text-primary-deep">
+                    {title}
+                  </h2>
+                  <p className="mt-1 text-sm text-muted-foreground">{text}</p>
+                </div>
+              );
+            })}
           </div>
-          {featured.length === 0 ? (
-            <p className="rounded-xl border border-border bg-card p-8 text-center text-muted-foreground">
-              Nuove auto in arrivo. Contattaci per sapere cosa abbiamo disponibile.
-            </p>
-          ) : (
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {featured.map((car) => (
-                <CarCard key={car.id} car={car} />
-              ))}
+        </section>
+      )}
+
+      {settings?.show_featured !== false && (
+        <section className="bg-secondary">
+          <div className="mx-auto max-w-6xl px-4 py-16">
+            <div className="mb-6 flex items-end justify-between gap-4">
+              <h2 className="font-display text-2xl font-bold uppercase text-primary-deep sm:text-3xl">
+                {settings?.featured_title?.trim() || "Ultimi arrivi"}
+              </h2>
+              <Link to="/catalogo" search={{}} className="text-sm font-semibold text-primary hover:underline">
+                Vedi tutte
+              </Link>
             </div>
-          )}
-        </div>
-      </section>
+            {featured.length === 0 ? (
+              <p className="rounded-xl border border-border bg-card p-8 text-center text-muted-foreground">
+                Nuove auto in arrivo. Contattaci per sapere cosa abbiamo disponibile.
+              </p>
+            ) : (
+              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                {featured.map((car) => (
+                  <CarCard key={car.id} car={car} />
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
-      <HowItWorks />
+      {settings?.show_how_it_works !== false && <HowItWorks />}
 
-      <Reviews />
+      {settings?.show_reviews !== false && <Reviews />}
+
 
       <section className="bg-primary-deep track-stripes">
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-4 py-14 text-center">

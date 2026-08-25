@@ -23,6 +23,7 @@ import { Route as AdminMessaggiRouteImport } from './routes/admin.messaggi'
 import { Route as AdminPermuteRouteImport } from './routes/admin.permute'
 import { Route as AdminRecensioniRouteImport } from './routes/admin.recensioni'
 import { Route as AutoSlugRouteImport } from './routes/auto.$slug'
+import { Route as PSlugRouteImport } from './routes/p.$slug'
 import { Route as AdminAutoIndexRouteImport } from './routes/admin.auto.index'
 import { Route as AdminAutoIdRouteImport } from './routes/admin.auto.$id'
 import { Route as AdminAutoNuovaRouteImport } from './routes/admin.auto.nuova'
@@ -97,6 +98,11 @@ const AutoSlugRoute = AutoSlugRouteImport.update({
   path: '/auto/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PSlugRoute = PSlugRouteImport.update({
+  id: '/p/$slug',
+  path: '/p/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminAutoIndexRoute = AdminAutoIndexRouteImport.update({
   id: '/auto/',
   path: '/auto/',
@@ -127,6 +133,7 @@ export interface FileRoutesByFullPath {
   '/admin/permute': typeof AdminPermuteRoute
   '/admin/recensioni': typeof AdminRecensioniRoute
   '/auto/$slug': typeof AutoSlugRoute
+  '/p/$slug': typeof PSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/admin/auto/$id': typeof AdminAutoIdRoute
   '/admin/auto/nuova': typeof AdminAutoNuovaRoute
@@ -145,6 +152,7 @@ export interface FileRoutesByTo {
   '/admin/permute': typeof AdminPermuteRoute
   '/admin/recensioni': typeof AdminRecensioniRoute
   '/auto/$slug': typeof AutoSlugRoute
+  '/p/$slug': typeof PSlugRoute
   '/admin': typeof AdminIndexRoute
   '/admin/auto/$id': typeof AdminAutoIdRoute
   '/admin/auto/nuova': typeof AdminAutoNuovaRoute
@@ -165,6 +173,7 @@ export interface FileRoutesById {
   '/admin/permute': typeof AdminPermuteRoute
   '/admin/recensioni': typeof AdminRecensioniRoute
   '/auto/$slug': typeof AutoSlugRoute
+  '/p/$slug': typeof PSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/admin/auto/$id': typeof AdminAutoIdRoute
   '/admin/auto/nuova': typeof AdminAutoNuovaRoute
@@ -186,6 +195,7 @@ export interface FileRouteTypes {
     | '/admin/permute'
     | '/admin/recensioni'
     | '/auto/$slug'
+    | '/p/$slug'
     | '/admin/'
     | '/admin/auto/$id'
     | '/admin/auto/nuova'
@@ -204,6 +214,7 @@ export interface FileRouteTypes {
     | '/admin/permute'
     | '/admin/recensioni'
     | '/auto/$slug'
+    | '/p/$slug'
     | '/admin'
     | '/admin/auto/$id'
     | '/admin/auto/nuova'
@@ -223,6 +234,7 @@ export interface FileRouteTypes {
     | '/admin/permute'
     | '/admin/recensioni'
     | '/auto/$slug'
+    | '/p/$slug'
     | '/admin/'
     | '/admin/auto/$id'
     | '/admin/auto/nuova'
@@ -238,6 +250,7 @@ export interface RootRouteChildren {
   ContattiRoute: typeof ContattiRoute
   PermutaRoute: typeof PermutaRoute
   AutoSlugRoute: typeof AutoSlugRoute
+  PSlugRoute: typeof PSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -340,6 +353,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AutoSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/p/$slug': {
+      id: '/p/$slug'
+      path: '/p/$slug'
+      fullPath: '/p/$slug'
+      preLoaderRoute: typeof PSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/auto/': {
       id: '/admin/auto/'
       path: '/auto'
@@ -399,7 +419,18 @@ const rootRouteChildren: RootRouteChildren = {
   ContattiRoute: ContattiRoute,
   PermutaRoute: PermutaRoute,
   AutoSlugRoute: AutoSlugRoute,
+  PSlugRoute: PSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
