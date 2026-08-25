@@ -21,6 +21,7 @@ export function SiteNavLink({
 }) {
   const label = children ?? item.label;
   const external = /^(https?:|tel:|mailto:)/i.test(item.to);
+  const active = { className: activeClassName ?? "" };
 
   if (external) {
     return (
@@ -43,7 +44,7 @@ export function SiteNavLink({
         to="/p/$slug"
         params={{ slug: page[1]! }}
         className={className}
-        activeProps={activeClassName ? { className: activeClassName } : undefined}
+        activeProps={active}
         onClick={onClick}
       >
         {label}
@@ -54,8 +55,9 @@ export function SiteNavLink({
   return (
     <Link
       to={item.to}
+      search={{}}
       className={className}
-      activeProps={activeClassName ? { className: activeClassName } : undefined}
+      activeProps={active}
       activeOptions={{ exact: item.to === "/" }}
       onClick={onClick}
     >
