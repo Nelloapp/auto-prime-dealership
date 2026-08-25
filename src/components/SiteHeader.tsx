@@ -89,15 +89,14 @@ export function SiteHeader() {
       <div className={cn("border-t border-primary/40 md:hidden", open ? "block" : "hidden")}>
         <nav className="mx-auto flex max-w-6xl flex-col p-2">
           {NAV.map((item) => (
-            <Link
+            <SiteNavLink
               key={item.to}
-              to={item.to}
+              item={item}
               onClick={() => setOpen(false)}
               className="rounded-md px-3 py-3 text-base font-semibold text-primary-foreground/90 hover:bg-primary/40"
-            >
-              {item.label}
-            </Link>
+            />
           ))}
+
           {showAdminLink && (
             <Link
               to="/auth"
