@@ -34,17 +34,15 @@ export function SiteHeader() {
 
         <nav className="hidden items-center gap-1 md:flex">
           {NAV.map((item) => (
-            <Link
+            <SiteNavLink
               key={item.to}
-              to={item.to}
+              item={item}
               className="rounded-md px-3 py-2 text-sm font-semibold text-primary-foreground/80 transition-colors hover:bg-primary/40 hover:text-primary-foreground"
-              activeProps={{ className: "bg-primary/50 text-primary-foreground" }}
-              activeOptions={{ exact: item.to === "/" }}
-            >
-              {item.label}
-            </Link>
+              activeClassName="bg-primary/50 text-primary-foreground rounded-md px-3 py-2 text-sm font-semibold text-primary-foreground"
+            />
           ))}
         </nav>
+
 
         <div className="flex items-center gap-2">
           {showAdminLink && (
