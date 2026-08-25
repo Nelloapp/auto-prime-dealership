@@ -1,31 +1,16 @@
 import { Link } from "@tanstack/react-router";
 import { CalendarCheck, Car, HandCoins, Search } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { useSettings } from "@/lib/cars";
+import { DEFAULT_STEPS, parseBlocks } from "@/lib/theme";
 
-const STEPS = [
-  {
-    icon: Search,
-    title: "Scegli l'auto",
-    text: "Sfoglia il parco auto con foto reali, scheda tecnica completa e prezzo chiaro.",
-  },
-  {
-    icon: CalendarCheck,
-    title: "Prenota la prova",
-    text: "Fissa un appuntamento in salone in pochi secondi, oppure scrivici su WhatsApp.",
-  },
-  {
-    icon: HandCoins,
-    title: "Permuta e pagamento",
-    text: "Valutiamo il tuo usato e troviamo insieme la formula di pagamento o la rata giusta.",
-  },
-  {
-    icon: Car,
-    title: "Ritiri e vai",
-    text: "Ci occupiamo noi del passaggio di proprietà: tu ritiri l'auto pronta.",
-  },
-];
+const ICONS = [Search, CalendarCheck, HandCoins, Car];
 
-/** Sezione "Come funziona" — 4 passi dal primo contatto alla consegna. */
+/** Sezione "Come funziona" — passi editabili dal pannello admin. */
 export function HowItWorks() {
+  const { data: s } = useSettings();
+  const steps = parseBlocks(s?.how_steps, DEFAULT_STEPS);
+
   return (
     <section className="bg-secondary">
       <div className="mx-auto max-w-6xl px-4 py-16">
@@ -33,30 +18,33 @@ export function HowItWorks() {
           Come funziona
         </h2>
         <p className="mt-2 max-w-xl text-muted-foreground">
-          Quattro passi semplici, nessuna sorpresa: dal primo contatto alla consegna.
+          Passi semplici, nessuna sorpresa: dal primo contatto alla consegna.
         </p>
 
         <ol className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {STEPS.map(({ icon: Icon, title, text }, i) => (
-            <li key={title} className="relative rounded-xl border border-border bg-card p-6">
-              <span className="absolute right-4 top-4 font-mono text-3xl font-bold text-border">
-                0{i + 1}
-              </span>
-              <Icon className="size-8 text-primary" />
-              <h3 className="mt-3 font-display text-lg font-bold uppercase text-primary-deep">
-                {title}
-              </h3>
-              <p className="mt-1 text-sm text-muted-foreground">{text}</p>
-            </li>
-          ))}
+          {steps.map(({ title, text }, i) => {
+            const Icon = ICONS[i % ICONS.length]!;
+            return (
+              <li key={title} className="relative rounded-xl border border-border bg-card p-6">
+                <span className="absolute right-4 top-4 font-mono text-3xl font-bold text-border">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <Icon className="size-8 text-primary" />
+                <h3 className="mt-3 font-display text-lg font-bold uppercase text-primary-deep">
+                  {title}
+                </h3>
+                <p className="mt-1 text-sm text-muted-foreground">{text}</p>
+              </li>
+            );
+          })}
         </ol>
 
         <div className="mt-6">
           <Link
             to="/catalogo"
-            className="font-display text-sm font-bold uppercase tracking-wide text-primary hover:underline"
+            className="inline-flex items-center gap-2 font-semibold text-primary hover:underline"
           >
-            Inizia dal parco auto →
+            Inizia dal parco auto <ArrowRight className="size-4" />
           </Link>
         </div>
       </div>
