@@ -52,7 +52,7 @@ function Home() {
           className="absolute inset-0 -z-20 size-full object-cover"
         />
         <div
-          className="absolute inset-0 -z-10 bg-gradient-to-t from-primary-deep via-primary-deep/85 to-primary-deep/55 sm:bg-gradient-to-r sm:from-primary-deep sm:via-primary-deep/85 sm:to-primary-deep/25"
+          className="absolute inset-0 -z-10 bg-gradient-to-t from-primary-deep/95 via-primary-deep/65 to-primary-deep/35 sm:bg-gradient-to-r sm:from-primary-deep sm:via-primary-deep/60 sm:to-primary-deep/15"
           aria-hidden
         />
         <div className="track-stripes pointer-events-none absolute inset-0 -z-10" aria-hidden />
