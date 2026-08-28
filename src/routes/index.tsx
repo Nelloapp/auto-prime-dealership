@@ -156,6 +156,8 @@ function Home() {
 
       {settings?.show_how_it_works !== false && <HowItWorks />}
 
+      <BrandLogos />
+
       {settings?.show_reviews !== false && <Reviews />}
 
 
