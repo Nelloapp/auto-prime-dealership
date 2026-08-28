@@ -1,4 +1,6 @@
+import { Link } from "@tanstack/react-router";
 import { Phone, MapPin, Clock, MessageCircle } from "lucide-react";
+
 import { useSettings } from "@/lib/cars";
 import { mapsHref, telHref, whatsappHref } from "@/lib/site";
 import { SiteNavLink } from "@/components/SiteNavLink";
@@ -80,6 +82,7 @@ export function SiteFooter() {
             className="block hover:text-accent"
           />
           <a href="/privacy" className="block hover:text-accent">
+
             Privacy Policy
           </a>
         </div>
