@@ -51,6 +51,7 @@ export const Route = createFileRoute("/auto/$slug")({
       },
     ],
   }),
+  loader: ({ context, params }) => context.queryClient.ensureQueryData(carQuery(params.slug)),
   component: CarDetail,
   notFoundComponent: () => (
     <main className="mx-auto max-w-2xl px-4 py-24 text-center">
