@@ -5,7 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Auto Prime design system — nero profondo, rosso racing e argento (dal logo).
+ * Auto Prime design system — blu profondo, giallo caldo e grigio chiaro.
  * Tutti i colori sono token semantici in oklch. Non usare colori hardcoded.
  */
 
@@ -70,15 +70,15 @@
   --radius: 0.75rem;
 
   /* Palette Auto Prime */
-  --nero-carbonio: #0d0d0d;
+  --nero-carbonio: #18252d;
   --nero-morbido: #1a1a1a;
-  --rosso-corsa: #e30613;
-  --rosso-scuro: #a10d1d;
+  --rosso-corsa: #176b87;
+  --rosso-scuro: #12556b;
   --bianco: #ffffff;
-  --grigio-chiaro: #f2f2f2;
+  --grigio-chiaro: #f7f7f5;
   --grigio-testo: #3a3a3a;
 
-  --background: var(--bianco);
+  --background: var(--grigio-chiaro);
   --foreground: var(--grigio-testo);
   --card: var(--bianco);
   --card-foreground: var(--grigio-testo);
@@ -95,7 +95,7 @@
   --muted: var(--grigio-chiaro);
   --muted-foreground: #6b6b6b;
 
-  --accent: var(--grigio-chiaro);
+  --accent: #f4b942;
   --accent-foreground: var(--nero-carbonio);
   --highlight: var(--rosso-corsa);
   --highlight-foreground: var(--bianco);

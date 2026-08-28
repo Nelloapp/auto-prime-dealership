@@ -53,17 +53,17 @@ const SOCIALS = [
 ] as const;
 
 const COLORS = [
-  { name: "color_primary", label: "Colore principale", fallback: "#e30613" },
-  { name: "color_accent", label: "Colore accento", fallback: "#f2f2f2" },
-  { name: "color_background", label: "Sfondo pagine", fallback: "#ffffff" },
-  { name: "color_header", label: "Sfondo header/footer", fallback: "#0d0d0d" },
+  { name: "color_primary", label: "Colore principale", fallback: "#176B87" },
+  { name: "color_accent", label: "Colore accento", fallback: "#F4B942" },
+  { name: "color_background", label: "Sfondo pagine", fallback: "#F7F7F5" },
+  { name: "color_header", label: "Sfondo header/footer", fallback: "#18252D" },
 ] as const;
 
 const DEFAULT_COLORS: Record<string, string> = {
-  color_primary: "#e30613",
-  color_accent: "#f2f2f2",
-  color_background: "#ffffff",
-  color_header: "#0d0d0d",
+  color_primary: "#176B87",
+  color_accent: "#F4B942",
+  color_background: "#F7F7F5",
+  color_header: "#18252D",
 };
 
 function SettingsPage() {
