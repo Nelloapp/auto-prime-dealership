@@ -35,6 +35,7 @@ export const Route = createFileRoute("/")({
     ],
     links: [{ rel: "canonical", href: "https://auto-prime-dealership.lovable.app/" }],
   }),
+  loader: ({ context }) => context.queryClient.ensureQueryData(carsQuery),
   component: Home,
 });
 
