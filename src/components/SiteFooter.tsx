@@ -79,7 +79,11 @@ export function SiteFooter() {
             item={{ to: "/", label: "Home", visible: true }}
             className="block hover:text-accent"
           />
+          <a href="/privacy" className="block hover:text-accent">
+            Privacy Policy
+          </a>
         </div>
+
       </div>
       <div className="border-t border-primary/40 py-4 text-center text-xs text-primary-foreground/50">
         © {new Date().getFullYear()} {company} — Tutti i diritti riservati
