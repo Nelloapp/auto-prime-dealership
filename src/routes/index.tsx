@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { ShieldCheck, HandCoins, Wrench, ArrowRight, Phone, MessageCircle } from "lucide-react";
 import heroImg from "@/assets/hero-autoprime.jpg";
+import ogImage from "@/assets/og-home.jpg.asset.json";
 import { Button } from "@/components/ui/button";
 import { BrandLogos } from "@/components/BrandLogos";
 import { CarCard } from "@/components/CarCard";
