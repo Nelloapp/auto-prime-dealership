@@ -255,9 +255,9 @@ export function SiteTheme() {
     lines.push(`--primary-deep:${header}`, `--sidebar:${header}`);
   }
   if (primary || header || background) {
-    const h = header ?? background ?? "#0d0f14";
+    const h = header ?? background ?? "#18252D";
     const b = background ?? h;
-    const p = primary ?? "#d62828";
+    const p = primary ?? "#176B87";
     lines.push(
       `--gradient-hero:linear-gradient(135deg, ${h} 0%, ${b} 55%, color-mix(in oklab, ${p} 55%, ${b}) 100%)`,
       `--gradient-accent:linear-gradient(100deg, ${p} 0%, color-mix(in oklab, ${p} 70%, white) 100%)`,
