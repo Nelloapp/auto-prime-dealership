@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useLocation } from "@tanstack/react-router";
 import { Phone, MapPin, Clock, MessageCircle } from "lucide-react";
 
 import { useSettings } from "@/lib/cars";
@@ -11,12 +11,13 @@ export function SiteFooter() {
   const logo = useSiteLogo("footer");
   const socials = useSocials();
   const { items: NAV } = useNavItems();
+  const pathname = useLocation({ select: (l) => l.pathname });
   const phone = s?.phone ?? "329 789 7193";
   const address = s?.address ?? "Traversa Andolfi 11, 80045 Pompei (NA)";
   const company = s?.company_name ?? "Auto Prime";
 
   return (
-    <footer className="mt-16 bg-primary-deep text-primary-foreground">
+    <footer className={`${pathname === "/" ? "mt-0" : "mt-16"} bg-primary-deep text-primary-foreground`}>
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:grid-cols-2 lg:grid-cols-3">
         <div>
           <img
