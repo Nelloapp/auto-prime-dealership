@@ -43,64 +43,70 @@ function Home() {
 
   return (
     <main>
-      <section className="relative isolate overflow-hidden bg-primary-deep track-stripes">
-        <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-1/2 lg:block">
-          <img
-            src={customHero ?? heroImg}
-            alt="Piazzale Auto Prime con auto usate in vendita"
-            width={1920}
-            height={1088}
-            className="size-full object-cover [clip-path:polygon(22%_0,100%_0,100%_100%,0_100%)]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-primary-deep via-primary-deep/40 to-transparent" />
-        </div>
+      <section className="relative isolate overflow-hidden bg-primary-deep">
+        <img
+          src={customHero ?? heroImg}
+          alt="Piazzale Auto Prime con auto usate in vendita a Pompei"
+          width={1920}
+          height={1088}
+          className="absolute inset-0 -z-20 size-full object-cover"
+        />
+        <div
+          className="absolute inset-0 -z-10 bg-gradient-to-t from-primary-deep via-primary-deep/85 to-primary-deep/55 sm:bg-gradient-to-r sm:from-primary-deep sm:via-primary-deep/85 sm:to-primary-deep/25"
+          aria-hidden
+        />
+        <div className="track-stripes pointer-events-none absolute inset-0 -z-10" aria-hidden />
 
-        <div className="hero-rise relative mx-auto max-w-6xl px-4 py-20 sm:py-28">
+        <div className="hero-rise relative mx-auto max-w-6xl px-4 py-24 sm:py-32 lg:py-40">
           {settings?.hero_show_logo && (
             <img
               src={heroLogo.url}
               alt={`${settings?.company_name ?? "Auto Prime"} logo`}
-              className="mb-6 w-auto max-w-full object-contain"
+              className="mb-6 w-auto max-w-full object-contain drop-shadow-[0_6px_24px_rgba(0,0,0,0.6)]"
               style={{ height: heroLogo.height }}
             />
           )}
-          <p className="font-mono text-xs uppercase tracking-[0.3em] text-primary-foreground/60">
+          <p className="font-mono text-xs uppercase tracking-[0.3em] text-primary-foreground/75">
             {settings?.hero_eyebrow ?? "Pompei · Napoli"}
           </p>
-          <h1 className="mt-4 max-w-xl whitespace-pre-line font-display text-5xl font-bold uppercase leading-[0.95] text-primary-foreground sm:text-7xl">
+          <h1 className="mt-4 max-w-2xl whitespace-pre-line font-display text-5xl font-bold uppercase leading-[0.95] text-primary-foreground drop-shadow-[0_4px_18px_rgba(0,0,0,0.75)] sm:text-7xl">
             {settings?.hero_title?.trim() || "Auto di qualità.\nPrezzi onesti."}
           </h1>
 
           {/* striscia livrea allineata al CTA */}
           <div className="mt-8 h-1 w-40 bg-primary" />
 
-          <p className="mt-6 max-w-md text-base text-primary-foreground/75">
+          <p className="mt-6 max-w-md text-base text-primary-foreground/85 drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)]">
             {settings?.hero_subtitle?.trim() ||
               "Usato selezionato e controllato. Vieni a provarlo o prenota un appuntamento in pochi secondi."}
           </p>
 
           <div className="mt-6">
-            <OpenStatus className="border-white/15 bg-white/10 text-primary-foreground" />
+            <OpenStatus className="border-white/20 bg-black/40 text-primary-foreground backdrop-blur-sm" />
           </div>
 
-          <div className="mt-6">
+          <div className="mt-6 flex flex-wrap gap-3">
             <Button asChild variant="cta" size="xl">
               <Link to="/catalogo" search={{}}>
                 {settings?.hero_cta_label?.trim() || "Vedi il parco auto"} <ArrowRight />
               </Link>
             </Button>
+            <Button asChild variant="onDark" size="xl">
+              <a
+                href={whatsappHref(
+                  settings?.whatsapp ?? "393297897193",
+                  "Ciao Auto Prime, vorrei informazioni su un'auto.",
+                )}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <MessageCircle /> WhatsApp
+              </a>
+            </Button>
           </div>
         </div>
-
-        <div className="relative lg:hidden">
-          <img
-            src={customHero ?? heroImg}
-            alt=""
-            aria-hidden
-            className="h-48 w-full object-cover [clip-path:polygon(0_18%,100%_0,100%_100%,0_100%)]"
-          />
-        </div>
       </section>
+
 
       {settings?.show_pluses !== false && (
         <section className="mx-auto max-w-6xl px-4 py-14">
