@@ -67,7 +67,7 @@ function Home() {
         <div className="track-stripes pointer-events-none absolute inset-0 -z-10" aria-hidden />
 
         <div className="hero-rise relative mx-auto max-w-6xl px-4 py-24 sm:py-32 lg:py-40">
-          {settings?.hero_show_logo && (
+          {settings?.hero_show_logo && heroLogo.url && (
             <img
               src={heroLogo.url}
               alt={`${settings?.company_name ?? "Auto Prime"} logo`}

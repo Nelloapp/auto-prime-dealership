@@ -17,6 +17,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { Toaster } from "@/components/ui/sonner";
 import { SiteTheme } from "@/lib/theme";
 import { settingsQuery } from "@/lib/cars";
+import { signedUrlsQuery } from "@/lib/storage";
 import { StickyActions } from "@/components/StickyActions";
 
 
@@ -107,7 +108,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "icon", href: "/favicon.png", type: "image/png" },
     ],
   }),
-  loader: ({ context }) => context.queryClient.ensureQueryData(settingsQuery),
+  loader: async ({ context }) => {
+    const settings = await context.queryClient.ensureQueryData(settingsQuery);
+    // Prefetch signed logo URLs on the server so the real logo is in the first HTML paint.
+    const paths = [
+      settings?.logo_path,
+      settings?.footer_logo_path,
+    ].filter((p): p is string => Boolean(p && p.trim()));
+    await Promise.all(
+      Array.from(new Set(paths)).map((p) =>
+        context.queryClient.ensureQueryData(signedUrlsQuery([p])),
+      ),
+    );
+    return settings;
+  },
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,

@@ -20,12 +20,16 @@ export function SiteFooter() {
     <footer className={`${pathname === "/" ? "mt-0" : "mt-16"} bg-primary-deep text-primary-foreground`}>
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:grid-cols-2 lg:grid-cols-3">
         <div>
-          <img
-            src={logo.url}
-            alt={`${company} logo`}
-            className="w-auto max-w-full rounded-md object-contain"
-            style={{ height: logo.height }}
-          />
+          {logo.url ? (
+            <img
+              src={logo.url}
+              alt={`${company} logo`}
+              className="w-auto max-w-full rounded-md object-contain"
+              style={{ height: logo.height }}
+            />
+          ) : (
+            <span aria-hidden className="block w-32" style={{ height: logo.height }} />
+          )}
           <p className="mt-3 text-sm text-primary-foreground/70">
             {s?.footer_note?.trim() ||
               `Auto usate di qualità a prezzi onesti. Titolare ${s?.owner_name ?? "Enrico Auricchio"}.`}
