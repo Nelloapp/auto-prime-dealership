@@ -62,6 +62,8 @@
   --color-nero-carbonio: var(--nero-carbonio);
   --color-nero-morbido: var(--nero-morbido);
   --color-rosso-corsa: var(--rosso-corsa);
+  --color-grigio-chiaro: var(--grigio-chiaro);
+  --color-grigio-testo: var(--grigio-testo);
 }
 
 :root {
