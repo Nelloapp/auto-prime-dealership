@@ -295,8 +295,10 @@ export function useSiteLogo(variant: "header" | "footer" | "hero" = "header") {
       : variant === "hero"
         ? s?.hero_logo_height || 160
         : s?.logo_height || 128;
+  const resolved = path ? signed?.[path] : defaultLogo.url;
   return {
-    url: (path && signed?.[path]) || defaultLogo.url,
+    // While a custom logo URL is resolving, avoid flashing the bundled default logo.
+    url: resolved ?? null,
     height: height > 0 ? height : 128,
   };
 }

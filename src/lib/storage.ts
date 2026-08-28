@@ -23,13 +23,20 @@ export async function getSignedUrls(paths: string[]): Promise<Record<string, str
   return out;
 }
 
+export function signedUrlsQuery(paths: string[]) {
+  const key = Array.from(new Set(paths.filter(Boolean))).sort();
+  return {
+    queryKey: ["signed-urls", key] as const,
+    queryFn: () => getSignedUrls(key),
+    staleTime: 1000 * 60 * 30,
+  };
+}
+
 export function useSignedUrls(paths: string[]) {
   const key = Array.from(new Set(paths.filter(Boolean))).sort();
   return useQuery({
-    queryKey: ["signed-urls", key],
-    queryFn: () => getSignedUrls(key),
+    ...signedUrlsQuery(key),
     enabled: key.length > 0,
-    staleTime: 1000 * 60 * 30,
   });
 }
 
