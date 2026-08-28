@@ -81,10 +81,10 @@ export function SiteFooter() {
             item={{ to: "/", label: "Home", visible: true }}
             className="block hover:text-accent"
           />
-          <a href="/privacy" className="block hover:text-accent">
-
+          <Link to="/privacy" className="block hover:text-accent">
             Privacy Policy
-          </a>
+          </Link>
+
         </div>
 
       </div>
