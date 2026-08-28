@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { ShieldCheck, HandCoins, Wrench, ArrowRight, Phone, MessageCircle } from "lucide-react";
 import heroImg from "@/assets/hero-autoprime.jpg";
+import ogImage from "@/assets/og-home.jpg.asset.json";
 import { Button } from "@/components/ui/button";
 import { BrandLogos } from "@/components/BrandLogos";
 import { CarCard } from "@/components/CarCard";
@@ -12,21 +13,27 @@ import { carsQuery, useSettings } from "@/lib/cars";
 import { telHref, whatsappHref } from "@/lib/site";
 import { DEFAULT_PLUSES, parseBlocks, useHeroImage, useSiteLogo } from "@/lib/theme";
 
+const OG_IMAGE = `https://auto-prime-dealership.lovable.app${ogImage.url}`;
+const OG_DESCRIPTION =
+  "Auto usate controllate, prezzi trasparenti e assistenza dedicata. Scopri le vetture disponibili a Pompei.";
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Auto Prime Pompei — Auto usate selezionate" },
-      {
-        name: "description",
-        content:
-          "Auto usate selezionate a Pompei (NA). Prezzi chiari, permuta valutata subito, assistenza dedicata. Scopri il nostro parco auto.",
-      },
+      { name: "description", content: OG_DESCRIPTION },
       { property: "og:title", content: "Auto Prime Pompei — Auto usate selezionate" },
-      {
-        property: "og:description",
-        content: "Auto usate selezionate a Pompei. Scopri il parco auto Auto Prime.",
-      },
+      { property: "og:description", content: OG_DESCRIPTION },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://auto-prime-dealership.lovable.app/" },
+      { property: "og:image", content: OG_IMAGE },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "Auto Prime – Auto usate selezionate a Pompei" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: OG_IMAGE },
     ],
+    links: [{ rel: "canonical", href: "https://auto-prime-dealership.lovable.app/" }],
   }),
   component: Home,
 });
