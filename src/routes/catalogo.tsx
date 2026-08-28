@@ -72,6 +72,7 @@ export const Route = createFileRoute("/catalogo")({
       },
     ],
   }),
+  loader: ({ context }) => context.queryClient.ensureQueryData(carsQuery),
   component: Catalogo,
   errorComponent: ({ error }) => (
     <main className="mx-auto max-w-2xl px-4 py-24 text-center" role="alert">
