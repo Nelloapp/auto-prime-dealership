@@ -59,6 +59,9 @@
   --color-chart-3: var(--primary-glow);
   --color-chart-4: var(--success);
   --color-chart-5: var(--highlight);
+  --color-nero-carbonio: var(--nero-carbonio);
+  --color-nero-morbido: var(--nero-morbido);
+  --color-rosso-corsa: var(--rosso-corsa);
 }
 
 :root {

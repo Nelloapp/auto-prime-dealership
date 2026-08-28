@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { ShieldCheck, HandCoins, Wrench, ArrowRight, Phone, MessageCircle } from "lucide-react";
 import heroImg from "@/assets/hero-autoprime.jpg";
 import { Button } from "@/components/ui/button";
+import { BrandLogos } from "@/components/BrandLogos";
 import { CarCard } from "@/components/CarCard";
 import { HowItWorks } from "@/components/HowItWorks";
 import { OpenStatus } from "@/components/OpenStatus";
@@ -154,6 +155,8 @@ function Home() {
       )}
 
       {settings?.show_how_it_works !== false && <HowItWorks />}
+
+      <BrandLogos />
 
       {settings?.show_reviews !== false && <Reviews />}
 
