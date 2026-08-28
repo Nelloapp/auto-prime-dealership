@@ -8,6 +8,9 @@ import citroen from "@/assets/logos/citroen.svg";
 import opel from "@/assets/logos/opel.svg";
 import nissan from "@/assets/logos/nissan.svg";
 import hyundai from "@/assets/logos/hyundai.svg";
+import mercedes from "@/assets/logos/mercedes.svg";
+import audi from "@/assets/logos/audi.svg";
+import mini from "@/assets/logos/mini.svg";
 
 const BRANDS = [
   { name: "Fiat", src: fiat },
@@ -20,13 +23,16 @@ const BRANDS = [
   { name: "Opel", src: opel },
   { name: "Nissan", src: nissan },
   { name: "Hyundai", src: hyundai },
+  { name: "Mercedes-Benz", src: mercedes },
+  { name: "Audi", src: audi },
+  { name: "Mini", src: mini },
 ];
 
 export function BrandLogos() {
   return (
-    <section className="bg-nero-carbonio py-14">
+    <section className="bg-grigio-chiaro py-14">
       <div className="mx-auto max-w-6xl px-4">
-        <p className="text-center font-mono text-xs uppercase tracking-[0.25em] text-primary-foreground/60">
+        <p className="text-center font-mono text-xs uppercase tracking-[0.25em] text-grigio-testo/70">
           Le marche con cui lavoriamo
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-6 sm:gap-x-12">
@@ -36,7 +42,7 @@ export function BrandLogos() {
               src={brand.src}
               alt={brand.name}
               title={brand.name}
-              className="h-8 w-auto max-w-[100px] object-contain opacity-70 brightness-0 invert transition-opacity duration-300 hover:opacity-100 sm:h-10 sm:max-w-[130px]"
+              className="h-8 w-auto max-w-[100px] object-contain opacity-80 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0 sm:h-10 sm:max-w-[130px]"
               loading="lazy"
             />
           ))}
