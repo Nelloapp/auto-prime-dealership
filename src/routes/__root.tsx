@@ -110,10 +110,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   }),
   loader: async ({ context }) => {
     const settings = await context.queryClient.ensureQueryData(settingsQuery);
-    // Prefetch signed logo URLs on the server so the real logo is in the first HTML paint.
+    // Prefetch every above-the-fold private image on the server so uploaded assets
+    // are already present in the first HTML paint, without flashing old fallbacks.
     const paths = [
       settings?.logo_path,
       settings?.footer_logo_path,
+      settings?.hero_image_path,
     ].filter((p): p is string => Boolean(p && p.trim()));
     await Promise.all(
       Array.from(new Set(paths)).map((p) =>
