@@ -13,6 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { socialMeta } from "@/lib/seo";
 import { carsQuery } from "@/lib/cars";
 import { FUEL_LABELS, GEARBOX_LABELS, formatPrice } from "@/lib/site";
 
@@ -46,6 +47,7 @@ const str = (v: unknown, fallback: string) =>
   typeof v === "string" ? v.slice(0, 60) : fallback;
 
 export const Route = createFileRoute("/catalogo")({
+  staticData: { sitemap: true },
   validateSearch: (search: Record<string, unknown>): Partial<CatalogSearch> => ({
     q: str(search["q"], DEFAULTS.q),
     brand: str(search["brand"], DEFAULTS.brand),
@@ -57,21 +59,23 @@ export const Route = createFileRoute("/catalogo")({
     pronta: search["pronta"] === true || search["pronta"] === "true",
     filtri: search["filtri"] === true || search["filtri"] === "true",
   }),
-  head: () => ({
-    meta: [
-      { title: "Parco auto usate — Auto Prime Pompei" },
-      {
-        name: "description",
-        content:
-          "Sfoglia tutte le auto usate disponibili da Auto Prime a Pompei: filtra per marca, alimentazione, cambio, prezzo e chilometraggio.",
-      },
-      { property: "og:title", content: "Parco auto usate — Auto Prime Pompei" },
-      {
-        property: "og:description",
-        content: "Tutte le auto usate disponibili da Auto Prime a Pompei.",
-      },
-    ],
-  }),
+  head: ({ match }) => {
+    const search = match.search as Record<string, unknown>;
+    // Solo il catalogo "pulito" viene indicizzato: le combinazioni di filtri no.
+    const hasFilters =
+      (["q", "brand", "fuel", "gearbox", "maxPrice", "maxKm", "sort"] as const).some(
+        (k) => typeof search[k] === "string" && search[k] !== DEFAULTS[k],
+      ) || search["pronta"] === true;
+    const base = socialMeta({
+      title: "Parco auto usate — Auto Prime Pompei",
+      description:
+        "Sfoglia tutte le auto usate disponibili da Auto Prime a Pompei: filtra per marca, alimentazione, cambio, prezzo e chilometraggio.",
+      path: "/catalogo",
+    });
+    return hasFilters
+      ? { ...base, meta: [...base.meta, { name: "robots", content: "noindex, follow" }] }
+      : base;
+  },
   loader: ({ context }) => context.queryClient.ensureQueryData(carsQuery),
   component: Catalogo,
   errorComponent: ({ error }) => (

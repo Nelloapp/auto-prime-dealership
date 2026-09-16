@@ -18,6 +18,7 @@ const OG_DESCRIPTION =
   "Auto usate controllate, prezzi trasparenti e assistenza dedicata. Scopri le vetture disponibili a Pompei.";
 
 export const Route = createFileRoute("/")({
+  staticData: { sitemap: true },
   head: () => ({
     meta: [
       { title: "Auto Prime Pompei — Auto usate selezionate" },

@@ -17,6 +17,7 @@ import { Route as ChiSiamoRouteImport } from './routes/chi-siamo'
 import { Route as ContattiRouteImport } from './routes/contatti'
 import { Route as PermutaRouteImport } from './routes/permuta'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminAppuntamentiRouteImport } from './routes/admin.appuntamenti'
 import { Route as AdminImpostazioniRouteImport } from './routes/admin.impostazioni'
@@ -28,6 +29,7 @@ import { Route as PSlugRouteImport } from './routes/p.$slug'
 import { Route as AdminAutoIndexRouteImport } from './routes/admin.auto.index'
 import { Route as AdminAutoIdRouteImport } from './routes/admin.auto.$id'
 import { Route as AdminAutoNuovaRouteImport } from './routes/admin.auto.nuova'
+import { Route as ApiPublicFotoRouteImport } from './routes/api/public/foto'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -67,6 +69,11 @@ const PermutaRoute = PermutaRouteImport.update({
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
@@ -124,6 +131,11 @@ const AdminAutoNuovaRoute = AdminAutoNuovaRouteImport.update({
   path: '/auto/nuova',
   getParentRoute: () => AdminRoute,
 } as any)
+const ApiPublicFotoRoute = ApiPublicFotoRouteImport.update({
+  id: '/api/public/foto',
+  path: '/api/public/foto',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -134,6 +146,7 @@ export interface FileRoutesByFullPath {
   '/contatti': typeof ContattiRoute
   '/permuta': typeof PermutaRoute
   '/privacy': typeof PrivacyRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/appuntamenti': typeof AdminAppuntamentiRoute
   '/admin/impostazioni': typeof AdminImpostazioniRoute
   '/admin/messaggi': typeof AdminMessaggiRoute
@@ -144,6 +157,7 @@ export interface FileRoutesByFullPath {
   '/admin/': typeof AdminIndexRoute
   '/admin/auto/$id': typeof AdminAutoIdRoute
   '/admin/auto/nuova': typeof AdminAutoNuovaRoute
+  '/api/public/foto': typeof ApiPublicFotoRoute
   '/admin/auto/': typeof AdminAutoIndexRoute
 }
 export interface FileRoutesByTo {
@@ -154,6 +168,7 @@ export interface FileRoutesByTo {
   '/contatti': typeof ContattiRoute
   '/permuta': typeof PermutaRoute
   '/privacy': typeof PrivacyRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/appuntamenti': typeof AdminAppuntamentiRoute
   '/admin/impostazioni': typeof AdminImpostazioniRoute
   '/admin/messaggi': typeof AdminMessaggiRoute
@@ -164,6 +179,7 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminIndexRoute
   '/admin/auto/$id': typeof AdminAutoIdRoute
   '/admin/auto/nuova': typeof AdminAutoNuovaRoute
+  '/api/public/foto': typeof ApiPublicFotoRoute
   '/admin/auto': typeof AdminAutoIndexRoute
 }
 export interface FileRoutesById {
@@ -176,6 +192,7 @@ export interface FileRoutesById {
   '/contatti': typeof ContattiRoute
   '/permuta': typeof PermutaRoute
   '/privacy': typeof PrivacyRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/appuntamenti': typeof AdminAppuntamentiRoute
   '/admin/impostazioni': typeof AdminImpostazioniRoute
   '/admin/messaggi': typeof AdminMessaggiRoute
@@ -186,6 +203,7 @@ export interface FileRoutesById {
   '/admin/': typeof AdminIndexRoute
   '/admin/auto/$id': typeof AdminAutoIdRoute
   '/admin/auto/nuova': typeof AdminAutoNuovaRoute
+  '/api/public/foto': typeof ApiPublicFotoRoute
   '/admin/auto/': typeof AdminAutoIndexRoute
 }
 export interface FileRouteTypes {
@@ -199,6 +217,7 @@ export interface FileRouteTypes {
     | '/contatti'
     | '/permuta'
     | '/privacy'
+    | '/sitemap.xml'
     | '/admin/appuntamenti'
     | '/admin/impostazioni'
     | '/admin/messaggi'
@@ -209,6 +228,7 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/admin/auto/$id'
     | '/admin/auto/nuova'
+    | '/api/public/foto'
     | '/admin/auto/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -219,6 +239,7 @@ export interface FileRouteTypes {
     | '/contatti'
     | '/permuta'
     | '/privacy'
+    | '/sitemap.xml'
     | '/admin/appuntamenti'
     | '/admin/impostazioni'
     | '/admin/messaggi'
@@ -229,6 +250,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/admin/auto/$id'
     | '/admin/auto/nuova'
+    | '/api/public/foto'
     | '/admin/auto'
   id:
     | '__root__'
@@ -240,6 +262,7 @@ export interface FileRouteTypes {
     | '/contatti'
     | '/permuta'
     | '/privacy'
+    | '/sitemap.xml'
     | '/admin/appuntamenti'
     | '/admin/impostazioni'
     | '/admin/messaggi'
@@ -250,6 +273,7 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/admin/auto/$id'
     | '/admin/auto/nuova'
+    | '/api/public/foto'
     | '/admin/auto/'
   fileRoutesById: FileRoutesById
 }
@@ -262,8 +286,10 @@ export interface RootRouteChildren {
   ContattiRoute: typeof ContattiRoute
   PermutaRoute: typeof PermutaRoute
   PrivacyRoute: typeof PrivacyRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   AutoSlugRoute: typeof AutoSlugRoute
   PSlugRoute: typeof PSlugRoute
+  ApiPublicFotoRoute: typeof ApiPublicFotoRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -322,6 +348,13 @@ declare module '@tanstack/react-router' {
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/': {
@@ -401,6 +434,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAutoNuovaRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/api/public/foto': {
+      id: '/api/public/foto'
+      path: '/api/public/foto'
+      fullPath: '/api/public/foto'
+      preLoaderRoute: typeof ApiPublicFotoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -439,8 +479,10 @@ const rootRouteChildren: RootRouteChildren = {
   ContattiRoute: ContattiRoute,
   PermutaRoute: PermutaRoute,
   PrivacyRoute: PrivacyRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   AutoSlugRoute: AutoSlugRoute,
   PSlugRoute: PSlugRoute,
+  ApiPublicFotoRoute: ApiPublicFotoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

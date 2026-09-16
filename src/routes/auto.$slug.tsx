@@ -22,6 +22,7 @@ import { SimilarCars } from "@/components/SimilarCars";
 import { StickyActions } from "@/components/StickyActions";
 import { Button } from "@/components/ui/button";
 import { carQuery, sortedImages, useSettings } from "@/lib/cars";
+import { canonical, carHeadContent, carJsonLd, publicPhotoUrl } from "@/lib/seo";
 import {
   CAR_STATUS_LABELS,
   FUEL_LABELS,
@@ -36,21 +37,55 @@ import {
 } from "@/lib/site";
 
 export const Route = createFileRoute("/auto/$slug")({
-  head: () => ({
-    meta: [
-      { title: "Dettaglio auto — Auto Prime Pompei" },
-      {
-        name: "description",
-        content:
-          "Scheda tecnica completa, foto e prenotazione appuntamento per questa auto usata disponibile da Auto Prime a Pompei.",
-      },
-      { property: "og:title", content: "Dettaglio auto — Auto Prime Pompei" },
-      {
-        property: "og:description",
-        content: "Foto, scheda tecnica e prenotazione appuntamento da Auto Prime.",
-      },
-    ],
-  }),
+  staticData: { sitemap: true },
+  head: ({ params, loaderData }) => {
+    const url = canonical(`/auto/${params.slug}`);
+    if (!loaderData) {
+      return {
+        meta: [
+          { title: "Auto non disponibile — Auto Prime Pompei" },
+          {
+            name: "description",
+            content: "Questo annuncio non è più disponibile. Scopri le altre auto di Auto Prime.",
+          },
+          { name: "robots", content: "noindex, follow" },
+        ],
+      };
+    }
+
+    const car = loaderData;
+    const { pageTitle, description } = carHeadContent(car);
+    const photos = sortedImages(car)
+      .map((i) => publicPhotoUrl(i.url))
+      .filter((u): u is string => Boolean(u));
+    const cover = photos[0];
+
+    return {
+      meta: [
+        { title: pageTitle },
+        { name: "description", content: description },
+        { property: "og:title", content: pageTitle },
+        { property: "og:description", content: description },
+        { property: "og:type", content: "article" },
+        { property: "og:url", content: url },
+        ...(cover
+          ? [
+              { property: "og:image", content: cover },
+              { property: "og:image:alt", content: `${carTitle(car)} in vendita da Auto Prime` },
+              { name: "twitter:image", content: cover },
+            ]
+          : []),
+        { name: "twitter:card", content: "summary_large_image" },
+      ],
+      links: [{ rel: "canonical", href: url }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify(carJsonLd(car, photos)),
+        },
+      ],
+    };
+  },
   loader: ({ context, params }) => context.queryClient.ensureQueryData(carQuery(params.slug)),
   component: CarDetail,
   notFoundComponent: () => (

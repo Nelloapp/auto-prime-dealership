@@ -6,6 +6,7 @@ import { carsQuery } from "@/lib/cars";
 import { formatDate, formatPrice, carTitle } from "@/lib/site";
 
 export const Route = createFileRoute("/admin/")({
+  staticData: { sitemap: false },
   component: Dashboard,
 });
 

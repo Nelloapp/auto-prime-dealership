@@ -7,6 +7,7 @@ import { carsQuery, primaryImage } from "@/lib/cars";
 import { CAR_STATUS_LABELS, carTitle, formatKm, formatPrice } from "@/lib/site";
 
 export const Route = createFileRoute("/admin/auto/")({
+  staticData: { sitemap: false },
   component: AdminCars,
 });
 

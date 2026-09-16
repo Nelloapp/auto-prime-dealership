@@ -31,6 +31,7 @@ import {
 } from "@/lib/theme";
 
 export const Route = createFileRoute("/admin/impostazioni")({
+  staticData: { sitemap: false },
   component: SettingsPage,
 });
 
