@@ -13,6 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { socialMeta } from "@/lib/seo";
 import { carsQuery } from "@/lib/cars";
 import { FUEL_LABELS, GEARBOX_LABELS, formatPrice } from "@/lib/site";
 
@@ -58,21 +59,21 @@ export const Route = createFileRoute("/catalogo")({
     pronta: search["pronta"] === true || search["pronta"] === "true",
     filtri: search["filtri"] === true || search["filtri"] === "true",
   }),
-  head: () => ({
-    meta: [
-      { title: "Parco auto usate — Auto Prime Pompei" },
-      {
-        name: "description",
-        content:
-          "Sfoglia tutte le auto usate disponibili da Auto Prime a Pompei: filtra per marca, alimentazione, cambio, prezzo e chilometraggio.",
-      },
-      { property: "og:title", content: "Parco auto usate — Auto Prime Pompei" },
-      {
-        property: "og:description",
-        content: "Tutte le auto usate disponibili da Auto Prime a Pompei.",
-      },
-    ],
-  }),
+  head: ({ match }) => {
+    const search = match.search as Record<string, unknown>;
+    const hasFilters = ["q", "brand", "fuel", "gearbox", "maxPrice", "maxKm"].some(
+      (k) => typeof search[k] === "string" && (search[k] as string).length > 0,
+    ) || search["pronta"] === true || search["sort"] === "prezzo_asc";
+    const base = socialMeta({
+      title: "Parco auto usate — Auto Prime Pompei",
+      description:
+        "Sfoglia tutte le auto usate disponibili da Auto Prime a Pompei: filtra per marca, alimentazione, cambio, prezzo e chilometraggio.",
+      path: "/catalogo",
+    });
+    return hasFilters
+      ? { ...base, meta: [...base.meta, { name: "robots", content: "noindex, follow" }] }
+      : base;
+  },
   loader: ({ context }) => context.queryClient.ensureQueryData(carsQuery),
   component: Catalogo,
   errorComponent: ({ error }) => (

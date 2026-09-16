@@ -1,23 +1,16 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSettings } from "@/lib/cars";
 import { parseCustomPages } from "@/lib/theme";
+import { socialMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/p/$slug")({
   staticData: { sitemap: true },
-  head: () => ({
-    meta: [
-      { title: "Informazioni — Auto Prime Pompei" },
-      {
-        name: "description",
-        content: "Pagina informativa di Auto Prime, concessionaria di auto usate a Pompei (NA).",
-      },
-      { property: "og:title", content: "Informazioni — Auto Prime Pompei" },
-      {
-        property: "og:description",
-        content: "Pagina informativa di Auto Prime, auto usate selezionate a Pompei.",
-      },
-    ],
-  }),
+  head: ({ params }) =>
+    socialMeta({
+      title: "Informazioni — Auto Prime Pompei",
+      description: "Pagina informativa di Auto Prime, concessionaria di auto usate a Pompei (NA).",
+      path: `/p/${params.slug}`,
+    }),
   component: CustomPageView,
 });
 
