@@ -5,19 +5,15 @@ import { useSettings } from "@/lib/cars";
 
 export const Route = createFileRoute("/chi-siamo")({
   staticData: { sitemap: true },
-  head: () => ({
+  head: () =>
+    socialMeta({
+      title: "Chi siamo — Auto Prime, concessionaria a Pompei",
+      description:
+        "Auto Prime di Enrico Auricchio: esperienza, trasparenza e assistenza nella vendita di auto usate a Pompei e in provincia di Napoli.",
+      path: "/chi-siamo",
+    }),
+  __unused_head: () => ({
     meta: [
-      { title: "Chi siamo — Auto Prime, concessionaria a Pompei" },
-      {
-        name: "description",
-        content:
-          "Auto Prime di Enrico Auricchio: esperienza, trasparenza e assistenza nella vendita di auto usate a Pompei e in provincia di Napoli.",
-      },
-      { property: "og:title", content: "Chi siamo — Auto Prime, concessionaria a Pompei" },
-      {
-        property: "og:description",
-        content: "La storia e i valori di Auto Prime, concessionaria di auto usate a Pompei.",
-      },
     ],
   }),
   component: ChiSiamo,
