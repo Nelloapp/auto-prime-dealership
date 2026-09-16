@@ -17,6 +17,7 @@ import { Route as ChiSiamoRouteImport } from './routes/chi-siamo'
 import { Route as ContattiRouteImport } from './routes/contatti'
 import { Route as PermutaRouteImport } from './routes/permuta'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminAppuntamentiRouteImport } from './routes/admin.appuntamenti'
 import { Route as AdminImpostazioniRouteImport } from './routes/admin.impostazioni'
@@ -67,6 +68,11 @@ const PermutaRoute = PermutaRouteImport.update({
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
@@ -134,6 +140,7 @@ export interface FileRoutesByFullPath {
   '/contatti': typeof ContattiRoute
   '/permuta': typeof PermutaRoute
   '/privacy': typeof PrivacyRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/appuntamenti': typeof AdminAppuntamentiRoute
   '/admin/impostazioni': typeof AdminImpostazioniRoute
   '/admin/messaggi': typeof AdminMessaggiRoute
@@ -154,6 +161,7 @@ export interface FileRoutesByTo {
   '/contatti': typeof ContattiRoute
   '/permuta': typeof PermutaRoute
   '/privacy': typeof PrivacyRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/appuntamenti': typeof AdminAppuntamentiRoute
   '/admin/impostazioni': typeof AdminImpostazioniRoute
   '/admin/messaggi': typeof AdminMessaggiRoute
@@ -176,6 +184,7 @@ export interface FileRoutesById {
   '/contatti': typeof ContattiRoute
   '/permuta': typeof PermutaRoute
   '/privacy': typeof PrivacyRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/appuntamenti': typeof AdminAppuntamentiRoute
   '/admin/impostazioni': typeof AdminImpostazioniRoute
   '/admin/messaggi': typeof AdminMessaggiRoute
@@ -199,6 +208,7 @@ export interface FileRouteTypes {
     | '/contatti'
     | '/permuta'
     | '/privacy'
+    | '/sitemap.xml'
     | '/admin/appuntamenti'
     | '/admin/impostazioni'
     | '/admin/messaggi'
@@ -219,6 +229,7 @@ export interface FileRouteTypes {
     | '/contatti'
     | '/permuta'
     | '/privacy'
+    | '/sitemap.xml'
     | '/admin/appuntamenti'
     | '/admin/impostazioni'
     | '/admin/messaggi'
@@ -240,6 +251,7 @@ export interface FileRouteTypes {
     | '/contatti'
     | '/permuta'
     | '/privacy'
+    | '/sitemap.xml'
     | '/admin/appuntamenti'
     | '/admin/impostazioni'
     | '/admin/messaggi'
@@ -262,6 +274,7 @@ export interface RootRouteChildren {
   ContattiRoute: typeof ContattiRoute
   PermutaRoute: typeof PermutaRoute
   PrivacyRoute: typeof PrivacyRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   AutoSlugRoute: typeof AutoSlugRoute
   PSlugRoute: typeof PSlugRoute
 }
@@ -322,6 +335,13 @@ declare module '@tanstack/react-router' {
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/': {
@@ -439,6 +459,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContattiRoute: ContattiRoute,
   PermutaRoute: PermutaRoute,
   PrivacyRoute: PrivacyRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   AutoSlugRoute: AutoSlugRoute,
   PSlugRoute: PSlugRoute,
 }
