@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { BadgeCheck, Handshake, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useSettings } from "@/lib/cars";
+import { socialMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/chi-siamo")({
   staticData: { sitemap: true },
@@ -12,10 +13,6 @@ export const Route = createFileRoute("/chi-siamo")({
         "Auto Prime di Enrico Auricchio: esperienza, trasparenza e assistenza nella vendita di auto usate a Pompei e in provincia di Napoli.",
       path: "/chi-siamo",
     }),
-  __unused_head: () => ({
-    meta: [
-    ],
-  }),
   component: ChiSiamo,
 });
 
