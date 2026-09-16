@@ -18,24 +18,17 @@ import { attachTradeInPhotos } from "@/lib/tradein.functions";
 import { uploadCarPhoto } from "@/lib/storage";
 import { FUEL_LABELS, genericWhatsappMessage, whatsappHref } from "@/lib/site";
 import { useSettings } from "@/lib/cars";
+import { socialMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/permuta")({
   staticData: { sitemap: true },
-  head: () => ({
-    meta: [
-      { title: "Valuta la tua auto usata — Auto Prime Pompei" },
-      {
-        name: "description",
-        content:
-          "Invia i dati e le foto della tua auto: Auto Prime ti fa una valutazione gratuita per la permuta o l'acquisto in giornata.",
-      },
-      { property: "og:title", content: "Valuta la tua auto usata — Auto Prime" },
-      {
-        property: "og:description",
-        content: "Valutazione gratuita della tua auto per permuta o vendita diretta.",
-      },
-    ],
-  }),
+  head: () =>
+    socialMeta({
+      title: "Valuta la tua auto usata — Auto Prime Pompei",
+      description:
+        "Invia i dati e le foto della tua auto: Auto Prime ti fa una valutazione gratuita per la permuta o l'acquisto in giornata.",
+      path: "/permuta",
+    }),
   component: Permuta,
 });
 

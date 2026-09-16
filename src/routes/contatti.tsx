@@ -5,24 +5,17 @@ import { OpenStatus } from "@/components/OpenStatus";
 import { Button } from "@/components/ui/button";
 import { useSettings } from "@/lib/cars";
 import { mapEmbedSrc, mapsHref, telHref, whatsappHref } from "@/lib/site";
+import { socialMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/contatti")({
   staticData: { sitemap: true },
-  head: () => ({
-    meta: [
-      { title: "Contatti e dove siamo — Auto Prime Pompei" },
-      {
-        name: "description",
-        content:
-          "Auto Prime, Traversa Andolfi 11, Pompei (NA). Telefono, WhatsApp, orari di apertura e mappa per raggiungerci.",
-      },
-      { property: "og:title", content: "Contatti e dove siamo — Auto Prime Pompei" },
-      {
-        property: "og:description",
-        content: "Indirizzo, telefono, WhatsApp e orari di Auto Prime a Pompei.",
-      },
-    ],
-  }),
+  head: () =>
+    socialMeta({
+      title: "Contatti e dove siamo — Auto Prime Pompei",
+      description:
+        "Auto Prime, Traversa Andolfi 11, Pompei (NA). Telefono, WhatsApp, orari di apertura e mappa per raggiungerci.",
+      path: "/contatti",
+    }),
   component: Contatti,
 });
 

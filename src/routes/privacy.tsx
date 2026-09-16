@@ -1,25 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useSettings } from "@/lib/cars";
+import { socialMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/privacy")({
   staticData: { sitemap: true },
-  head: () => ({
-    meta: [
-      { title: "Privacy Policy — Auto Prime Pompei" },
-      {
-        name: "description",
-        content:
-          "Informativa privacy di Auto Prime: quali dati raccogliamo tramite i moduli del sito, come li usiamo e come esercitare i tuoi diritti GDPR.",
-      },
-      { property: "og:title", content: "Privacy Policy — Auto Prime" },
-      {
-        property: "og:description",
-        content: "Come Auto Prime tratta i dati personali raccolti dal sito.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-    ],
-  }),
+  head: () =>
+    socialMeta({
+      title: "Privacy Policy — Auto Prime Pompei",
+      description:
+        "Informativa privacy di Auto Prime: quali dati raccogliamo tramite i moduli del sito, come li usiamo e come esercitare i tuoi diritti GDPR.",
+      path: "/privacy",
+    }),
   component: PrivacyPage,
 });
 
