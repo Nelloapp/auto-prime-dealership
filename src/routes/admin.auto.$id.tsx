@@ -6,6 +6,7 @@ import type { CarWithImages } from "@/lib/cars";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/admin/auto/$id")({
+  staticData: { sitemap: false },
   component: EditCar,
 });
 

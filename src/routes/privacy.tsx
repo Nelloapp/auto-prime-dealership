@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useSettings } from "@/lib/cars";
 
 export const Route = createFileRoute("/privacy")({
+  staticData: { sitemap: true },
   head: () => ({
     meta: [
       { title: "Privacy Policy — Auto Prime Pompei" },

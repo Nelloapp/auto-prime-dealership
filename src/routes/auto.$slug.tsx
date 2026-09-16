@@ -36,6 +36,7 @@ import {
 } from "@/lib/site";
 
 export const Route = createFileRoute("/auto/$slug")({
+  staticData: { sitemap: true },
   head: () => ({
     meta: [
       { title: "Dettaglio auto — Auto Prime Pompei" },

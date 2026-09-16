@@ -15,6 +15,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { FUEL_LABELS, LEAD_STATUS_LABELS, formatDateTime, formatKm, telHref } from "@/lib/site";
 
 export const Route = createFileRoute("/admin/permute")({
+  staticData: { sitemap: false },
   component: TradeIns,
 });
 

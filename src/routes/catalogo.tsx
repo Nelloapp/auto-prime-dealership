@@ -46,6 +46,7 @@ const str = (v: unknown, fallback: string) =>
   typeof v === "string" ? v.slice(0, 60) : fallback;
 
 export const Route = createFileRoute("/catalogo")({
+  staticData: { sitemap: true },
   validateSearch: (search: Record<string, unknown>): Partial<CatalogSearch> => ({
     q: str(search["q"], DEFAULTS.q),
     brand: str(search["brand"], DEFAULTS.brand),

@@ -14,6 +14,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { APPOINTMENT_STATUS_LABELS, formatDate, telHref } from "@/lib/site";
 
 export const Route = createFileRoute("/admin/appuntamenti")({
+  staticData: { sitemap: false },
   component: Appointments,
 });
 

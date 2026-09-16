@@ -3,6 +3,7 @@ import { useSettings } from "@/lib/cars";
 import { parseCustomPages } from "@/lib/theme";
 
 export const Route = createFileRoute("/p/$slug")({
+  staticData: { sitemap: true },
   head: () => ({
     meta: [
       { title: "Informazioni — Auto Prime Pompei" },

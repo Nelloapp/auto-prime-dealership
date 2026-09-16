@@ -20,6 +20,7 @@ import { FUEL_LABELS, genericWhatsappMessage, whatsappHref } from "@/lib/site";
 import { useSettings } from "@/lib/cars";
 
 export const Route = createFileRoute("/permuta")({
+  staticData: { sitemap: true },
   head: () => ({
     meta: [
       { title: "Valuta la tua auto usata — Auto Prime Pompei" },

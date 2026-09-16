@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useSettings } from "@/lib/cars";
 
 export const Route = createFileRoute("/chi-siamo")({
+  staticData: { sitemap: true },
   head: () => ({
     meta: [
       { title: "Chi siamo — Auto Prime, concessionaria a Pompei" },

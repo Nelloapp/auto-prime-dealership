@@ -13,6 +13,7 @@ import type { Review } from "@/lib/reviews";
 import { formatDate } from "@/lib/site";
 
 export const Route = createFileRoute("/admin/recensioni")({
+  staticData: { sitemap: false },
   component: AdminReviews,
 });
 

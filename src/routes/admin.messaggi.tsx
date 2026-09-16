@@ -12,6 +12,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { LEAD_STATUS_LABELS, formatDateTime } from "@/lib/site";
 
 export const Route = createFileRoute("/admin/messaggi")({
+  staticData: { sitemap: false },
   component: Messages,
 });
 

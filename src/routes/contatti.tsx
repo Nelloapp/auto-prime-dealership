@@ -7,6 +7,7 @@ import { useSettings } from "@/lib/cars";
 import { mapEmbedSrc, mapsHref, telHref, whatsappHref } from "@/lib/site";
 
 export const Route = createFileRoute("/contatti")({
+  staticData: { sitemap: true },
   head: () => ({
     meta: [
       { title: "Contatti e dove siamo — Auto Prime Pompei" },
