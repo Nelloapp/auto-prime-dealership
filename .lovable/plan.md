@@ -1,35 +1,47 @@
-## Blocco 1 — Conversione
+# Audit prima del lancio — Auto Prime
 
-Obiettivo: rendere più facile e immediato contattare Auto Prime e chiedere info su un'auto specifica.
+Ho controllato le pagine, i dati e la sicurezza del sito. La base è solida: il sito si costruisce senza errori, funziona su mobile, l'area riservata è protetta e i testi/immagini sono già gestibili dal pannello. Restano alcuni punti concreti da sistemare prima di comprare il dominio.
 
-### 1. Barra azioni fissa su mobile
-Nuovo componente `StickyActions` mostrato solo su mobile (nascosto da `sm:` in su) in fondo allo schermo:
-- **Chiama** (rosso pieno) e **WhatsApp** (verde) sempre disponibili.
-- Nella pagina auto, terzo bottone **Prenota** che apre il dialog appuntamento già esistente.
-- Numeri presi dalle impostazioni admin (nessun dato hardcoded).
-- Padding extra in fondo alle pagine così la barra non copre i contenuti.
+## Cosa manca davvero (priorità alta)
 
-### 2. Messaggi WhatsApp precompilati e ricchi
-Centralizzo la costruzione del testo in `src/lib/site.ts`:
-- Da scheda auto e card catalogo: `Ciao Auto Prime, sono interessato a <Marca Modello, anno, km> — prezzo <€> — link diretto alla pagina`.
-- Da home/contatti/footer: messaggio generico con nome pagina.
-- Il link è l'URL assoluto della scheda, così in chat arriva l'anteprima.
+1. **Le schede delle singole auto sono tutte identiche per Google e per WhatsApp.**
+   Oggi ogni auto mostra il titolo "Dettaglio auto — Auto Prime Pompei" e nessuna foto in anteprima. Chi condivide un annuncio non vede marca, modello e prezzo.
+   Intervento: titolo e descrizione generati dai dati dell'auto (marca, modello, anno, km, prezzo) e foto principale come immagine di anteprima.
 
-### 3. Calcolatore rata nella scheda auto
-Blocco "Calcola la rata" sotto il prezzo:
-- Slider anticipo (0–50% del prezzo) e durata (24/36/48/60/72 mesi), TAN indicativo configurabile.
-- Rata calcolata client-side con formula di ammortamento francese, mostrata in Space Mono grande.
-- Nota legale: "Preventivo indicativo, non è un'offerta contrattuale".
-- Bottone "Chiedi questo finanziamento su WhatsApp" con la rata inclusa nel messaggio.
+2. **Manca la mappa del sito (sitemap) per i motori di ricerca.**
+   Intervento: creare la sitemap con tutte le pagine pubbliche e le schede auto, e collegarla nel file delle regole per i motori di ricerca.
 
-### 4. Form permuta più corto
-`/permuta` passa a due step leggeri:
-- **Step 1 (obbligatorio, minimo attrito)**: targa o marca/modello, anno, km, telefono. Bottone "Richiedi valutazione".
-- **Step 2 (facoltativo)**: foto (fino a 8) ed eventuali note/danni, con messaggio "puoi anche inviarcele dopo su WhatsApp".
-- Il record viene salvato già alla fine dello step 1: se l'utente abbandona, il lead resta.
+3. **Manca l'indirizzo "ufficiale" di ogni pagina (canonical).**
+   Solo la home lo ha. Senza, Google può considerare doppie le pagine con filtri del catalogo.
+   Intervento: aggiungerlo su catalogo, chi siamo, contatti, permuta, privacy, pagine personalizzate e schede auto.
 
-### Dettagli tecnici
-- Solo frontend: nessuna modifica a database, tabelle o policy.
-- Il calcolatore è puro calcolo client-side, nessun dato salvato.
-- I file toccati: nuovo `src/components/StickyActions.tsx`, nuovo `src/components/RateCalculator.tsx`, modifiche a `src/lib/site.ts`, `src/routes/auto.$slug.tsx`, `src/routes/permuta.tsx`, `src/routes/__root.tsx` (montaggio barra), `src/components/CarCard.tsx`.
-- Tasso e durate di default costanti nel codice; se vuoi li rendo modificabili da admin in un secondo momento.
+4. **Nessun dato strutturato: il sito non compare come attività locale né con prezzi in evidenza.**
+   Intervento: aggiungere le informazioni tecniche invisibili che descrivono la concessionaria (indirizzo, telefono, orari) e ogni auto in vendita (prezzo, km, alimentazione, disponibilità). È ciò che permette a Google di mostrare prezzo e scheda direttamente nei risultati.
+
+5. **Una funzione del database è ancora richiamabile dagli utenti registrati.**
+   Segnalazione di sicurezza aperta.
+   Intervento: limitare l'esecuzione ai soli usi interni del server.
+
+## Miglioramenti consigliati (priorità media)
+
+6. **Pagina catalogo con filtri indicizzabile a metà**: aggiungere l'istruzione per non indicizzare le combinazioni di filtri, tenendo indicizzato solo il catalogo pulito.
+7. **Anteprima social sulle pagine interne**: catalogo, chi siamo, contatti e permuta oggi non hanno immagine di anteprima; riuso di quella della home.
+8. **Immagini più leggere e caricamento differito** sulle foto sotto la prima schermata (catalogo e galleria): pagine più rapide, soprattutto da telefono.
+9. **Controllo finale dei contenuti reali**: indirizzo, telefono, email, orari, P.IVA nella privacy. Alcuni valori sono attualmente di esempio e vanno confermati da te prima della pubblicazione.
+10. **Pagina 404 in italiano**: ora è in inglese ("Page not found").
+11. **Icona del sito (favicon)**: verificare che sia il logo attuale e ben leggibile in piccolo.
+
+## Dopo la pubblicazione
+
+- Collegare Google Search Console e inviare la sitemap (serve il sito pubblicato).
+- Creare/aggiornare la scheda Google Business Profile di Pompei con link al sito: per una concessionaria locale è la fonte principale di contatti.
+- Comprare il dominio e collegarlo; dopo il cambio dominio vanno aggiornati gli indirizzi usati nelle anteprime social e nella sitemap.
+
+## Note tecniche
+
+- `src/routes/auto.$slug.tsx`: `head()` dinamico da `loaderData` (title, description, og:title/description/url, og:image dalla foto primaria, `og:type: article`, canonical) + JSON-LD `Vehicle`/`Product` con `offers`.
+- Sitemap: generatore router-derived con `staticData.sitemap` sulle route + lista dinamica degli slug auto pubblicate; `Sitemap:` in `public/robots.txt`.
+- `__root.tsx`: JSON-LD `AutoDealer`/`LocalBusiness` da `site_settings` (indirizzo, telefono, `openingHoursSpecification` da `src/lib/hours.ts`).
+- Canonical solo sulle route foglia; su `/catalogo` con filtri attivi aggiungere `robots: noindex,follow`.
+- `REVOKE EXECUTE ... FROM authenticated` sulla funzione SECURITY DEFINER segnalata dal linter.
+- Immagini: `loading="lazy"` + `decoding="async"` su `CarCard`/`CarGallery` (escludendo la prima immagine della scheda).
