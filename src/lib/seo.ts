@@ -1,11 +1,46 @@
+import ogImage from "@/assets/og-home.jpg.asset.json";
 import { parseOpeningHours } from "@/lib/hours";
 import type { CarWithImages, SiteSettings } from "@/lib/cars";
 import { CAR_STATUS_LABELS, FUEL_LABELS, GEARBOX_LABELS, carTitle } from "@/lib/site";
 
 export const SITE_URL = "https://auto-prime-dealership.lovable.app";
 
+/** Immagine di anteprima social condivisa (1200x630). */
+export const OG_IMAGE = `${SITE_URL}${ogImage.url}`;
+
 export function canonical(path: string) {
   return `${SITE_URL}${path}`;
+}
+
+/** Meta per l'anteprima social delle pagine interne. */
+export function socialMeta({
+  title,
+  description,
+  path,
+  image = OG_IMAGE,
+}: {
+  title: string;
+  description: string;
+  path: string;
+  image?: string;
+}) {
+  return {
+    meta: [
+      { title },
+      { name: "description", content: description },
+      { property: "og:title", content: title },
+      { property: "og:description", content: description },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: canonical(path) },
+      { property: "og:image", content: image },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "Auto Prime – Auto usate selezionate a Pompei" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: image },
+    ],
+    links: [{ rel: "canonical", href: canonical(path) }],
+  };
 }
 
 /** Public, crawler-friendly URL for a photo stored in the private bucket. */
