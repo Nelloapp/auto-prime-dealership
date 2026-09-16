@@ -29,6 +29,7 @@ import { Route as PSlugRouteImport } from './routes/p.$slug'
 import { Route as AdminAutoIndexRouteImport } from './routes/admin.auto.index'
 import { Route as AdminAutoIdRouteImport } from './routes/admin.auto.$id'
 import { Route as AdminAutoNuovaRouteImport } from './routes/admin.auto.nuova'
+import { Route as ApiPublicFotoRouteImport } from './routes/api/public/foto'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -130,6 +131,11 @@ const AdminAutoNuovaRoute = AdminAutoNuovaRouteImport.update({
   path: '/auto/nuova',
   getParentRoute: () => AdminRoute,
 } as any)
+const ApiPublicFotoRoute = ApiPublicFotoRouteImport.update({
+  id: '/api/public/foto',
+  path: '/api/public/foto',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -151,6 +157,7 @@ export interface FileRoutesByFullPath {
   '/admin/': typeof AdminIndexRoute
   '/admin/auto/$id': typeof AdminAutoIdRoute
   '/admin/auto/nuova': typeof AdminAutoNuovaRoute
+  '/api/public/foto': typeof ApiPublicFotoRoute
   '/admin/auto/': typeof AdminAutoIndexRoute
 }
 export interface FileRoutesByTo {
@@ -172,6 +179,7 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminIndexRoute
   '/admin/auto/$id': typeof AdminAutoIdRoute
   '/admin/auto/nuova': typeof AdminAutoNuovaRoute
+  '/api/public/foto': typeof ApiPublicFotoRoute
   '/admin/auto': typeof AdminAutoIndexRoute
 }
 export interface FileRoutesById {
@@ -195,6 +203,7 @@ export interface FileRoutesById {
   '/admin/': typeof AdminIndexRoute
   '/admin/auto/$id': typeof AdminAutoIdRoute
   '/admin/auto/nuova': typeof AdminAutoNuovaRoute
+  '/api/public/foto': typeof ApiPublicFotoRoute
   '/admin/auto/': typeof AdminAutoIndexRoute
 }
 export interface FileRouteTypes {
@@ -219,6 +228,7 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/admin/auto/$id'
     | '/admin/auto/nuova'
+    | '/api/public/foto'
     | '/admin/auto/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -240,6 +250,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/admin/auto/$id'
     | '/admin/auto/nuova'
+    | '/api/public/foto'
     | '/admin/auto'
   id:
     | '__root__'
@@ -262,6 +273,7 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/admin/auto/$id'
     | '/admin/auto/nuova'
+    | '/api/public/foto'
     | '/admin/auto/'
   fileRoutesById: FileRoutesById
 }
@@ -277,6 +289,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   AutoSlugRoute: typeof AutoSlugRoute
   PSlugRoute: typeof PSlugRoute
+  ApiPublicFotoRoute: typeof ApiPublicFotoRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -421,6 +434,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAutoNuovaRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/api/public/foto': {
+      id: '/api/public/foto'
+      path: '/api/public/foto'
+      fullPath: '/api/public/foto'
+      preLoaderRoute: typeof ApiPublicFotoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -462,6 +482,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   AutoSlugRoute: AutoSlugRoute,
   PSlugRoute: PSlugRoute,
+  ApiPublicFotoRoute: ApiPublicFotoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
