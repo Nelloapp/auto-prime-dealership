@@ -61,9 +61,11 @@ export const Route = createFileRoute("/catalogo")({
   }),
   head: ({ match }) => {
     const search = match.search as Record<string, unknown>;
-    const hasFilters = ["q", "brand", "fuel", "gearbox", "maxPrice", "maxKm"].some(
-      (k) => typeof search[k] === "string" && (search[k] as string).length > 0,
-    ) || search["pronta"] === true || search["sort"] === "prezzo_asc";
+    // Solo il catalogo "pulito" viene indicizzato: le combinazioni di filtri no.
+    const hasFilters =
+      (["q", "brand", "fuel", "gearbox", "maxPrice", "maxKm", "sort"] as const).some(
+        (k) => typeof search[k] === "string" && search[k] !== DEFAULTS[k],
+      ) || search["pronta"] === true;
     const base = socialMeta({
       title: "Parco auto usate — Auto Prime Pompei",
       description:
