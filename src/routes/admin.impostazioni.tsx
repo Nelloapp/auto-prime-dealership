@@ -13,6 +13,7 @@ import { StoredImage } from "@/components/StoredImage";
 import { supabase } from "@/integrations/supabase/client";
 import { settingsQuery } from "@/lib/cars";
 import { slugify } from "@/lib/site";
+import { DAY_FULL, textFromWeekly, weeklyFromText, type DayHours } from "@/lib/hours";
 import { uploadCarPhoto } from "@/lib/storage";
 import {
   DEFAULT_NAV,
@@ -74,6 +75,7 @@ function SettingsPage() {
     <div className="space-y-5">
       <h1 className="font-display text-2xl font-black">Impostazioni</h1>
       <BusinessCard />
+      <HoursCard />
       <AppearanceCard />
       <HomeCard />
       <FinanceCard />
@@ -198,6 +200,123 @@ function BusinessCard() {
         </Button>
       </Card>
     </form>
+  );
+}
+
+function HoursCard() {
+  const { data, save } = useSettingsData();
+  const [week, setWeek] = useState<DayHours[]>(() => weeklyFromText(data?.opening_hours));
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    if (data) setWeek(weeklyFromText(data.opening_hours));
+  }, [data?.opening_hours]);
+
+  function update(day: number, patch: Partial<DayHours>) {
+    setWeek((prev) => prev.map((d) => (d.day === day ? { ...d, ...patch } : d)));
+  }
+
+  function copyToAll(day: number) {
+    const src = week.find((d) => d.day === day);
+    if (!src) return;
+    setWeek((prev) => prev.map((d) => ({ ...src, day: d.day })));
+    toast.success("Orario copiato su tutti i giorni");
+  }
+
+  const preview = textFromWeekly(week) || "Sempre chiuso";
+
+  async function submit() {
+    setSaving(true);
+    await save({ opening_hours: textFromWeekly(week) }, "Orari aggiornati");
+    setSaving(false);
+  }
+
+  return (
+    <Card
+      title="Orari di apertura"
+      subtitle="Imposta apertura e chiusura per ogni giorno. Compaiono su contatti, footer e badge “Aperto ora”."
+    >
+      <div className="space-y-3">
+        {week.map((d) => (
+          <div
+            key={d.day}
+            className="grid items-center gap-3 rounded-xl border border-border p-3 sm:grid-cols-[130px_1fr_auto]"
+          >
+            <label className="flex items-center gap-2 text-sm font-semibold">
+              <Switch
+                checked={!d.closed}
+                onCheckedChange={(on) =>
+                  update(
+                    d.day,
+                    on
+                      ? {
+                          closed: false,
+                          morningFrom: d.morningFrom || "09:00",
+                          morningTo: d.morningTo || "13:00",
+                          afternoonFrom: d.afternoonFrom || "15:00",
+                          afternoonTo: d.afternoonTo || "19:30",
+                        }
+                      : { closed: true },
+                  )
+                }
+              />
+              {DAY_FULL[d.day]}
+            </label>
+
+            {d.closed ? (
+              <p className="text-sm text-muted-foreground">Chiuso</p>
+            ) : (
+              <div className="grid gap-2 sm:grid-cols-2">
+                <div className="flex items-center gap-2">
+                  <span className="w-20 text-xs uppercase text-muted-foreground">Mattina</span>
+                  <Input
+                    type="time"
+                    value={d.morningFrom}
+                    onChange={(e) => update(d.day, { morningFrom: e.target.value })}
+                    className="h-10"
+                  />
+                  <Input
+                    type="time"
+                    value={d.morningTo}
+                    onChange={(e) => update(d.day, { morningTo: e.target.value })}
+                    className="h-10"
+                  />
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-20 text-xs uppercase text-muted-foreground">Pomeriggio</span>
+                  <Input
+                    type="time"
+                    value={d.afternoonFrom}
+                    onChange={(e) => update(d.day, { afternoonFrom: e.target.value })}
+                    className="h-10"
+                  />
+                  <Input
+                    type="time"
+                    value={d.afternoonTo}
+                    onChange={(e) => update(d.day, { afternoonTo: e.target.value })}
+                    className="h-10"
+                  />
+                </div>
+              </div>
+            )}
+
+            {!d.closed && (
+              <Button type="button" variant="outline" size="sm" onClick={() => copyToAll(d.day)}>
+                Copia su tutti
+              </Button>
+            )}
+          </div>
+        ))}
+      </div>
+
+      <p className="rounded-xl bg-secondary/60 p-3 text-sm">
+        <span className="font-semibold">Come apparirà sul sito:</span> {preview}
+      </p>
+
+      <Button variant="cta" size="lg" onClick={submit} disabled={saving}>
+        {saving && <Loader2 className="animate-spin" />} Salva orari
+      </Button>
+    </Card>
   );
 }
 
