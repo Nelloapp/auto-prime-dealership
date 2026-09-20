@@ -188,15 +188,16 @@ export function textFromWeekly(week: DayHours[]): string {
     return { day, text: d.closed ? "" : dayRangesText(d) };
   });
 
-  const groups: { days: number[]; text: string }[] = [];
-  rows.forEach((row) => {
+  const groups: { days: number[]; text: string; lastIndex: number }[] = [];
+  rows.forEach((row, index) => {
     if (!row.text) return;
     const last = groups[groups.length - 1];
-    const prevDay = last?.days[last.days.length - 1];
-    const consecutive =
-      last && prevDay != null && WEEK_ORDER.indexOf(row.day as 0) === WEEK_ORDER.indexOf(prevDay as 0) + 1;
-    if (last && last.text === row.text && consecutive) last.days.push(row.day);
-    else groups.push({ days: [row.day], text: row.text });
+    if (last && last.text === row.text && last.lastIndex === index - 1) {
+      last.days.push(row.day);
+      last.lastIndex = index;
+    } else {
+      groups.push({ days: [row.day], text: row.text, lastIndex: index });
+    }
   });
 
   return groups
