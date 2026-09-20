@@ -43,7 +43,6 @@ const FIELDS = [
   { name: "whatsapp", label: "WhatsApp (formato 39...)" },
   { name: "email", label: "Email" },
   { name: "address", label: "Indirizzo" },
-  { name: "opening_hours", label: "Orari di apertura" },
 ] as const;
 
 const SOCIALS = [
