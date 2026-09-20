@@ -22,6 +22,7 @@ export const Route = createFileRoute("/contatti")({
 
 function Contatti() {
   const { data: s } = useSettings();
+  const socials = useSocials();
   const phone = s?.phone ?? "329 789 7193";
   const address = s?.address ?? "Traversa Andolfi 11, 80045 Pompei (NA)";
 
