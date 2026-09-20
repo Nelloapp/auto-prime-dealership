@@ -100,3 +100,112 @@ export function getOpenState(text: string | null | undefined, now = new Date()):
   }
   return { open: false, detail: "Chiuso" };
 }
+
+/* ---------------- editor settimanale (pannello admin) ---------------- */
+
+/** Ordine di visualizzazione: lunedì → domenica (indice = getDay()). */
+export const WEEK_ORDER = [1, 2, 3, 4, 5, 6, 0] as const;
+export const DAY_SHORT: Record<number, string> = {
+  0: "Dom",
+  1: "Lun",
+  2: "Mar",
+  3: "Mer",
+  4: "Gio",
+  5: "Ven",
+  6: "Sab",
+};
+export const DAY_FULL: Record<number, string> = {
+  0: "Domenica",
+  1: "Lunedì",
+  2: "Martedì",
+  3: "Mercoledì",
+  4: "Giovedì",
+  5: "Venerdì",
+  6: "Sabato",
+};
+
+/** Una giornata nell'editor: due fasce orarie opzionali in formato "HH:MM". */
+export type DayHours = {
+  day: number;
+  closed: boolean;
+  morningFrom: string;
+  morningTo: string;
+  afternoonFrom: string;
+  afternoonTo: string;
+};
+
+function clock(minutes: number) {
+  const h = Math.floor(minutes / 60);
+  const m = minutes % 60;
+  return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
+}
+
+export const EMPTY_DAY = (day: number): DayHours => ({
+  day,
+  closed: true,
+  morningFrom: "",
+  morningTo: "",
+  afternoonFrom: "",
+  afternoonTo: "",
+});
+
+/** Converte il testo degli orari nella struttura usata dall'editor. */
+export function weeklyFromText(text: string | null | undefined): DayHours[] {
+  const schedule = parseOpeningHours(text);
+  return WEEK_ORDER.map((day) => {
+    const ranges = schedule
+      .filter((s) => s.days.includes(day))
+      .flatMap((s) => s.ranges)
+      .sort((a, b) => a.start - b.start);
+    if (ranges.length === 0) return EMPTY_DAY(day);
+    const [first, second] = ranges;
+    return {
+      day,
+      closed: false,
+      morningFrom: first ? clock(first.start) : "",
+      morningTo: first ? clock(first.end) : "",
+      afternoonFrom: second ? clock(second.start) : "",
+      afternoonTo: second ? clock(second.end) : "",
+    };
+  });
+}
+
+function dayRangesText(d: DayHours) {
+  const parts: string[] = [];
+  if (d.morningFrom && d.morningTo) parts.push(`${d.morningFrom}-${d.morningTo}`);
+  if (d.afternoonFrom && d.afternoonTo) parts.push(`${d.afternoonFrom}-${d.afternoonTo}`);
+  return parts.join(" / ");
+}
+
+/**
+ * Ricompone il testo degli orari raggruppando i giorni consecutivi identici
+ * (es. "Lun-Ven 9:00-13:00 / 15:00-19:30; Sab 9:00-13:00").
+ */
+export function textFromWeekly(week: DayHours[]): string {
+  const byDay = new Map(week.map((d) => [d.day, d]));
+  const rows = WEEK_ORDER.map((day) => {
+    const d = byDay.get(day) ?? EMPTY_DAY(day);
+    return { day, text: d.closed ? "" : dayRangesText(d) };
+  });
+
+  const groups: { days: number[]; text: string; lastIndex: number }[] = [];
+  rows.forEach((row, index) => {
+    if (!row.text) return;
+    const last = groups[groups.length - 1];
+    if (last && last.text === row.text && last.lastIndex === index - 1) {
+      last.days.push(row.day);
+      last.lastIndex = index;
+    } else {
+      groups.push({ days: [row.day], text: row.text, lastIndex: index });
+    }
+  });
+
+  return groups
+    .map((g) => {
+      const first = DAY_SHORT[g.days[0]!];
+      const last = DAY_SHORT[g.days[g.days.length - 1]!];
+      const label = g.days.length === 1 ? first : `${first}-${last}`;
+      return `${label} ${g.text}`;
+    })
+    .join("; ");
+}

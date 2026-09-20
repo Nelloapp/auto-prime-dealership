@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { Clock, Mail, MapPin, MessageCircle, Phone, Share2 } from "lucide-react";
+import { useSocials } from "@/lib/theme";
 import { ContactForm } from "@/components/ContactForm";
 import { OpenStatus } from "@/components/OpenStatus";
 import { Button } from "@/components/ui/button";
@@ -21,6 +22,7 @@ export const Route = createFileRoute("/contatti")({
 
 function Contatti() {
   const { data: s } = useSettings();
+  const socials = useSocials();
   const phone = s?.phone ?? "329 789 7193";
   const address = s?.address ?? "Traversa Andolfi 11, 80045 Pompei (NA)";
 
@@ -73,6 +75,27 @@ function Contatti() {
                 <OpenStatus className="mt-2" />
               </div>
             </div>
+            {socials.length > 0 && (
+              <div className="flex gap-3">
+                <Share2 className="size-5 shrink-0 text-accent" />
+                <div>
+                  <p className="font-semibold">Seguici</p>
+                  <div className="mt-1 flex flex-wrap gap-3 text-sm">
+                    {socials.map((sn) => (
+                      <a
+                        key={sn.key}
+                        href={sn.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-semibold text-primary hover:underline"
+                      >
+                        {sn.label}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
             <div className="flex flex-wrap gap-2 pt-1">
               <Button asChild variant="whatsapp" size="lg">
                 <a
