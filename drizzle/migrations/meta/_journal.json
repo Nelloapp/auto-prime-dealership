@@ -1,0 +1,13 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1790277884106,
+      "tag": "0000_restrict_trade_in_photo_reads",
+      "breakpoints": true
+    }
+  ]
+}
