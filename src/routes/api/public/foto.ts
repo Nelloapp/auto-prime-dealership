@@ -44,13 +44,16 @@ export const Route = createFileRoute("/api/public/foto")({
         if (error) return new Response("Errore", { status: 502 });
         if (!image) return new Response("Not found", { status: 404 });
 
+        // Firma con privilegi di servizio: il bucket resta privato e non esiste
+        // alcuna policy di lettura pubblica su storage.objects.
+        const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
         // Share previews are capped in size by WhatsApp/X, so serve a 1200x630 rendition.
-        const transformed = await supabase.storage.from(BUCKET).createSignedUrl(path, 60, {
+        const transformed = await supabaseAdmin.storage.from(BUCKET).createSignedUrl(path, 60, {
           transform: { width: 1200, height: 630, resize: "cover", quality: 80 },
         });
         const signed = transformed.data?.signedUrl
           ? transformed
-          : await supabase.storage.from(BUCKET).createSignedUrl(path, 60);
+          : await supabaseAdmin.storage.from(BUCKET).createSignedUrl(path, 60);
         const signedUrl = signed.data?.signedUrl;
         if (!signedUrl) return new Response("Not found", { status: 404 });
 
