@@ -10,10 +10,19 @@ export async function getSignedUrls(paths: string[]): Promise<Record<string, str
   const unique = Array.from(new Set(paths.filter(Boolean)));
   const missing = unique.filter((p) => !signedCache.has(p));
   if (missing.length > 0) {
-    const { data } = await supabase.storage.from(CAR_BUCKET).createSignedUrls(missing, 60 * 60 * 24);
-    data?.forEach((item) => {
-      if (item.signedUrl && item.path) signedCache.set(item.path, item.signedUrl);
-    });
+    // Authenticated admins (es. foto permute) firmano direttamente con la loro sessione;
+    // i visitatori anonimi passano dalla funzione server, senza policy di lettura pubblica.
+    const { data: sessionData } = await supabase.auth.getSession();
+    if (sessionData.session) {
+      const { data } = await supabase.storage.from(CAR_BUCKET).createSignedUrls(missing, 60 * 60 * 24);
+      data?.forEach((item) => {
+        if (item.signedUrl && item.path) signedCache.set(item.path, item.signedUrl);
+      });
+    } else {
+      const { getPublicSignedPhotoUrls } = await import("@/lib/storage.functions");
+      const out = await getPublicSignedPhotoUrls({ data: { paths: missing } });
+      Object.entries(out).forEach(([path, url]) => signedCache.set(path, url));
+    }
   }
   const out: Record<string, string> = {};
   unique.forEach((p) => {
