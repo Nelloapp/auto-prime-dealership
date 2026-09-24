@@ -8,6 +8,13 @@
       "when": 1790277884106,
       "tag": "0000_restrict_trade_in_photo_reads",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1790279833870,
+      "tag": "0001_drop_public_storage_read_policy",
+      "breakpoints": true
     }
   ]
 }
