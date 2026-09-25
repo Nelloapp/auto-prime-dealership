@@ -140,7 +140,23 @@ export function CarForm({ car }: { car?: CarWithImages }) {
 
   async function remove() {
     if (!car) return;
-    if (!confirm("Eliminare definitivamente questa auto?")) return;
+    if (!confirm("Eliminare definitivamente questa auto? Verrà salvata nello storico.")) return;
+    const { error: histErr } = await supabase.from("cars_history").insert({
+      car_id: car.id,
+      slug: car.slug,
+      brand: car.brand,
+      model: car.model,
+      version: car.version,
+      year: car.year,
+      km: car.km,
+      price: car.price,
+      status: car.status,
+      snapshot: car,
+    });
+    if (histErr) {
+      toast.error("Errore nel salvataggio dello storico");
+      return;
+    }
     const { error } = await supabase.from("cars").delete().eq("id", car.id);
     if (error) {
       toast.error("Errore nell'eliminazione");
