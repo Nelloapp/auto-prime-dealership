@@ -29,7 +29,7 @@ export function ReviewForm() {
       body: String(f.get("body") ?? ""),
     });
     if (!parsed.success) {
-      toast.error(parsed.error.issues[0].message);
+      toast.error(parsed.error.issues[0]?.message ?? "Controlla i campi");
       return;
     }
     setSaving(true);
