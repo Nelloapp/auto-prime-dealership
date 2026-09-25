@@ -345,6 +345,7 @@ export type Database = {
           opening_hours: string
           owner_name: string
           phone: string
+          phone_secondary: string
           pluses: Json
           radius_px: number
           show_admin_link: boolean
@@ -359,6 +360,7 @@ export type Database = {
           updated_at: string
           vat_number: string
           whatsapp: string
+          whatsapp_secondary: string
         }
         Insert: {
           about_text?: string
@@ -399,6 +401,7 @@ export type Database = {
           opening_hours?: string
           owner_name?: string
           phone?: string
+          phone_secondary?: string
           pluses?: Json
           radius_px?: number
           show_admin_link?: boolean
@@ -413,6 +416,7 @@ export type Database = {
           updated_at?: string
           vat_number?: string
           whatsapp?: string
+          whatsapp_secondary?: string
         }
         Update: {
           about_text?: string
@@ -453,6 +457,7 @@ export type Database = {
           opening_hours?: string
           owner_name?: string
           phone?: string
+          phone_secondary?: string
           pluses?: Json
           radius_px?: number
           show_admin_link?: boolean
@@ -467,6 +472,7 @@ export type Database = {
           updated_at?: string
           vat_number?: string
           whatsapp?: string
+          whatsapp_secondary?: string
         }
         Relationships: []
       }
