@@ -1,10 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
-import { Plus } from "lucide-react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { History, Plus, Trash2 } from "lucide-react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { StoredImage } from "@/components/StoredImage";
 import { carsQuery, primaryImage } from "@/lib/cars";
 import { CAR_STATUS_LABELS, carTitle, formatKm, formatPrice } from "@/lib/site";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/admin/auto/")({
   staticData: { sitemap: false },
