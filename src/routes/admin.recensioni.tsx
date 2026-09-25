@@ -150,6 +150,11 @@ function AdminReviews() {
                 <div className="flex items-center gap-2">
                   <p className="font-display font-extrabold">{r.author_name}</p>
                   <span className="font-mono text-xs text-muted-foreground">{r.rating}★</span>
+                  {!r.published && (
+                    <span className="rounded bg-primary px-2 py-0.5 text-[11px] font-bold uppercase text-primary-foreground">
+                      Da approvare
+                    </span>
+                  )}
                 </div>
                 <p className="text-sm text-muted-foreground">
                   {[r.car_label, r.source, formatDate(r.created_at)].filter(Boolean).join(" · ")}
