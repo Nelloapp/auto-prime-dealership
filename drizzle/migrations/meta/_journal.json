@@ -29,6 +29,13 @@
       "when": 1790315937480,
       "tag": "0003_create_cars_history",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1790317081168,
+      "tag": "0004_add_secondary_phone_whatsapp",
+      "breakpoints": true
     }
   ]
 }
