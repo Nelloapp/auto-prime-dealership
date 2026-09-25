@@ -110,8 +110,8 @@ function HistorySection() {
       <div className="grid gap-3">
         {(history ?? []).map((h) => {
           const snap = (h.snapshot ?? {}) as Record<string, unknown>;
-          const images = Array.isArray(snap.car_images)
-            ? (snap.car_images as { url: string; is_primary: boolean; position: number }[])
+          const images = Array.isArray(snap["car_images"])
+            ? (snap["car_images"] as { url: string; is_primary: boolean; position: number }[])
             : [];
           const img =
             [...images].sort(
