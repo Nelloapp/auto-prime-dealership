@@ -163,7 +163,8 @@ export function CarForm({ car }: { car?: CarWithImages }) {
       return;
     }
     await qc.invalidateQueries({ queryKey: ["cars"] });
-    toast.success("Auto eliminata");
+    await qc.invalidateQueries({ queryKey: ["cars-history"] });
+    toast.success("Auto eliminata e salvata nello storico");
     navigate({ to: "/admin/auto" });
   }
 
