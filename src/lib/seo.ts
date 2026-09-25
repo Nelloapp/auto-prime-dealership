@@ -3,7 +3,7 @@ import { parseOpeningHours } from "@/lib/hours";
 import type { CarWithImages, SiteSettings } from "@/lib/cars";
 import { CAR_STATUS_LABELS, FUEL_LABELS, GEARBOX_LABELS, carTitle } from "@/lib/site";
 
-export const SITE_URL = "https://auto-prime-dealership.lovable.app";
+export const SITE_URL = "https://auto-prime.it";
 
 /** Immagine di anteprima social condivisa (1200x630). */
 export const OG_IMAGE = `${SITE_URL}${ogImage.url}`;

@@ -15,4 +15,4 @@ Allow: /
 Disallow: /admin
 Disallow: /auth
 
-Sitemap: https://auto-prime-dealership.lovable.app/sitemap.xml
+Sitemap: https://auto-prime.it/sitemap.xml
