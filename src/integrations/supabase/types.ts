@@ -177,6 +177,57 @@ export type Database = {
         }
         Relationships: []
       }
+      cars_history: {
+        Row: {
+          brand: string
+          car_id: string | null
+          deleted_at: string
+          id: string
+          km: number | null
+          model: string
+          notes: string | null
+          price: number | null
+          slug: string | null
+          snapshot: Json
+          sold_price: number | null
+          status: string | null
+          version: string | null
+          year: number | null
+        }
+        Insert: {
+          brand: string
+          car_id?: string | null
+          deleted_at?: string
+          id?: string
+          km?: number | null
+          model: string
+          notes?: string | null
+          price?: number | null
+          slug?: string | null
+          snapshot: Json
+          sold_price?: number | null
+          status?: string | null
+          version?: string | null
+          year?: number | null
+        }
+        Update: {
+          brand?: string
+          car_id?: string | null
+          deleted_at?: string
+          id?: string
+          km?: number | null
+          model?: string
+          notes?: string | null
+          price?: number | null
+          slug?: string | null
+          snapshot?: Json
+          sold_price?: number | null
+          status?: string | null
+          version?: string | null
+          year?: number | null
+        }
+        Relationships: []
+      }
       contact_messages: {
         Row: {
           car_id: string | null
