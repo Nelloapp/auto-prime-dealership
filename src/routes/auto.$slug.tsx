@@ -150,9 +150,15 @@ function CarDetail() {
 
         <div className="space-y-5">
           <div className="rounded-2xl bg-card p-5 shadow-card">
-            <p className="text-xs font-bold uppercase tracking-wide text-accent">
-              {CAR_STATUS_LABELS[car.status] ?? car.status}
-            </p>
+            {car.status === "venduta" ? (
+              <p className="inline-block rounded-md bg-destructive px-4 py-1.5 font-display text-lg font-black uppercase tracking-widest text-destructive-foreground">
+                Venduta
+              </p>
+            ) : (
+              <p className="text-xs font-bold uppercase tracking-wide text-accent">
+                {CAR_STATUS_LABELS[car.status] ?? car.status}
+              </p>
+            )}
             <h1 className="mt-1 font-display text-2xl font-black leading-tight sm:text-3xl">
               {title}
             </h1>
@@ -172,7 +178,8 @@ function CarDetail() {
               </p>
             )}
 
-            <div className="mt-5 grid grid-cols-2 gap-2">
+            <h2 className="mt-5 font-display text-lg font-extrabold uppercase">Scheda tecnica</h2>
+            <div className="mt-2 grid grid-cols-2 gap-2">
               <Spec icon={Calendar} label="Anno" value={String(car.year)} />
               <Spec icon={Gauge} label="Km" value={formatKm(car.km)} />
               <Spec icon={Fuel} label="Alimentazione" value={FUEL_LABELS[car.fuel] ?? car.fuel} />

@@ -15,6 +15,13 @@
       "when": 1790279833870,
       "tag": "0001_drop_public_storage_read_policy",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1790315540877,
+      "tag": "0002_public_review_submissions",
+      "breakpoints": true
     }
   ]
 }
