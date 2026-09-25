@@ -58,12 +58,29 @@ export function SiteFooter() {
           <a href={telHref(phone)} className="flex items-center gap-2 hover:text-accent">
             <Phone className="size-4 text-accent" /> {phone}
           </a>
+          {s?.phone_secondary && (
+            <a
+              href={telHref(s.phone_secondary)}
+              className="flex items-center gap-2 hover:text-accent"
+            >
+              <Phone className="size-4 text-accent" /> {s.phone_secondary}
+            </a>
+          )}
           <a
             href={whatsappHref(s?.whatsapp ?? "393297897193", "Ciao Auto Prime!")}
             className="flex items-center gap-2 hover:text-accent"
           >
             <MessageCircle className="size-4 text-accent" /> Scrivi su WhatsApp
           </a>
+          {s?.whatsapp_secondary && (
+            <a
+              href={whatsappHref(s.whatsapp_secondary, "Ciao Auto Prime!")}
+              className="flex items-center gap-2 hover:text-accent"
+            >
+              <MessageCircle className="size-4 text-accent" /> Scrivi su WhatsApp (
+              {s.whatsapp_secondary})
+            </a>
+          )}
           <a
             href={mapsHref(address)}
             target="_blank"

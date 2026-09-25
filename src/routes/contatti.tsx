@@ -52,6 +52,17 @@ function Contatti() {
                 <a href={telHref(phone)} className="text-muted-foreground hover:underline">
                   {phone}
                 </a>
+                {s?.phone_secondary && (
+                  <>
+                    {" · "}
+                    <a
+                      href={telHref(s.phone_secondary)}
+                      className="text-muted-foreground hover:underline"
+                    >
+                      {s.phone_secondary}
+                    </a>
+                  </>
+                )}
               </div>
             </div>
             {s?.email && (
@@ -106,6 +117,17 @@ function Contatti() {
                   <MessageCircle /> WhatsApp
                 </a>
               </Button>
+              {s?.whatsapp_secondary && (
+                <Button asChild variant="whatsapp" size="lg">
+                  <a
+                    href={whatsappHref(s.whatsapp_secondary, "Ciao Auto Prime!")}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <MessageCircle /> WhatsApp ({s.whatsapp_secondary})
+                  </a>
+                </Button>
+              )}
               <Button asChild variant="cta" size="lg">
                 <a href={telHref(phone)}>
                   <Phone /> Chiama

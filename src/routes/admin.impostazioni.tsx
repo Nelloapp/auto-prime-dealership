@@ -41,7 +41,9 @@ const FIELDS = [
   { name: "owner_name", label: "Titolare" },
   { name: "vat_number", label: "Partita IVA" },
   { name: "phone", label: "Telefono" },
+  { name: "phone_secondary", label: "Secondo telefono (facoltativo)" },
   { name: "whatsapp", label: "WhatsApp (formato 39...)" },
+  { name: "whatsapp_secondary", label: "Secondo WhatsApp (formato 39..., facoltativo)" },
   { name: "email", label: "Email" },
   { name: "address", label: "Indirizzo" },
 ] as const;
