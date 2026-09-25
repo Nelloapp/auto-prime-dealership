@@ -46,7 +46,13 @@ function AdminCars() {
                 {car.year} · {formatKm(car.km)} · {formatPrice(car.price)}
               </p>
             </div>
-            <span className="shrink-0 rounded-full bg-secondary px-3 py-1 text-xs font-bold">
+            <span
+              className={
+                car.status === "venduta"
+                  ? "shrink-0 rounded-md bg-destructive px-3 py-1.5 font-display text-sm font-black uppercase tracking-wide text-destructive-foreground"
+                  : "shrink-0 rounded-full bg-secondary px-3 py-1 text-xs font-bold"
+              }
+            >
               {CAR_STATUS_LABELS[car.status] ?? car.status}
             </span>
           </Link>

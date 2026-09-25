@@ -73,6 +73,13 @@ export function CarCard({ car }: { car: CarWithImages }) {
           alt={title}
           className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
+        {car.status === "venduta" && (
+          <div className="absolute inset-0 flex items-center justify-center bg-foreground/50">
+            <span className="-rotate-12 rounded-md border-4 border-destructive-foreground bg-destructive px-6 py-2 font-display text-3xl font-black uppercase tracking-widest text-destructive-foreground shadow-pop">
+              Venduta
+            </span>
+          </div>
+        )}
         <StatusBadges car={car} />
         <PlatePrice price={car.price} />
       </Link>

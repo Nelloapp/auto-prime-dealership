@@ -9,6 +9,7 @@ import { CarCard } from "@/components/CarCard";
 import { HowItWorks } from "@/components/HowItWorks";
 import { OpenStatus } from "@/components/OpenStatus";
 import { Reviews } from "@/components/Reviews";
+import { ReviewForm } from "@/components/ReviewForm";
 import { carsQuery, useSettings } from "@/lib/cars";
 import { telHref, whatsappHref } from "@/lib/site";
 import { DEFAULT_PLUSES, parseBlocks, useHeroImage, useSiteLogo } from "@/lib/theme";
@@ -168,6 +169,7 @@ function Home() {
       <BrandLogos />
 
       {settings?.show_reviews !== false && <Reviews />}
+      {settings?.show_reviews !== false && <ReviewForm />}
 
 
       <section className="bg-primary-deep track-stripes">
