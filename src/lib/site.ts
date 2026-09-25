@@ -117,7 +117,7 @@ export function carTitle(car: { brand: string; model: string; version?: string |
 /** URL assoluto di una pagina del sito (usa l'origin corrente lato client). */
 export function absoluteUrl(path: string) {
   const origin =
-    typeof window !== "undefined" ? window.location.origin : "https://auto-prime-dealership.lovable.app";
+    typeof window !== "undefined" ? window.location.origin : "https://auto-prime.it";
   return `${origin}${path.startsWith("/") ? path : `/${path}`}`;
 }
 

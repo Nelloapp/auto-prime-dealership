@@ -14,7 +14,7 @@ import { carsQuery, useSettings } from "@/lib/cars";
 import { telHref, whatsappHref } from "@/lib/site";
 import { DEFAULT_PLUSES, parseBlocks, useHeroImage, useSiteLogo } from "@/lib/theme";
 
-const OG_IMAGE = `https://auto-prime-dealership.lovable.app${ogImage.url}`;
+const OG_IMAGE = `https://auto-prime.it${ogImage.url}`;
 const OG_DESCRIPTION =
   "Auto usate controllate, prezzi trasparenti e assistenza dedicata. Scopri le vetture disponibili a Pompei.";
 
@@ -27,7 +27,7 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Auto Prime Pompei — Auto usate selezionate" },
       { property: "og:description", content: OG_DESCRIPTION },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://auto-prime-dealership.lovable.app/" },
+      { property: "og:url", content: "https://auto-prime.it/" },
       { property: "og:image", content: OG_IMAGE },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
@@ -35,7 +35,7 @@ export const Route = createFileRoute("/")({
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:image", content: OG_IMAGE },
     ],
-    links: [{ rel: "canonical", href: "https://auto-prime-dealership.lovable.app/" }],
+    links: [{ rel: "canonical", href: "https://auto-prime.it/" }],
   }),
   loader: ({ context }) => context.queryClient.ensureQueryData(carsQuery),
   component: Home,

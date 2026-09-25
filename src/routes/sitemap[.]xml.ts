@@ -8,7 +8,7 @@ import {
   type SitemapEntry,
 } from "@/lib/sitemap";
 
-const BASE_URL = "https://auto-prime-dealership.lovable.app";
+const BASE_URL = "https://auto-prime.it";
 
 function publicSupabase() {
   const key = process.env["SUPABASE_PUBLISHABLE_KEY"]!;
