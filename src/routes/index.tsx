@@ -168,10 +168,15 @@ function Home() {
 
       {settings?.show_how_it_works !== false && <HowItWorks />}
 
+      <GoogleReviews />
+
       <BrandLogos />
+
 
       {settings?.show_reviews !== false && <Reviews />}
       {settings?.show_reviews !== false && <ReviewForm />}
+      <InstagramStrip />
+
 
 
       <section className="bg-primary-deep track-stripes">
