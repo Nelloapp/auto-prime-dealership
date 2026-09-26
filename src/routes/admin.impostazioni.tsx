@@ -145,7 +145,13 @@ function BusinessCard() {
       "about_text",
       "footer_note",
     ];
-    const payload = Object.fromEntries(keys.map((k) => [k, String(form.get(k) ?? "")]));
+    const payload = Object.fromEntries(
+      keys.map((k) => {
+        const raw = String(form.get(k) ?? "").trim();
+        if (NUMERIC_FIELDS.has(k)) return [k, Number(raw.replace(",", ".")) || 0];
+        return [k, raw];
+      }),
+    );
     setSaving(true);
     await save(payload);
     setSaving(false);
