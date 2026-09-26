@@ -20,6 +20,7 @@ import { settingsQuery } from "@/lib/cars";
 import { signedUrlsQuery } from "@/lib/storage";
 import { StickyActions } from "@/components/StickyActions";
 import { FloatingWhatsapp } from "@/components/FloatingWhatsapp";
+import { dealerJsonLd } from "@/lib/seo";
 
 
 function NotFoundComponent() {
@@ -166,6 +167,7 @@ function RootComponent() {
       <Outlet />
       {!isAdmin && <SiteFooter />}
       {!isAdmin && !isCarDetail && <StickyActions />}
+      {!isAdmin && <FloatingWhatsapp />}
       {!isAdmin && <div className="h-16 sm:hidden" aria-hidden />}
       <Toaster position="top-center" richColors />
     </QueryClientProvider>
