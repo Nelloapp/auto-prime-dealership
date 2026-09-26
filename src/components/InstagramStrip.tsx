@@ -13,7 +13,6 @@ export function InstagramStrip() {
   const { data: cars } = useQuery(carsQuery);
 
   if (!ig) return null;
-  const handle = ig.replace(/\/+$/, "").split("/").pop() || "auto_prime";
   const shots = (cars ?? [])
     .filter((c) => c.status !== "venduta" && primaryImage(c))
     .slice(0, 6);
@@ -29,9 +28,9 @@ export function InstagramStrip() {
           href={ig}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center gap-2 font-display text-sm font-bold uppercase tracking-wide text-primary hover:underline"
+          className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 font-display text-sm font-bold uppercase tracking-wide text-primary-foreground shadow-card transition-colors hover:bg-primary-deep"
         >
-          <Instagram className="size-4" /> @{handle}
+          <Instagram className="size-4" /> Seguici
         </a>
       </div>
 
