@@ -330,6 +330,9 @@ export type Database = {
           footer_logo_height: number
           footer_logo_path: string
           footer_note: string
+          google_maps_url: string
+          google_rating: number
+          google_reviews_count: number
           hero_cta_label: string
           hero_eyebrow: string
           hero_image_path: string
@@ -386,6 +389,9 @@ export type Database = {
           footer_logo_height?: number
           footer_logo_path?: string
           footer_note?: string
+          google_maps_url?: string
+          google_rating?: number
+          google_reviews_count?: number
           hero_cta_label?: string
           hero_eyebrow?: string
           hero_image_path?: string
@@ -442,6 +448,9 @@ export type Database = {
           footer_logo_height?: number
           footer_logo_path?: string
           footer_note?: string
+          google_maps_url?: string
+          google_rating?: number
+          google_reviews_count?: number
           hero_cta_label?: string
           hero_eyebrow?: string
           hero_image_path?: string

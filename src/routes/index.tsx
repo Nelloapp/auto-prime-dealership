@@ -6,7 +6,9 @@ import ogImage from "@/assets/og-home.jpg.asset.json";
 import { Button } from "@/components/ui/button";
 import { BrandLogos } from "@/components/BrandLogos";
 import { CarCard } from "@/components/CarCard";
+import { GoogleReviews } from "@/components/GoogleReviews";
 import { HowItWorks } from "@/components/HowItWorks";
+import { InstagramStrip } from "@/components/InstagramStrip";
 import { OpenStatus } from "@/components/OpenStatus";
 import { Reviews } from "@/components/Reviews";
 import { ReviewForm } from "@/components/ReviewForm";
@@ -166,10 +168,15 @@ function Home() {
 
       {settings?.show_how_it_works !== false && <HowItWorks />}
 
+      <GoogleReviews />
+
       <BrandLogos />
+
 
       {settings?.show_reviews !== false && <Reviews />}
       {settings?.show_reviews !== false && <ReviewForm />}
+      <InstagramStrip />
+
 
 
       <section className="bg-primary-deep track-stripes">

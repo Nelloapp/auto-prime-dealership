@@ -46,7 +46,13 @@ const FIELDS = [
   { name: "whatsapp_secondary", label: "Secondo WhatsApp (formato 39..., facoltativo)" },
   { name: "email", label: "Email" },
   { name: "address", label: "Indirizzo" },
+  { name: "google_maps_url", label: "Link scheda Google (Maps)" },
+  { name: "google_rating", label: "Voto Google (es. 4,8)" },
+  { name: "google_reviews_count", label: "Numero recensioni Google (es. 37)" },
 ] as const;
+
+/** Campi numerici salvati come numero, non come testo. */
+const NUMERIC_FIELDS = new Set(["google_rating", "google_reviews_count"]);
 
 const SOCIALS = [
   { name: "social_facebook", label: "Facebook" },
@@ -139,7 +145,13 @@ function BusinessCard() {
       "about_text",
       "footer_note",
     ];
-    const payload = Object.fromEntries(keys.map((k) => [k, String(form.get(k) ?? "")]));
+    const payload = Object.fromEntries(
+      keys.map((k) => {
+        const raw = String(form.get(k) ?? "").trim();
+        if (NUMERIC_FIELDS.has(k)) return [k, Number(raw.replace(",", ".")) || 0];
+        return [k, raw];
+      }),
+    );
     setSaving(true);
     await save(payload);
     setSaving(false);
