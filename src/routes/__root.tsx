@@ -19,7 +19,7 @@ import { SiteTheme } from "@/lib/theme";
 import { settingsQuery } from "@/lib/cars";
 import { signedUrlsQuery } from "@/lib/storage";
 import { StickyActions } from "@/components/StickyActions";
-import { dealerJsonLd } from "@/lib/seo";
+import { FloatingWhatsapp } from "@/components/FloatingWhatsapp";
 
 
 function NotFoundComponent() {
