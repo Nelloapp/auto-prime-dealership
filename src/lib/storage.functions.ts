@@ -18,7 +18,7 @@ const schema = z.object({
 });
 
 const responsiveSchema = schema.extend({
-  widths: z.array(z.number().int().min(64).max(1920)).min(1).max(5),
+  widths: z.array(z.number().int().min(64).max(1920)).min(1).max(6),
   aspectRatio: z.number().positive().max(4),
   quality: z.number().int().min(20).max(100),
   resize: z.enum(["cover", "contain", "fill"]),

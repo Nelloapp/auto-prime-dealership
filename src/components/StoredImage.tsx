@@ -6,8 +6,6 @@ import { Car } from "lucide-react";
 const SignedImagesContext = createContext<Record<string, string> | null>(null);
 const ResponsiveImagesContext = createContext<Record<string, string> | null>(null);
 
-type ImageResize = "cover" | "contain" | "fill";
-
 export function SignedImagesProvider({
   paths,
   children,
