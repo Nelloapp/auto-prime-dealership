@@ -10,6 +10,7 @@ import { GoogleReviews } from "@/components/GoogleReviews";
 import { HowItWorks } from "@/components/HowItWorks";
 import { InstagramStrip } from "@/components/InstagramStrip";
 import { OpenStatus } from "@/components/OpenStatus";
+import { PromotionalBanners } from "@/components/PromotionalBanners";
 import { Reviews } from "@/components/Reviews";
 import { ReviewForm } from "@/components/ReviewForm";
 import { carsQuery, useSettings } from "@/lib/cars";
@@ -139,6 +140,8 @@ function Home() {
           </div>
         </section>
       )}
+
+      <PromotionalBanners />
 
       {settings?.show_featured !== false && (
         <section className="bg-secondary">

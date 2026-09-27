@@ -16,7 +16,7 @@ import {
 /** Badge "targa" con il prezzo al posto del numero. */
 function PlatePrice({ price }: { price: number | string }) {
   return (
-    <div className="absolute right-3 top-3 flex items-stretch overflow-hidden rounded-[4px] border-2 border-primary-deep bg-background shadow-card">
+    <div className="absolute right-3 top-3 flex items-stretch overflow-hidden rounded-[4px] border-2 border-primary-deep bg-background shadow-pop transition-transform duration-200 group-hover:scale-105">
       <div className="flex w-6 items-center justify-center bg-primary">
         <CarIcon className="size-3.5 text-primary-foreground" />
       </div>
@@ -31,7 +31,7 @@ function StatusBadges({ car }: { car: CarWithImages }) {
   const isNew = Date.now() - new Date(car.created_at).getTime() < 1000 * 60 * 60 * 24 * 21;
   const cut = car.previous_price && Number(car.previous_price) > Number(car.price);
   const chip =
-    "rounded-[4px] px-2 py-1 font-display text-[11px] font-bold uppercase tracking-wide";
+    "rounded-[4px] border border-primary-foreground/40 px-2.5 py-1 font-display text-[11px] font-bold uppercase tracking-wide shadow-pop backdrop-blur-sm";
   return (
     <div className="absolute left-3 top-3 flex flex-wrap gap-1.5">
       {isNew && (
@@ -61,7 +61,7 @@ export function CarCard({ car }: { car: CarWithImages }) {
   const title = carTitle(car);
 
   return (
-    <article className="group flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-card transition-transform duration-200 hover:-translate-y-1 hover:shadow-pop">
+    <article className="group flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-card transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/30 hover:shadow-pop">
       <Link
         to="/auto/$slug"
         params={{ slug: car.slug }}
@@ -71,7 +71,7 @@ export function CarCard({ car }: { car: CarWithImages }) {
         <StoredImage
           path={primaryImage(car)}
           alt={title}
-          className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="size-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
         />
         {car.status === "venduta" && (
           <div className="absolute inset-0 flex items-center justify-center bg-foreground/50">
@@ -104,7 +104,7 @@ export function CarCard({ car }: { car: CarWithImages }) {
 
         <div className="mt-auto grid grid-cols-2 gap-2 pt-2">
           <Button asChild variant="cta" size="sm" className="h-11">
-            <Link to="/auto/$slug" params={{ slug: car.slug }}>
+            <Link to="/auto/$slug" params={{ slug: car.slug }} className="group/cta">
               Prenota
             </Link>
           </Button>
