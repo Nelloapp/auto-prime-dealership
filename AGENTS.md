@@ -11,3 +11,4 @@
 
 - Homepage promotional messaging lives in `PromotionalBanners`; keep it limited to real evergreen services so no unverified offer appears publicly.
 - Public listing photos are signed in page-level batches and shared through `SignedImagesProvider` to avoid one server request per image.
+- Catalog cards and galleries derive responsive transformed URLs from each signed photo, letting the image CDN serve right-sized modern formats without extra signing requests.

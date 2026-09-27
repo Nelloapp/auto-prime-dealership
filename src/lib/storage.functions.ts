@@ -17,6 +17,13 @@ const schema = z.object({
     .max(50),
 });
 
+const responsiveSchema = schema.extend({
+  widths: z.array(z.number().int().min(64).max(1920)).min(1).max(6),
+  aspectRatio: z.number().positive().max(4),
+  quality: z.number().int().min(20).max(100),
+  resize: z.enum(["cover", "contain", "fill"]),
+});
+
 /**
  * Firma URL temporanei per le foto pubbliche (annunci, logo, hero).
  * Eseguita lato server con privilegi di servizio: il bucket resta privato
@@ -33,6 +40,31 @@ export const getPublicSignedPhotoUrls = createServerFn({ method: "POST" })
     const out: Record<string, string> = {};
     signed?.forEach((item) => {
       if (item.signedUrl && item.path) out[item.path] = item.signedUrl;
+    });
+    return out;
+  });
+
+export const getPublicResponsivePhotoUrls = createServerFn({ method: "POST" })
+  .inputValidator((data: unknown) => responsiveSchema.parse(data))
+  .handler(async ({ data }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const entries = await Promise.all(
+      data.paths.flatMap((path) =>
+        data.widths.map(async (width) => {
+          const height = Math.round(width * data.aspectRatio);
+          const { data: signed, error } = await supabaseAdmin.storage
+            .from("car-photos")
+            .createSignedUrl(path, 60 * 60 * 24, {
+              transform: { width, height, quality: data.quality, resize: data.resize },
+            });
+          if (error || !signed?.signedUrl) return null;
+          return [`${path}::${width}`, signed.signedUrl] as const;
+        }),
+      ),
+    );
+    const out: Record<string, string> = {};
+    entries.forEach((entry) => {
+      if (entry) out[entry[0]] = entry[1];
     });
     return out;
   });

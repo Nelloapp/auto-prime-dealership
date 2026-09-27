@@ -16,7 +16,7 @@ import { PromotionalBanners } from "@/components/PromotionalBanners";
 import { Reviews } from "@/components/Reviews";
 import { ReviewForm } from "@/components/ReviewForm";
 import { carsQuery, primaryImage, useSettings } from "@/lib/cars";
-import { signedUrlsQuery } from "@/lib/storage";
+import { responsiveSignedUrlsQuery, signedUrlsQuery } from "@/lib/storage";
 import { telHref, whatsappHref } from "@/lib/site";
 import { DEFAULT_PLUSES, parseBlocks, useHeroImage, useSiteLogo } from "@/lib/theme";
 
@@ -50,7 +50,14 @@ export const Route = createFileRoute("/")({
       .slice(0, 6)
       .map(primaryImage)
       .filter((path): path is string => Boolean(path));
-    if (paths.length > 0) await context.queryClient.ensureQueryData(signedUrlsQuery(paths));
+    if (paths.length > 0) {
+      await Promise.all([
+        context.queryClient.ensureQueryData(signedUrlsQuery(paths)),
+        context.queryClient.ensureQueryData(
+          responsiveSignedUrlsQuery(paths, { widths: [360, 560, 800], aspectRatio: 0.75, quality: 76, resize: "cover" }),
+        ),
+      ]);
+    }
     return cars;
   },
   component: Home,
@@ -178,7 +185,10 @@ function Home() {
                 Nuove auto in arrivo. Contattaci per sapere cosa abbiamo disponibile.
               </p>
             ) : (
-              <SignedImagesProvider paths={featured.map(primaryImage).filter((path): path is string => Boolean(path))}>
+              <SignedImagesProvider
+                paths={featured.map(primaryImage).filter((path): path is string => Boolean(path))}
+                responsive={{ widths: [360, 560, 800], aspectRatio: 0.75, quality: 76, resize: "cover" }}
+              >
                 <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                   {featured.map((car, index) => (
                     <CarCard key={car.id} car={car} priority={index < 3} />
