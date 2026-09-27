@@ -3,6 +3,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Search, SlidersHorizontal, X } from "lucide-react";
 import { CarCard } from "@/components/CarCard";
+import { SignedImagesProvider } from "@/components/StoredImage";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -14,7 +15,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { socialMeta } from "@/lib/seo";
-import { carsQuery } from "@/lib/cars";
+import { carsQuery, primaryImage } from "@/lib/cars";
+import { signedUrlsQuery } from "@/lib/storage";
 import { FUEL_LABELS, GEARBOX_LABELS, formatPrice } from "@/lib/site";
 
 const ANY = "tutte";
@@ -76,7 +78,12 @@ export const Route = createFileRoute("/catalogo")({
       ? { ...base, meta: [...base.meta, { name: "robots", content: "noindex, follow" }] }
       : base;
   },
-  loader: ({ context }) => context.queryClient.ensureQueryData(carsQuery),
+  loader: async ({ context }) => {
+    const cars = await context.queryClient.ensureQueryData(carsQuery);
+    const paths = cars.map(primaryImage).filter((path): path is string => Boolean(path));
+    if (paths.length > 0) await context.queryClient.ensureQueryData(signedUrlsQuery(paths));
+    return cars;
+  },
   component: Catalogo,
   errorComponent: ({ error }) => (
     <main className="mx-auto max-w-2xl px-4 py-24 text-center" role="alert">
@@ -338,9 +345,11 @@ function Catalogo() {
         </div>
       ) : (
         <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {results.map((car) => (
-            <CarCard key={car.id} car={car} />
-          ))}
+          <SignedImagesProvider paths={results.map(primaryImage).filter((path): path is string => Boolean(path))}>
+            {results.map((car, index) => (
+              <CarCard key={car.id} car={car} priority={index < 3} />
+            ))}
+          </SignedImagesProvider>
         </div>
       )}
     </main>

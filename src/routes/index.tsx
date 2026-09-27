@@ -6,6 +6,7 @@ import ogImage from "@/assets/og-home.jpg.asset.json";
 import { Button } from "@/components/ui/button";
 import { BrandLogos } from "@/components/BrandLogos";
 import { CarCard } from "@/components/CarCard";
+import { SignedImagesProvider } from "@/components/StoredImage";
 import { GoogleReviews } from "@/components/GoogleReviews";
 import { HowItWorks } from "@/components/HowItWorks";
 import { InstagramStrip } from "@/components/InstagramStrip";
@@ -13,7 +14,8 @@ import { OpenStatus } from "@/components/OpenStatus";
 import { PromotionalBanners } from "@/components/PromotionalBanners";
 import { Reviews } from "@/components/Reviews";
 import { ReviewForm } from "@/components/ReviewForm";
-import { carsQuery, useSettings } from "@/lib/cars";
+import { carsQuery, primaryImage, useSettings } from "@/lib/cars";
+import { signedUrlsQuery } from "@/lib/storage";
 import { telHref, whatsappHref } from "@/lib/site";
 import { DEFAULT_PLUSES, parseBlocks, useHeroImage, useSiteLogo } from "@/lib/theme";
 
@@ -40,7 +42,16 @@ export const Route = createFileRoute("/")({
     ],
     links: [{ rel: "canonical", href: "https://auto-prime.it/" }],
   }),
-  loader: ({ context }) => context.queryClient.ensureQueryData(carsQuery),
+  loader: async ({ context }) => {
+    const cars = await context.queryClient.ensureQueryData(carsQuery);
+    const paths = cars
+      .filter((car) => car.status !== "venduta")
+      .slice(0, 6)
+      .map(primaryImage)
+      .filter((path): path is string => Boolean(path));
+    if (paths.length > 0) await context.queryClient.ensureQueryData(signedUrlsQuery(paths));
+    return cars;
+  },
   component: Home,
 });
 
@@ -61,6 +72,9 @@ function Home() {
         <img
           src={customHero ?? heroImg}
           alt="Piazzale Auto Prime con auto usate in vendita a Pompei"
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
           width={1920}
           height={1088}
           className="absolute inset-0 -z-20 size-full object-cover"
@@ -159,11 +173,13 @@ function Home() {
                 Nuove auto in arrivo. Contattaci per sapere cosa abbiamo disponibile.
               </p>
             ) : (
-              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                {featured.map((car) => (
-                  <CarCard key={car.id} car={car} />
-                ))}
-              </div>
+              <SignedImagesProvider paths={featured.map(primaryImage).filter((path): path is string => Boolean(path))}>
+                <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                  {featured.map((car, index) => (
+                    <CarCard key={car.id} car={car} priority={index < 3} />
+                  ))}
+                </div>
+              </SignedImagesProvider>
             )}
           </div>
         </section>

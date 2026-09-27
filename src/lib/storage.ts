@@ -37,7 +37,10 @@ export function signedUrlsQuery(paths: string[]) {
   return {
     queryKey: ["signed-urls", key] as const,
     queryFn: () => getSignedUrls(key),
-    staleTime: 1000 * 60 * 30,
+    // Le firme durano 24 ore: 12 ore evitano nuove richieste durante la visita,
+    // lasciando un margine ampio prima della scadenza.
+    staleTime: 1000 * 60 * 60 * 12,
+    gcTime: 1000 * 60 * 60 * 12,
   };
 }
 

@@ -56,7 +56,7 @@ function StatusBadges({ car }: { car: CarWithImages }) {
   );
 }
 
-export function CarCard({ car }: { car: CarWithImages }) {
+export function CarCard({ car, priority = false }: { car: CarWithImages; priority?: boolean }) {
   const { data: settings } = useSettings();
   const title = carTitle(car);
 
@@ -71,6 +71,10 @@ export function CarCard({ car }: { car: CarWithImages }) {
         <StoredImage
           path={primaryImage(car)}
           alt={title}
+          loading={priority ? "eager" : "lazy"}
+          fetchPriority={priority ? "high" : "auto"}
+          width={800}
+          height={600}
           className="size-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
         />
         {car.status === "venduta" && (

@@ -1,10 +1,18 @@
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
-import { StoredImage } from "@/components/StoredImage";
+import { SignedImagesProvider, StoredImage } from "@/components/StoredImage";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 
 export function CarGallery({ paths, alt }: { paths: string[]; alt: string }) {
+  return (
+    <SignedImagesProvider paths={paths}>
+      <CarGalleryContent paths={paths} alt={alt} />
+    </SignedImagesProvider>
+  );
+}
+
+function CarGalleryContent({ paths, alt }: { paths: string[]; alt: string }) {
   const [index, setIndex] = useState(0);
   const [zoom, setZoom] = useState(false);
   const total = paths.length;
@@ -25,6 +33,9 @@ export function CarGallery({ paths, alt }: { paths: string[]; alt: string }) {
             path={current}
             alt={alt}
             loading="eager"
+            fetchPriority="high"
+            width={1200}
+            height={900}
             className="size-full object-cover"
           />
         </button>
@@ -64,7 +75,14 @@ export function CarGallery({ paths, alt }: { paths: string[]; alt: string }) {
                 i === index ? "border-accent" : "border-transparent opacity-70",
               )}
             >
-              <StoredImage path={p} alt={`${alt} ${i + 1}`} className="size-full object-cover" />
+              <StoredImage
+                path={p}
+                alt={`${alt} ${i + 1}`}
+                fetchPriority="low"
+                width={160}
+                height={160}
+                className="size-full object-cover"
+              />
             </button>
           ))}
         </div>
@@ -73,7 +91,14 @@ export function CarGallery({ paths, alt }: { paths: string[]; alt: string }) {
       <Dialog open={zoom} onOpenChange={setZoom}>
         <DialogContent className="max-w-4xl border-none bg-transparent p-0 shadow-none">
           <DialogTitle className="sr-only">{alt}</DialogTitle>
-          <StoredImage path={current} alt={alt} className="w-full rounded-xl object-contain" />
+          <StoredImage
+            path={current}
+            alt={alt}
+            loading="eager"
+            width={1200}
+            height={900}
+            className="w-full rounded-xl object-contain"
+          />
         </DialogContent>
       </Dialog>
     </div>

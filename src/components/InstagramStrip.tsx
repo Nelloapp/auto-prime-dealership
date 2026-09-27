@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Instagram } from "lucide-react";
-import { StoredImage } from "@/components/StoredImage";
+import { SignedImagesProvider, StoredImage } from "@/components/StoredImage";
 import { carsQuery, primaryImage, useSettings } from "@/lib/cars";
 
 /**
@@ -34,6 +34,7 @@ export function InstagramStrip() {
         </a>
       </div>
 
+      <SignedImagesProvider paths={shots.map(primaryImage).filter((path): path is string => Boolean(path))}>
       <div className="grid grid-cols-3 gap-2 sm:gap-3 lg:grid-cols-6">
         {shots.map((car, i) => {
           const img = primaryImage(car);
@@ -49,6 +50,9 @@ export function InstagramStrip() {
               <StoredImage
                 path={img}
                 alt={title}
+                fetchPriority="low"
+                width={320}
+                height={320}
                 className="size-full object-cover transition-transform duration-500 group-hover:scale-110"
               />
               <span className="absolute inset-0 flex items-end bg-gradient-to-t from-black/70 via-transparent to-transparent p-2 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
@@ -60,6 +64,7 @@ export function InstagramStrip() {
           );
         })}
       </div>
+      </SignedImagesProvider>
     </section>
   );
 }
