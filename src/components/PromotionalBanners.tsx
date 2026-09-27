@@ -41,7 +41,7 @@ export function PromotionalBanners() {
             </h2>
             <p className="mt-3 max-w-md text-sm leading-relaxed text-primary-foreground/75">{text}</p>
             <Button asChild variant="cta" className="mt-6">
-              <Link to={to} search={to === "/catalogo" ? {} : undefined}>
+              <Link to={to} search={{}}>
                 {action} <ArrowRight className="transition-transform duration-200 group-hover/cta:translate-x-1" />
               </Link>
             </Button>
