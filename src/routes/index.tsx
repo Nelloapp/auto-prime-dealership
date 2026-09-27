@@ -90,7 +90,7 @@ function Home() {
             <img
               src={heroLogo.url}
               alt={`${settings?.company_name ?? "Auto Prime"} logo`}
-              className="mb-6 w-auto max-w-full object-contain drop-shadow-[0_6px_24px_rgba(0,0,0,0.6)]"
+              className="mb-6 w-auto max-w-full object-contain mix-blend-screen drop-shadow-2xl"
               style={{ height: heroLogo.height }}
             />
           )}
