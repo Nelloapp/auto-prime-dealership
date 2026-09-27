@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { ShieldCheck, HandCoins, Wrench, ArrowRight, Phone, MessageCircle } from "lucide-react";
 import heroImg from "@/assets/hero-autoprime.jpg";
+import transparentHeroLogo from "@/assets/autoprime-logo-hero-transparent-cropped.png";
 import ogImage from "@/assets/og-home.jpg.asset.json";
 import { Button } from "@/components/ui/button";
 import { BrandLogos } from "@/components/BrandLogos";
@@ -88,9 +89,13 @@ function Home() {
         <div className="hero-rise relative mx-auto max-w-6xl px-4 py-24 sm:py-32 lg:py-40">
           {settings?.hero_show_logo && heroLogo.url && (
             <img
-              src={heroLogo.url}
+              src={transparentHeroLogo}
               alt={`${settings?.company_name ?? "Auto Prime"} logo`}
-              className="mb-6 w-auto max-w-full object-contain drop-shadow-[0_6px_24px_rgba(0,0,0,0.6)]"
+              width={952}
+              height={371}
+              loading="eager"
+              decoding="async"
+              className="mb-6 w-auto max-w-full object-contain drop-shadow-2xl"
               style={{ height: heroLogo.height }}
             />
           )}

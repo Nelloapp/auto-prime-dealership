@@ -1,0 +1,2 @@
+- [x] Rendere trasparente lo sfondo del logo originale esclusivamente nell'apertura della homepage, mantenendo identico il design.
+- [x] Verificare leggibilità e resa su computer e telefono.
