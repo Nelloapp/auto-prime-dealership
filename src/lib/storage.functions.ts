@@ -62,5 +62,9 @@ export const getPublicResponsivePhotoUrls = createServerFn({ method: "POST" })
         }),
       ),
     );
-    return Object.fromEntries(entries.filter((entry): entry is readonly [string, string] => entry !== null));
+    const out: Record<string, string> = {};
+    entries.forEach((entry) => {
+      if (entry) out[entry[0]] = entry[1];
+    });
+    return out;
   });

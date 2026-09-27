@@ -1,4 +1,4 @@
 - [x] Rendere trasparente lo sfondo del logo originale esclusivamente nell'apertura della homepage, mantenendo identico il design.
 - [x] Verificare leggibilità e resa su computer e telefono.
 - [x] Servire miniature responsive e formati moderni nel catalogo e nelle gallerie.
-- [ ] Verificare resa e peso delle immagini su smartphone e computer.
+- [x] Verificare resa e peso delle immagini su smartphone e computer.

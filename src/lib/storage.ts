@@ -101,13 +101,14 @@ export function responsiveSignedUrlsQuery(paths: string[], options: ResponsiveIm
 
 export function useResponsiveSignedUrls(paths: string[], options: ResponsiveImageOptions | undefined) {
   const key = Array.from(new Set(paths.filter(Boolean))).sort();
+  const fallback: ResponsiveImageOptions = options ?? {
+    widths: [64],
+    aspectRatio: 1,
+    quality: 80,
+    resize: "cover",
+  };
   return useQuery({
-    ...(options
-      ? responsiveSignedUrlsQuery(key, options)
-      : {
-          queryKey: ["responsive-signed-urls", "disabled"] as const,
-          queryFn: async () => ({} as Record<string, string>),
-        }),
+    ...responsiveSignedUrlsQuery(key, fallback),
     enabled: key.length > 0 && Boolean(options),
   });
 }
