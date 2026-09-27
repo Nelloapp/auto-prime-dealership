@@ -1,6 +1,6 @@
 import { useSettings } from "@/lib/cars";
 import { useSignedUrls } from "@/lib/storage";
-import defaultLogo from "@/assets/autoprime-logo.jpg.asset.json";
+import defaultLogo from "@/assets/auto-prime-logo.png.asset.json";
 
 export type NavItem = { to: string; label: string; visible: boolean };
 
