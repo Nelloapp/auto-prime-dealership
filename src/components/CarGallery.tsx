@@ -36,6 +36,9 @@ function CarGalleryContent({ paths, alt }: { paths: string[]; alt: string }) {
             fetchPriority="high"
             width={1200}
             height={900}
+            responsiveWidths={[480, 768, 1200]}
+            sizes="(max-width: 1023px) calc(100vw - 2rem), 56vw"
+            quality={82}
             className="size-full object-cover"
           />
         </button>
@@ -81,6 +84,9 @@ function CarGalleryContent({ paths, alt }: { paths: string[]; alt: string }) {
                 fetchPriority="low"
                 width={160}
                 height={160}
+                responsiveWidths={[96, 160]}
+                sizes="80px"
+                quality={70}
                 className="size-full object-cover"
               />
             </button>
@@ -97,6 +103,10 @@ function CarGalleryContent({ paths, alt }: { paths: string[]; alt: string }) {
             loading="eager"
             width={1200}
             height={900}
+            responsiveWidths={[768, 1200, 1600]}
+            sizes="(max-width: 767px) calc(100vw - 2rem), 896px"
+            quality={84}
+            resize="contain"
             className="w-full rounded-xl object-contain"
           />
         </DialogContent>
