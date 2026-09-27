@@ -6,7 +6,10 @@ import { cn } from "@/lib/utils";
 
 export function CarGallery({ paths, alt }: { paths: string[]; alt: string }) {
   return (
-    <SignedImagesProvider paths={paths}>
+    <SignedImagesProvider
+      paths={paths}
+      responsive={{ widths: [96, 160, 480, 768, 1200, 1600], aspectRatio: 0.75, quality: 80, resize: "cover" }}
+    >
       <CarGalleryContent paths={paths} alt={alt} />
     </SignedImagesProvider>
   );
@@ -38,7 +41,6 @@ function CarGalleryContent({ paths, alt }: { paths: string[]; alt: string }) {
             height={900}
             responsiveWidths={[480, 768, 1200]}
             sizes="(max-width: 1023px) calc(100vw - 2rem), 56vw"
-            quality={82}
             className="size-full object-cover"
           />
         </button>
@@ -86,7 +88,6 @@ function CarGalleryContent({ paths, alt }: { paths: string[]; alt: string }) {
                 height={160}
                 responsiveWidths={[96, 160]}
                 sizes="80px"
-                quality={70}
                 className="size-full object-cover"
               />
             </button>
@@ -105,8 +106,6 @@ function CarGalleryContent({ paths, alt }: { paths: string[]; alt: string }) {
             height={900}
             responsiveWidths={[768, 1200, 1600]}
             sizes="(max-width: 767px) calc(100vw - 2rem), 896px"
-            quality={84}
-            resize="contain"
             className="w-full rounded-xl object-contain"
           />
         </DialogContent>

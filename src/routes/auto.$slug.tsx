@@ -23,7 +23,7 @@ import { StickyActions } from "@/components/StickyActions";
 import { Button } from "@/components/ui/button";
 import { carQuery, sortedImages, useSettings } from "@/lib/cars";
 import { canonical, carHeadContent, carJsonLd, publicPhotoUrl } from "@/lib/seo";
-import { signedUrlsQuery } from "@/lib/storage";
+import { responsiveSignedUrlsQuery, signedUrlsQuery } from "@/lib/storage";
 import {
   CAR_STATUS_LABELS,
   FUEL_LABELS,
@@ -90,7 +90,19 @@ export const Route = createFileRoute("/auto/$slug")({
   loader: async ({ context, params }) => {
     const car = await context.queryClient.ensureQueryData(carQuery(params.slug));
     const paths = car ? sortedImages(car).map((image) => image.url) : [];
-    if (paths.length > 0) await context.queryClient.ensureQueryData(signedUrlsQuery(paths));
+    if (paths.length > 0) {
+      await Promise.all([
+        context.queryClient.ensureQueryData(signedUrlsQuery(paths)),
+        context.queryClient.ensureQueryData(
+          responsiveSignedUrlsQuery(paths, {
+            widths: [96, 160, 480, 768, 1200, 1600],
+            aspectRatio: 0.75,
+            quality: 80,
+            resize: "cover",
+          }),
+        ),
+      ]);
+    }
     return car;
   },
   component: CarDetail,

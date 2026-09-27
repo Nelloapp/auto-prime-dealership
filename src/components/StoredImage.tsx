@@ -8,26 +8,6 @@ const ResponsiveImagesContext = createContext<Record<string, string> | null>(nul
 
 type ImageResize = "cover" | "contain" | "fill";
 
-function transformedImageUrl(
-  signedUrl: string,
-  width: number,
-  height: number | undefined,
-  quality: number,
-  resize: ImageResize,
-) {
-  try {
-    const url = new URL(signedUrl, typeof window === "undefined" ? "http://localhost" : window.location.origin);
-    url.pathname = url.pathname.replace("/object/sign/", "/render/image/sign/");
-    url.searchParams.set("width", String(width));
-    if (height) url.searchParams.set("height", String(height));
-    url.searchParams.set("quality", String(quality));
-    url.searchParams.set("resize", resize);
-    return url.origin === "http://localhost" ? `${url.pathname}${url.search}` : url.toString();
-  } catch {
-    return signedUrl;
-  }
-}
-
 export function SignedImagesProvider({
   paths,
   children,
@@ -58,8 +38,6 @@ export function StoredImage({
   height,
   responsiveWidths,
   sizes,
-  quality = 78,
-  resize = "cover",
 }: {
   path: string | null | undefined;
   alt: string;
@@ -70,8 +48,6 @@ export function StoredImage({
   height?: number;
   responsiveWidths?: number[];
   sizes?: string;
-  quality?: number;
-  resize?: ImageResize;
 }) {
   const batch = useContext(SignedImagesContext);
   const responsiveBatch = useContext(ResponsiveImagesContext);
@@ -90,7 +66,6 @@ export function StoredImage({
   const candidates = Array.from(new Set((responsiveWidths ?? []).filter((item) => item > 0))).sort(
     (a, b) => a - b,
   );
-  const aspectRatio = width && height ? height / width : undefined;
   const variantUrl = (candidate: number) => responsiveBatch?.[`${path}::${candidate}`];
   const srcWidth = width ?? candidates.at(-1);
   const src = srcWidth && variantUrl(srcWidth) ? variantUrl(srcWidth) ?? url : url;

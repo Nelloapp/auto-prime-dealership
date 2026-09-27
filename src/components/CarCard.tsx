@@ -77,7 +77,6 @@ export function CarCard({ car, priority = false }: { car: CarWithImages; priorit
           height={600}
           responsiveWidths={[360, 560, 800]}
           sizes="(max-width: 639px) calc(100vw - 2rem), (max-width: 1023px) 50vw, 33vw"
-          quality={76}
           className="size-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
         />
         {car.status === "venduta" && (

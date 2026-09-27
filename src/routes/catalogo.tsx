@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/select";
 import { socialMeta } from "@/lib/seo";
 import { carsQuery, primaryImage } from "@/lib/cars";
-import { signedUrlsQuery } from "@/lib/storage";
+import { responsiveSignedUrlsQuery, signedUrlsQuery } from "@/lib/storage";
 import { FUEL_LABELS, GEARBOX_LABELS, formatPrice } from "@/lib/site";
 
 const ANY = "tutte";
@@ -81,7 +81,14 @@ export const Route = createFileRoute("/catalogo")({
   loader: async ({ context }) => {
     const cars = await context.queryClient.ensureQueryData(carsQuery);
     const paths = cars.map(primaryImage).filter((path): path is string => Boolean(path));
-    if (paths.length > 0) await context.queryClient.ensureQueryData(signedUrlsQuery(paths));
+    if (paths.length > 0) {
+      await Promise.all([
+        context.queryClient.ensureQueryData(signedUrlsQuery(paths)),
+        context.queryClient.ensureQueryData(
+          responsiveSignedUrlsQuery(paths, { widths: [360, 560, 800], aspectRatio: 0.75, quality: 76, resize: "cover" }),
+        ),
+      ]);
+    }
     return cars;
   },
   component: Catalogo,
@@ -345,7 +352,10 @@ function Catalogo() {
         </div>
       ) : (
         <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          <SignedImagesProvider paths={results.map(primaryImage).filter((path): path is string => Boolean(path))}>
+          <SignedImagesProvider
+            paths={results.map(primaryImage).filter((path): path is string => Boolean(path))}
+            responsive={{ widths: [360, 560, 800], aspectRatio: 0.75, quality: 76, resize: "cover" }}
+          >
             {results.map((car, index) => (
               <CarCard key={car.id} car={car} priority={index < 3} />
             ))}
