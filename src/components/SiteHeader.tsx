@@ -1,13 +1,27 @@
 import { Link } from "@tanstack/react-router";
-import { Phone, MessageCircle, Menu, Lock } from "lucide-react";
+import { Phone, MessageCircle, Menu, Lock, Facebook, Instagram, Youtube } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useSettings } from "@/lib/cars";
 import { telHref, whatsappHref } from "@/lib/site";
 import { SiteNavLink } from "@/components/SiteNavLink";
-import { useNavItems, useSiteLogo } from "@/lib/theme";
+import { useNavItems, useSiteLogo, useSocials } from "@/lib/theme";
 
 import { cn } from "@/lib/utils";
+
+/** Icone social: Facebook/Instagram/YouTube da lucide, TikTok con SVG dedicato. */
+function SocialIcon({ keyName, className }: { keyName: string; className?: string }) {
+  if (keyName === "tiktok") {
+    return (
+      <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden>
+        <path d="M16.6 3c.36 2.05 1.7 3.6 3.9 3.74v2.5c-1.43.06-2.75-.36-3.9-1.16v5.44c0 3.63-2.4 5.98-5.66 5.98C8.03 19.5 6 17.4 6 14.9c0-2.6 2.06-4.6 4.87-4.6.3 0 .6.03.9.08v2.62a2.7 2.7 0 0 0-.86-.14c-1.3 0-2.3.94-2.3 2.1 0 1.2 1 2.1 2.32 2.1 1.44 0 2.5-1.05 2.5-2.75V3h3.17Z" />
+      </svg>
+    );
+  }
+  if (keyName === "facebook") return <Facebook className={className} />;
+  if (keyName === "youtube") return <Youtube className={className} />;
+  return <Instagram className={className} />;
+}
 
 export function SiteHeader() {
   const { data: settings } = useSettings();
@@ -16,6 +30,7 @@ export function SiteHeader() {
   const whatsapp = settings?.whatsapp ?? "393297897193";
   const logo = useSiteLogo();
   const { items: NAV, showAdminLink } = useNavItems();
+  const socials = useSocials();
 
   return (
     <header className="sticky top-0 z-50 w-full overflow-x-clip border-b border-primary/25 bg-primary-deep/95 text-primary-foreground backdrop-blur">
@@ -51,6 +66,25 @@ export function SiteHeader() {
               activeClassName="bg-primary/50 text-primary-foreground rounded-md px-3 py-2 text-sm font-semibold text-primary-foreground"
             />
           ))}
+
+          {socials.length > 0 && (
+            <>
+              <span aria-hidden className="mx-1 h-5 w-px bg-primary-foreground/20" />
+              {socials.map((sn) => (
+                <a
+                  key={sn.key}
+                  href={sn.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={sn.label}
+                  title={sn.label}
+                  className="grid size-9 place-items-center rounded-md text-primary-foreground/70 transition-colors hover:bg-primary/40 hover:text-accent"
+                >
+                  <SocialIcon keyName={sn.key} className="size-[1.15rem]" />
+                </a>
+              ))}
+            </>
+          )}
         </nav>
 
 
@@ -106,6 +140,27 @@ export function SiteHeader() {
               className="rounded-md px-3 py-3 text-base font-semibold text-primary-foreground/90 hover:bg-primary/40"
             />
           ))}
+
+          {socials.length > 0 && (
+            <div className="mt-2 flex items-center gap-2 border-t border-primary/40 px-3 pt-3">
+              <span className="mr-1 text-xs font-semibold uppercase tracking-wider text-primary-foreground/60">
+                Seguici
+              </span>
+              {socials.map((sn) => (
+                <a
+                  key={sn.key}
+                  href={sn.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={sn.label}
+                  onClick={() => setOpen(false)}
+                  className="grid size-10 place-items-center rounded-full border border-primary-foreground/20 text-primary-foreground/80 transition-colors hover:border-accent/60 hover:text-accent"
+                >
+                  <SocialIcon keyName={sn.key} className="size-5" />
+                </a>
+              ))}
+            </div>
+          )}
 
           {showAdminLink && (
             <Link
