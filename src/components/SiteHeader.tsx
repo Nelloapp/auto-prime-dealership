@@ -66,6 +66,25 @@ export function SiteHeader() {
               activeClassName="bg-primary/50 text-primary-foreground rounded-md px-3 py-2 text-sm font-semibold text-primary-foreground"
             />
           ))}
+
+          {socials.length > 0 && (
+            <>
+              <span aria-hidden className="mx-1 h-5 w-px bg-primary-foreground/20" />
+              {socials.map((sn) => (
+                <a
+                  key={sn.key}
+                  href={sn.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={sn.label}
+                  title={sn.label}
+                  className="grid size-9 place-items-center rounded-md text-primary-foreground/70 transition-colors hover:bg-primary/40 hover:text-accent"
+                >
+                  <SocialIcon keyName={sn.key} className="size-[1.15rem]" />
+                </a>
+              ))}
+            </>
+          )}
         </nav>
 
 
