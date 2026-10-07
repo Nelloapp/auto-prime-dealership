@@ -30,6 +30,7 @@ export function SiteHeader() {
   const whatsapp = settings?.whatsapp ?? "393297897193";
   const logo = useSiteLogo();
   const { items: NAV, showAdminLink } = useNavItems();
+  const socials = useSocials();
 
   return (
     <header className="sticky top-0 z-50 w-full overflow-x-clip border-b border-primary/25 bg-primary-deep/95 text-primary-foreground backdrop-blur">
