@@ -141,6 +141,27 @@ export function SiteHeader() {
             />
           ))}
 
+          {socials.length > 0 && (
+            <div className="mt-2 flex items-center gap-2 border-t border-primary/40 px-3 pt-3">
+              <span className="mr-1 text-xs font-semibold uppercase tracking-wider text-primary-foreground/60">
+                Seguici
+              </span>
+              {socials.map((sn) => (
+                <a
+                  key={sn.key}
+                  href={sn.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={sn.label}
+                  onClick={() => setOpen(false)}
+                  className="grid size-10 place-items-center rounded-full border border-primary-foreground/20 text-primary-foreground/80 transition-colors hover:border-accent/60 hover:text-accent"
+                >
+                  <SocialIcon keyName={sn.key} className="size-5" />
+                </a>
+              ))}
+            </div>
+          )}
+
           {showAdminLink && (
             <Link
               to="/auth"
