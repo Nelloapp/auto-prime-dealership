@@ -50,17 +50,25 @@ const str = (v: unknown, fallback: string) =>
 
 export const Route = createFileRoute("/catalogo")({
   staticData: { sitemap: true },
-  validateSearch: (search: Record<string, unknown>): Partial<CatalogSearch> => ({
-    q: str(search["q"], DEFAULTS.q),
-    brand: str(search["brand"], DEFAULTS.brand),
-    fuel: str(search["fuel"], DEFAULTS.fuel),
-    gearbox: str(search["gearbox"], DEFAULTS.gearbox),
-    maxPrice: str(search["maxPrice"], DEFAULTS.maxPrice).replace(/\D/g, ""),
-    maxKm: str(search["maxKm"], DEFAULTS.maxKm).replace(/\D/g, ""),
-    sort: str(search["sort"], DEFAULTS.sort),
-    pronta: search["pronta"] === true || search["pronta"] === "true",
-    filtri: search["filtri"] === true || search["filtri"] === "true",
-  }),
+  // Solo i parametri presenti nell'URL vengono valorizzati: così /catalogo "pulito"
+  // non viene reindirizzato verso un indirizzo con filtri predefiniti (male per Google).
+  validateSearch: (search: Record<string, unknown>): Partial<CatalogSearch> => {
+    const out: Partial<CatalogSearch> = {};
+    if (search["q"] !== undefined) out.q = str(search["q"], DEFAULTS.q);
+    if (search["brand"] !== undefined) out.brand = str(search["brand"], DEFAULTS.brand);
+    if (search["fuel"] !== undefined) out.fuel = str(search["fuel"], DEFAULTS.fuel);
+    if (search["gearbox"] !== undefined) out.gearbox = str(search["gearbox"], DEFAULTS.gearbox);
+    if (search["maxPrice"] !== undefined)
+      out.maxPrice = str(search["maxPrice"], DEFAULTS.maxPrice).replace(/\D/g, "");
+    if (search["maxKm"] !== undefined)
+      out.maxKm = str(search["maxKm"], DEFAULTS.maxKm).replace(/\D/g, "");
+    if (search["sort"] !== undefined) out.sort = str(search["sort"], DEFAULTS.sort);
+    if (search["pronta"] !== undefined)
+      out.pronta = search["pronta"] === true || search["pronta"] === "true";
+    if (search["filtri"] !== undefined)
+      out.filtri = search["filtri"] === true || search["filtri"] === "true";
+    return out;
+  },
   head: ({ match }) => {
     const search = match.search as Record<string, unknown>;
     // Solo il catalogo "pulito" viene indicizzato: le combinazioni di filtri no.
